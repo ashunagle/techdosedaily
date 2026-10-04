@@ -31,10 +31,12 @@ def wp(cmd):
     return subprocess.run(f'{WP} {cmd}', shell=True, capture_output=True, text=True).stdout.strip()
 
 
-def wpeval(php):
-    path = '/tmp/tdd-sec-eval.php'
-    open(path, 'w').write('<?php ' + php)
-    return wp(f'eval-file {path}')
+def wpeval(php, user=None):
+    """Run PHP inside WordPress. Base64 through `wp eval`, so it works locally and over SSH
+    (WP=tests/staging/remote-wp) without temp files or nested shell quoting."""
+    import base64, shlex
+    code = "eval(base64_decode('" + base64.b64encode(php.encode()).decode() + "'));"
+    return wp('eval ' + shlex.quote(code) + (f' --user={user}' if user else ''))
 
 
 def leaks(text):
@@ -72,6 +74,16 @@ class Client:
         return self.s.post(BASE + path, **kw)
 
 
+ADMIN_ID = os.environ.get('TDD_ADMIN_ID', '1')  # an administrator account on the target site (reassign target)
+
+# Preflight: never send real email or add real newsletter subscribers. The target must run the two
+# local test harness mu-plugins (tests/fixtures/mu-capture-mail.php, mu-fake-newsletter-provider.php);
+# on staging they are installed only for the duration of the run (LAUNCH-GATES.md).
+_pf = wpeval("echo has_filter('pre_wp_mail') ? 'mail-captured' : 'MAIL-LIVE'; echo ' '; echo function_exists('tdd_core_newsletter_provider') ? tdd_core_newsletter_provider()->id() : 'none';")
+if 'mail-captured' not in _pf or not _pf.strip().endswith('fake'):
+    print('REFUSING TO RUN: install tests/fixtures/mu-capture-mail.php and mu-fake-newsletter-provider.php on the target first (got: ' + _pf + ')')
+    sys.exit(2)
+
 ROLES = ['subscriber', 'contributor', 'author', 'editor', 'administrator']
 users, created_posts, created_media = {}, [], []
 pw = {r: secrets.token_urlsafe(18) for r in ROLES + ['author2']}
@@ -80,7 +92,7 @@ try:
     for r in ROLES + ['author2']:
         role = 'author' if r == 'author2' else r
         login = f'tdd-sec-{r}'
-        wp(f'user delete {login} --yes --reassign=1')
+        wp(f'user delete {login} --yes --reassign={ADMIN_ID}')
         users[r] = int(wp(f'user create {login} {login}@example.invalid --role={role} --user_pass={pw[r]} --porcelain'))
     ai = wp('term get category ai --by=slug --field=term_id')
     # A published story by author2 with a correction and a confidential source; a draft by author2.
@@ -337,8 +349,8 @@ update_post_meta({pub}, 'tdd_sources', array(
     check('author: JPEG upload accepted', x.status_code in (200, 201), (x.status_code, x.text[:150]))
     if x.status_code in (200, 201):
         mid = x.json()['id']; created_media.append(mid)
-        f = wpeval(f'echo get_attached_file({mid});')
-        exif = Image.open(f).getexif()
+        f_url = wpeval(f'echo wp_get_original_image_url({mid}) ?: wp_get_attachment_url({mid});')
+        exif = Image.open(io.BytesIO(requests.get(f_url, headers=H).content)).getexif()  # the stored original, over HTTP
         check('uploaded original has no GPS, camera make or artist', not exif.get_ifd(0x8825) and 0x010F not in exif and 0x013B not in exif, dict(exif))
         meta = x.json().get('media_details', {}).get('image_meta', {})
         check('REST image_meta carries no camera/credit data', not meta.get('camera') and not meta.get('credit'), meta)
@@ -390,12 +402,13 @@ update_post_meta({pub}, 'tdd_sources', array(
     form = {'tdd_contact': '1', 'cf_name': 'No JS Reader', 'cf_email': 'reader@example.org', 'cf_topic': 'general', 'cf_message': 'Sent without JavaScript.', '_tdd_nonce': cnonce, 'tdd_token': ctoken, 'tdd_hp': ''}
     x = C['anonymous'].post('/contact/', data=form, allow_redirects=False)
     check('no-JS contact form still sends (303 → ?tdd_cf=sent) with security headers', x.status_code == 303 and 'tdd_cf=sent' in x.headers.get('Location', ''), (x.status_code, x.headers.get('Location')))
-    mail_log = os.environ.get('TDD_MAIL_LOG', '/home/claude/wp/site/wp-content/tdd-mail-test.log')
-    log_start = os.path.getsize(mail_log) if os.path.exists(mail_log) else 0
+    # Mail capture log written by tests/fixtures/mu-capture-mail.php (local, or temporarily on staging).
+    read_mail_log = lambda: wpeval("echo (string) @file_get_contents(WP_CONTENT_DIR . '/tdd-mail-test.log');")
+    log_start = len(read_mail_log())
     bad = dict(form, cf_email='fail@example.com', cf_message='Delivery failure test: this opening line becomes the subject, and the rest stays in the body only SECRET-MSG-123')
     x = C['anonymous'].post('/contact/', data=bad)
     check('send failure: generic message, no internals', x.status_code == 200 and not leaks(x.text), leaks(x.text))
-    log = open(mail_log).read()[log_start:] if os.path.exists(mail_log) else ''
+    log = read_mail_log()[log_start:]
     check('message bodies are never logged (subject excerpt only)', 'SECRET-MSG-123' not in log)
     reset_throttles()
     codes = []
@@ -477,7 +490,7 @@ finally:
         wpeval(f'global $wpdb; $wpdb->delete(tdd_core_placements_table(), ["post_id" => {p}]); $wpdb->delete(tdd_core_views_table(), ["post_id" => {p}]);')
         wp(f'post delete {p} --force')
     for r, uid in users.items():
-        wp(f'user delete {uid} --yes --reassign=1')
+        wp(f'user delete {uid} --yes --reassign={ADMIN_ID}')
     reset_throttles()
 
 out = os.path.join(os.path.dirname(__file__), 'out')

@@ -30,11 +30,10 @@ def wp(cmd):
 
 
 def wpeval(php):
-    with tempfile.NamedTemporaryFile('w', suffix='.php', delete=False) as f:
-        f.write('<?php ' + php)
-    out = wp(f'eval-file {f.name} --user=1')
-    os.unlink(f.name)
-    return out
+    """Run PHP inside WordPress as user 1 (base64 through `wp eval`: works locally and over SSH)."""
+    import base64, shlex
+    code = "eval(base64_decode('" + base64.b64encode(php.encode()).decode() + "'));"
+    return wp('eval ' + shlex.quote(code) + ' --user=' + os.environ.get('TDD_ADMIN_ID', '1'))
 
 
 def raw_hits(html):
@@ -77,7 +76,7 @@ made = []
 try:
     print('== Planting payloads')
     login = 'tdd-xss-author'
-    wp(f'user delete {login} --yes --reassign=1')
+    wp(f'user delete {login} --yes --reassign={os.environ.get("TDD_ADMIN_ID", "1")}')
     uid = int(wp(f'user create {login} {login}@example.invalid --role=author --user_pass={secrets.token_urlsafe(16)} --display_name="{P.replace(chr(34), "")}" --porcelain'))
     ai = int(wp('term get category ai --by=slug --field=term_id'))
     for k in ('tdd_short_description', 'tdd_desk_note', 'tdd_desk_url', 'tdd_desk_members'):
@@ -87,13 +86,12 @@ try:
     # Only tdd/* blocks are written raw: core paragraph/heading HTML is the stored content itself (WordPress
     # filters it on save for every non-administrator), so it is not a theme escaping question.
     content = '<!-- wp:paragraph --><p>Body text.</p><!-- /wp:paragraph -->\n' + blocks_markup()
-    with tempfile.NamedTemporaryFile('w', suffix='.html', delete=False) as f:
-        f.write(content)
     # Title/excerpt go through WordPress's normal filtering for a non-administrator (what an author or
     # editor can really store); the block markup is then written raw, so the theme's own escaping of
     # every block attribute is what gets tested.
-    pid = int(wpeval(f'wp_set_current_user({uid}); kses_init(); $id = wp_insert_post(wp_slash(array("post_type" => "post", "post_status" => "publish", "post_author" => {uid}, "post_category" => array({ai}), "post_title" => {json.dumps(P)}, "post_excerpt" => {json.dumps(P)}, "post_content" => "x"))); global $wpdb; $wpdb->update($wpdb->posts, array("post_content" => file_get_contents({json.dumps(f.name)})), array("ID" => $id)); clean_post_cache($id); echo $id;'))
-    os.unlink(f.name)
+    import base64
+    b64 = base64.b64encode(content.encode()).decode()
+    pid = int(wpeval(f'wp_set_current_user({uid}); kses_init(); $id = wp_insert_post(wp_slash(array("post_type" => "post", "post_status" => "publish", "post_author" => {uid}, "post_category" => array({ai}), "post_title" => {json.dumps(P)}, "post_excerpt" => {json.dumps(P)}, "post_content" => "x"))); global $wpdb; $wpdb->update($wpdb->posts, array("post_content" => base64_decode("{b64}")), array("ID" => $id)); clean_post_cache($id); echo $id;'))
     made.append(pid)
     topic = wpeval(f'$t = wp_insert_term({json.dumps("TDDX topic " + P)}, "tdd_topic"); echo is_wp_error($t) ? 0 : $t["term_id"];')
     att = int(wp('post list --post_type=attachment --post_mime_type=image --field=ID --posts_per_page=1'))
@@ -150,7 +148,7 @@ echo 'ok';""")
     for role in ('editor', 'administrator'):
         login2 = f'tdd-xss-{role}'
         pw2 = secrets.token_urlsafe(16)
-        wp(f'user delete {login2} --yes --reassign=1')
+        wp(f'user delete {login2} --yes --reassign={os.environ.get("TDD_ADMIN_ID", "1")}')
         u2 = wp(f'user create {login2} {login2}@example.invalid --role={role} --user_pass={pw2} --porcelain')
         s = requests.Session()
         s.get(BASE + '/wp-login.php')
@@ -165,7 +163,7 @@ echo 'ok';""")
         nonce = s.get(BASE + '/wp-admin/admin-ajax.php?action=rest-nonce').text.strip()
         b = s.get(BASE + '/wp-json/tdd/v1/placements/board?group=home', headers={'X-WP-Nonce': nonce})
         check(f'{role} · placement board JSON is data only (rendered by React, never as HTML)', b.headers.get('Content-Type', '').startswith('application/json'), b.headers.get('Content-Type'))
-        wp(f'user delete {u2} --yes --reassign=1')
+        wp(f'user delete {u2} --yes --reassign={os.environ.get("TDD_ADMIN_ID", "1")}')
 finally:
     print('== Restoring')
     for p in made:
@@ -180,7 +178,7 @@ finally:
         elif kind == 'att':
             wpeval(f'$v = json_decode({json.dumps(v)}, true); wp_update_post(array("ID" => {k}, "post_excerpt" => $v["caption"])); update_post_meta({k}, "_wp_attachment_image_alt", $v["alt"]); update_post_meta({k}, "tdd_credit", $v["credit"]); update_post_meta({k}, "tdd_source_url", $v["url"]); update_post_meta({k}, "tdd_license_note", $v["lic"]);')
     if uid:
-        wp(f'user delete {uid} --yes --reassign=1')
+        wp(f'user delete {uid} --yes --reassign={os.environ.get("TDD_ADMIN_ID", "1")}')
 
 out = os.path.join(os.path.dirname(__file__), 'out')
 os.makedirs(out, exist_ok=True)

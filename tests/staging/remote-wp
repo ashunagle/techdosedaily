@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Runs WP-CLI on the STAGING server over SSH, re-quoting every argument for the remote shell.
+# Used by the test suites:  WP=tests/staging/remote-wp BASE=https://<staging-host> python3 tests/security/security_test.py
+#   TDD_SSH="-p 65002 u123456789@<server-ip>"        (from hPanel → Advanced → SSH Access)
+#   TDD_WP_PATH="/home/u123456789/domains/<staging-domain>/public_html"
+set -euo pipefail
+: "${TDD_SSH:?set TDD_SSH (ssh args)}"; : "${TDD_WP_PATH:?set TDD_WP_PATH (staging WordPress root)}"
+args=""
+for a in "$@"; do args+=" $(printf '%q' "$a")"; done
+# shellcheck disable=SC2086
+exec ssh -o BatchMode=yes $TDD_SSH "cd $(printf '%q' "$TDD_WP_PATH") && wp$args"

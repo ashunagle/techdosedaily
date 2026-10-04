@@ -1,0 +1,19 @@
+# TechDoseDaily — add ABOVE "# BEGIN WordPress" in public_html/.htaccess (SECURITY.md §8).
+# LiteSpeed Cache writes its own block too; keep these outside both blocks.
+Options -Indexes
+<Files xmlrpc.php>
+  Require all denied
+</Files>
+<FilesMatch "^(wp-config\.php|wp-config-sample\.php|readme\.html|license\.txt)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 403 ^/\.(?!well-known/).*
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+# HTTP → HTTPS (skip if hPanel "Force HTTPS" is on)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>

@@ -4,7 +4,7 @@ matching Lighthouse's mobile preset (150 ms RTT, 1.6 Mbps down, 4x CPU) and an u
 Sends X-TDD-Perf-Test so nothing is counted as a Most Read view. Usage: pw_vitals.py /path [/path…]"""
 import asyncio, json, sys
 from playwright.async_api import async_playwright
-BASE = 'http://127.0.0.1:8090'
+BASE = __import__('os').environ.get('BASE', 'http://127.0.0.1:8090').rstrip('/')
 JS = """() => new Promise(res => { const o = { lcp: 0, cls: 0 };
   new PerformanceObserver(l => { for (const e of l.getEntries()) o.lcp = e.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
   new PerformanceObserver(l => { for (const e of l.getEntries()) if (!e.hadRecentInput) o.cls += e.value; }).observe({ type: 'layout-shift', buffered: true });

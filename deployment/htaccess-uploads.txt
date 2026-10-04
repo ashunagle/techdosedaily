@@ -1,0 +1,6 @@
+# TechDoseDaily — save as public_html/wp-content/uploads/.htaccess (SECURITY.md §8).
+# Nothing in uploads may ever execute.
+<FilesMatch "\.(php|phtml|phar|pl|py|cgi|sh|shtml)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes -ExecCGI
