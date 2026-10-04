@@ -1,0 +1,68 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/data-table",
+	"title": "Data table",
+	"category": "techdosedaily",
+	"description": "DataTable: title, unit line, table and source note. On phones it becomes stacked comparison rows (up to three values) or a table that scrolls in its own box. The policy variant (static pages) has text columns, a bold first column, and on phones stacked rows with each column labelled.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"subtitle": {
+			"type": "string",
+			"default": ""
+		},
+		"note": {
+			"type": "string",
+			"default": ""
+		},
+		"head": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "string"
+			}
+		},
+		"short": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "string"
+			}
+		},
+		"rows": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				}
+			}
+		},
+		"focus": {
+			"type": "integer",
+			"default": 0
+		},
+		"variant": {
+			"type": "string",
+			"enum": [
+				"data",
+				"policy"
+			],
+			"default": "data"
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php",
+	"editorScript": "tdd-editor-blocks"
+}

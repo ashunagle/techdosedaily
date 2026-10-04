@@ -1,0 +1,362 @@
+{
+ "404@mobile": {
+  "error": "ERRORED_DOCUMENT_REQUEST"
+ },
+ "404@desktop": {
+  "error": "ERRORED_DOCUMENT_REQUEST"
+ },
+ "home@mobile": {
+  "score": 100,
+  "fcp": 1056,
+  "lcp": 1658,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 3,
+  "requests": 22,
+  "kb": 196,
+  "byType": {
+   "Document": 16,
+   "Font": 119,
+   "Stylesheet": 13,
+   "Script": 2,
+   "Image": 44,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"1200\\\" height=\\\"675\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-768x432.webp\\\" class=\\\"attachment-td"
+ },
+ "home@desktop": {
+  "score": 100,
+  "fcp": 404,
+  "lcp": 501,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 0,
+  "requests": 26,
+  "kb": 227,
+  "byType": {
+   "Document": 16,
+   "Font": 119,
+   "Stylesheet": 13,
+   "Script": 2,
+   "Image": 75,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"1200\\\" height=\\\"675\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-1024x576.webp\\\" class=\\\"attachment-t"
+ },
+ "article-hero@mobile": {
+  "score": 100,
+  "fcp": 1055,
+  "lcp": 1656,
+  "cls": 0.002,
+  "tbt": 0,
+  "ttfb": 0,
+  "requests": 21,
+  "kb": 181,
+  "byType": {
+   "Document": 19,
+   "Font": 119,
+   "Stylesheet": 15,
+   "Script": 4,
+   "Image": 22,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<h1 class=\\\"tdd-art__h1 m-art-h1\\\">\""
+ },
+ "article-hero@desktop": {
+  "score": 100,
+  "fcp": 404,
+  "lcp": 485,
+  "cls": 0.002,
+  "tbt": 0,
+  "ttfb": 2,
+  "requests": 23,
+  "kb": 191,
+  "byType": {
+   "Document": 19,
+   "Font": 119,
+   "Stylesheet": 15,
+   "Script": 4,
+   "Image": 32,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"1600\\\" height=\\\"900\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-1024x576.webp\\\" class=\\\"attachment-t"
+ },
+ "article-nohero@mobile": {
+  "score": 99,
+  "fcp": 1654,
+  "lcp": 1954,
+  "cls": 0,
+  "tbt": 19,
+  "ttfb": 1,
+  "requests": 21,
+  "kb": 167,
+  "byType": {
+   "Document": 12,
+   "Font": 119,
+   "Stylesheet": 15,
+   "Script": 4,
+   "Image": 16,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<h1 class=\\\"tdd-art__h1 m-art-h1\\\">\""
+ },
+ "article-nohero@desktop": {
+  "score": 100,
+  "fcp": 388,
+  "lcp": 442,
+  "cls": 0.002,
+  "tbt": 0,
+  "ttfb": 4,
+  "requests": 21,
+  "kb": 162,
+  "byType": {
+   "Document": 12,
+   "Font": 119,
+   "Stylesheet": 15,
+   "Script": 4,
+   "Image": 10,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<h1 class=\\\"tdd-art__h1 m-art-h1\\\">\""
+ },
+ "section@mobile": {
+  "score": 100,
+  "fcp": 1051,
+  "lcp": 1651,
+  "cls": 0.001,
+  "tbt": 0,
+  "ttfb": 2,
+  "requests": 24,
+  "kb": 198,
+  "byType": {
+   "Document": 15,
+   "Font": 119,
+   "Stylesheet": 13,
+   "Script": 4,
+   "Image": 46,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"1200\\\" height=\\\"675\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-768x432.webp\\\" class=\\\"attachment-td"
+ },
+ "section@desktop": {
+  "score": 100,
+  "fcp": 490,
+  "lcp": 591,
+  "cls": 0.001,
+  "tbt": 0,
+  "ttfb": 0,
+  "requests": 24,
+  "kb": 190,
+  "byType": {
+   "Document": 15,
+   "Font": 119,
+   "Stylesheet": 13,
+   "Script": 4,
+   "Image": 38,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"1200\\\" height=\\\"675\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-768x432.webp\\\" class=\\\"attachment-td"
+ },
+ "author@mobile": {
+  "score": 100,
+  "fcp": 910,
+  "lcp": 1440,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 1,
+  "requests": 22,
+  "kb": 177,
+  "byType": {
+   "Document": 13,
+   "Font": 119,
+   "Stylesheet": 15,
+   "Script": 4,
+   "Image": 25,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<p class=\\\"tdd-amast__bio\\\">\""
+ },
+ "author@desktop": {
+  "score": 100,
+  "fcp": 450,
+  "lcp": 535,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 0,
+  "requests": 24,
+  "kb": 177,
+  "byType": {
+   "Document": 13,
+   "Font": 119,
+   "Stylesheet": 15,
+   "Script": 4,
+   "Image": 25,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"800\\\" height=\\\"450\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-400x225.webp\\\" class=\\\"attachment-tdd"
+ },
+ "newsletter@mobile": {
+  "score": 100,
+  "fcp": 1065,
+  "lcp": 1431,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 2,
+  "requests": 21,
+  "kb": 165,
+  "byType": {
+   "Document": 11,
+   "Font": 119,
+   "Stylesheet": 23,
+   "Script": 2,
+   "Image": 8,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<p class=\\\"tdd-nlhero__deck\\\">\""
+ },
+ "newsletter@desktop": {
+  "score": 100,
+  "fcp": 364,
+  "lcp": 445,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 2,
+  "requests": 21,
+  "kb": 165,
+  "byType": {
+   "Document": 11,
+   "Font": 119,
+   "Stylesheet": 23,
+   "Script": 2,
+   "Image": 8,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<h1 class=\\\"tdd-nlhero__title\\\" id=\\\"nl-title\\\">\""
+ },
+ "contact@mobile": {
+  "score": 99,
+  "fcp": 1364,
+  "lcp": 1739,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 120,
+  "requests": 20,
+  "kb": 161,
+  "byType": {
+   "Document": 11,
+   "Font": 119,
+   "Stylesheet": 20,
+   "Script": 3,
+   "Image": 8,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090",
+   ""
+  ],
+  "lcpElement": "\"<p class=\\\"tdd-sp__intro\\\">\""
+ },
+ "contact@desktop": {
+  "score": 100,
+  "fcp": 370,
+  "lcp": 420,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 118,
+  "requests": 20,
+  "kb": 161,
+  "byType": {
+   "Document": 11,
+   "Font": 119,
+   "Stylesheet": 20,
+   "Script": 3,
+   "Image": 8,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090",
+   ""
+  ],
+  "lcpElement": "\"<p class=\\\"tdd-sp__intro\\\">\""
+ },
+ "search@mobile": {
+  "score": 99,
+  "fcp": 1653,
+  "lcp": 1879,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 1,
+  "requests": 25,
+  "kb": 176,
+  "byType": {
+   "Document": 11,
+   "Font": 119,
+   "Stylesheet": 15,
+   "Script": 3,
+   "Image": 26,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<span class=\\\"tdd-result__title\\\">\""
+ },
+ "search@desktop": {
+  "score": 100,
+  "fcp": 375,
+  "lcp": 420,
+  "cls": 0.002,
+  "tbt": 0,
+  "ttfb": 2,
+  "requests": 26,
+  "kb": 180,
+  "byType": {
+   "Document": 11,
+   "Font": 119,
+   "Stylesheet": 15,
+   "Script": 3,
+   "Image": 30,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<span class=\\\"tdd-result__title\\\">\""
+ }
+}

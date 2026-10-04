@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/funding",
+	"title": "How we’re funded",
+	"category": "techdosedaily",
+	"description": "Funding sources with a Planned or Active status, exactly as the newsroom states them.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"rows": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false,
+		"multiple": false
+	},
+	"render": "file:./render.php",
+	"editorScript": "tdd-editor-blocks"
+}

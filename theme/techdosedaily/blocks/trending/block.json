@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/trending",
+	"title": "Trending bar",
+	"category": "techdosedaily",
+	"description": "Trending topics strip (user-scrolled, never animated) from the \"Trending\" menu, with today’s date.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"showDate": {
+			"type": "boolean",
+			"default": true
+		},
+		"hideMobile": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

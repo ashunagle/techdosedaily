@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/deflist",
+	"title": "Definition list",
+	"category": "techdosedaily",
+	"description": "Terms and short definitions (Labels and formats, partnership options).",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"rows": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php",
+	"editorScript": "tdd-editor-blocks"
+}

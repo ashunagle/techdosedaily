@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/section-desk",
+	"title": "Section desk",
+	"category": "techdosedaily",
+	"description": "The section desk: statement, people and “How we cover” link (section settings). Omitted until people are set.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"mobile": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

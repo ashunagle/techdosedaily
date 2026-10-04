@@ -1,0 +1,10 @@
+{
+  "name": "tdd-seo-validation",
+  "private": true,
+  "description": "Offline Schema.org + Google rich-result rule checks for the Core graph (local only).",
+  "type": "module",
+  "dependencies": {
+    "@adobe/structured-data-validator": "*",
+    "@marbec/web-auto-extractor": "*"
+  }
+}

@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/section-top",
+	"title": "Section top stories",
+	"category": "techdosedaily",
+	"description": "Editor-pinned top stories (placements section_lead + section_secondary), each slot falling back to the newest story. Split feature + 3 stories.",
+	"textdomain": "techdosedaily",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

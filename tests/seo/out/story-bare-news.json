@@ -1,0 +1,107 @@
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "NewsMediaOrganization",
+   "@id": "http://127.0.0.1:8090/#organization",
+   "name": "Tech Dose Daily",
+   "url": "http://127.0.0.1:8090/",
+   "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+   "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+   "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/"
+  },
+  {
+   "@type": "WebSite",
+   "@id": "http://127.0.0.1:8090/#website",
+   "url": "http://127.0.0.1:8090/",
+   "name": "Tech Dose Daily",
+   "publisher": {
+    "@id": "http://127.0.0.1:8090/#organization"
+   },
+   "inLanguage": "en-US",
+   "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+     "@type": "EntryPoint",
+     "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+   }
+  },
+  {
+   "@type": "WebPage",
+   "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#webpage",
+   "url": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/",
+   "name": "[Sample] A short news story with no image, editor or topics - Tech Dose Daily",
+   "isPartOf": {
+    "@id": "http://127.0.0.1:8090/#website"
+   },
+   "breadcrumb": {
+    "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#breadcrumb"
+   },
+   "inLanguage": "en-US",
+   "datePublished": "2026-10-04T15:43:02+05:30",
+   "dateModified": "2026-10-04T15:43:02+05:30"
+  },
+  {
+   "@type": "NewsArticle",
+   "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#article",
+   "headline": "[Sample] A short news story with no image, editor or topics",
+   "url": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/",
+   "mainEntityOfPage": {
+    "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#webpage"
+   },
+   "isPartOf": {
+    "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#webpage"
+   },
+   "datePublished": "2026-10-04T15:43:02+05:30",
+   "dateModified": "2026-10-04T15:43:02+05:30",
+   "author": {
+    "@id": "http://127.0.0.1:8090/author/leah-sample/#person"
+   },
+   "publisher": {
+    "@id": "http://127.0.0.1:8090/#organization"
+   },
+   "articleSection": "Software",
+   "genre": "News",
+   "wordCount": 6,
+   "timeRequired": "PT1M",
+   "isAccessibleForFree": true,
+   "inLanguage": "en-US"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "http://127.0.0.1:8090/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Software",
+     "item": "http://127.0.0.1:8090/software/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "[Sample] A short news story with no image, editor or topics",
+     "item": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+    }
+   ]
+  },
+  {
+   "@type": "Person",
+   "@id": "http://127.0.0.1:8090/author/leah-sample/#person",
+   "name": "Leah Brennan",
+   "url": "http://127.0.0.1:8090/author/leah-sample/",
+   "jobTitle": "Cloud & Infrastructure Reporter",
+   "worksFor": {
+    "@id": "http://127.0.0.1:8090/#organization"
+   }
+  }
+ ]
+}

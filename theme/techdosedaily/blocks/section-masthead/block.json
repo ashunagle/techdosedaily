@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/section-masthead",
+	"title": "Section masthead",
+	"category": "techdosedaily",
+	"description": "CategoryMasthead + TopicNav for the current section, topic or story-type archive: breadcrumbs, title, description, freshness, real story counts, newsletter link.",
+	"textdomain": "techdosedaily",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

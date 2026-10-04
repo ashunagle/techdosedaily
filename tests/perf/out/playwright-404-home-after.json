@@ -1,0 +1,98 @@
+{
+ "/no-such-page-xyz/@mobile@uncached": {
+  "lcp": 808,
+  "cls": 0,
+  "fcp": 808,
+  "ttfb": 101,
+  "kb": 154,
+  "requests": 17,
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "status": 404
+ },
+ "/no-such-page-xyz/@desktop@uncached": {
+  "lcp": 248,
+  "cls": 0.0,
+  "fcp": 248,
+  "ttfb": 123,
+  "kb": 154,
+  "requests": 17,
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "status": 404
+ },
+ "/no-such-page-xyz/@mobile@cached": {
+  "lcp": 744,
+  "cls": 0,
+  "fcp": 744,
+  "ttfb": 6,
+  "kb": 154,
+  "requests": 17,
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "status": 404
+ },
+ "/no-such-page-xyz/@desktop@cached": {
+  "lcp": 124,
+  "cls": 0.0,
+  "fcp": 124,
+  "ttfb": 6,
+  "kb": 154,
+  "requests": 17,
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "status": 404
+ },
+ "/@mobile@uncached": {
+  "lcp": 964,
+  "cls": 0,
+  "fcp": 956,
+  "ttfb": 228,
+  "kb": 193,
+  "requests": 21,
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "status": 200
+ },
+ "/@desktop@uncached": {
+  "lcp": 372,
+  "cls": 0.0,
+  "fcp": 372,
+  "ttfb": 188,
+  "kb": 287,
+  "requests": 32,
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "status": 200
+ },
+ "/@mobile@cached": {
+  "lcp": 896,
+  "cls": 0.0,
+  "fcp": 808,
+  "ttfb": 4,
+  "kb": 193,
+  "requests": 21,
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "status": 200
+ },
+ "/@desktop@cached": {
+  "lcp": 236,
+  "cls": 0.0,
+  "fcp": 196,
+  "ttfb": 7,
+  "kb": 290,
+  "requests": 33,
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "status": 200
+ }
+}

@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/daily-brief",
+	"title": "Daily Tech Brief",
+	"category": "techdosedaily",
+	"description": "The daily franchise list (DailyTechBrief), from the \"Daily Tech Brief\" placement.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"linkText": {
+			"type": "string",
+			"default": "Read today\u2019s brief \u2192"
+		},
+		"linkUrl": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

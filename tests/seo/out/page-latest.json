@@ -1,0 +1,63 @@
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "NewsMediaOrganization",
+   "@id": "http://127.0.0.1:8090/#organization",
+   "name": "Tech Dose Daily",
+   "url": "http://127.0.0.1:8090/",
+   "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+   "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+   "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/"
+  },
+  {
+   "@type": "WebSite",
+   "@id": "http://127.0.0.1:8090/#website",
+   "url": "http://127.0.0.1:8090/",
+   "name": "Tech Dose Daily",
+   "publisher": {
+    "@id": "http://127.0.0.1:8090/#organization"
+   },
+   "inLanguage": "en-US",
+   "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+     "@type": "EntryPoint",
+     "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+   }
+  },
+  {
+   "@type": "CollectionPage",
+   "@id": "http://127.0.0.1:8090/latest/#webpage",
+   "url": "http://127.0.0.1:8090/latest/",
+   "name": "Latest - Tech Dose Daily",
+   "isPartOf": {
+    "@id": "http://127.0.0.1:8090/#website"
+   },
+   "breadcrumb": {
+    "@id": "http://127.0.0.1:8090/latest/#breadcrumb"
+   },
+   "inLanguage": "en-US"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "http://127.0.0.1:8090/latest/#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "http://127.0.0.1:8090/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Latest",
+     "item": "http://127.0.0.1:8090/latest/"
+    }
+   ]
+  }
+ ]
+}

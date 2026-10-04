@@ -1,0 +1,28 @@
+/*
+ * Block editor canvas only (never loaded on the site). Hand-written, tokens only.
+ * Gives editors the article reading column — Manrope headings, Inter 18/1.7 body, 740px column —
+ * so what they write looks like what readers get. Block previews reuse the generated CSS.
+ */
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 18px; line-height: 1.7; }
+.editor-post-title, .editor-post-title__input, .wp-block-post-title { font-family: var(--font-display); font-size: 46px; line-height: 1.1; font-weight: 800; letter-spacing: -0.022em; color: var(--text); }
+.is-root-container > p, .wp-block-post-content > p { margin: 0 0 1.35em; }
+.is-root-container a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+.is-root-container h2, .wp-block-heading:is(h2) { font-family: var(--font-display); font-size: 30px; line-height: 1.25; font-weight: 700; letter-spacing: -0.015em; margin: 1.9em 0 0.6em; }
+.is-root-container h3, .wp-block-heading:is(h3) { font-family: var(--font-display); font-size: 22px; line-height: 1.3; font-weight: 700; margin: 1.6em 0 0.5em; }
+.is-root-container ul, .is-root-container ol { padding-left: 1.25em; margin: 0 0 1.35em; }
+.is-root-container li { margin-bottom: 0.4em; }
+.is-root-container ul.wp-block-list { list-style: disc; }
+.is-root-container ol.wp-block-list { list-style: decimal; }
+.is-root-container ul.wp-block-list li::marker { color: var(--primary); }
+.is-root-container .wp-block-quote { margin: 2.2em 0; padding: 4px 0 4px 28px; border-left: 3px solid var(--text); }
+.is-root-container .wp-block-quote p { font: 600 26px/1.35 var(--font-display); letter-spacing: -0.01em; }
+.is-root-container .wp-block-quote cite { display: block; margin-top: 14px; font: 500 15px/1.4 var(--font-body); color: var(--text-secondary); }
+.is-root-container sup a { font-size: 12px; font-weight: 700; text-decoration: none; }
+.is-root-container figcaption { font-size: 14px; color: var(--text-secondary); }
+.is-root-container .wp-block-table td, .is-root-container .wp-block-table th { font-size: 15px; }
+/* Story blocks shown in their approved boxes while editing. */
+.is-root-container .tdd-takeaways, .is-root-container .tdd-why, .is-root-container .tdd-pcallout, .is-root-container .tdd-pnotice { margin: 2em 0; }
+.is-root-container .tdd-takeaways ul { list-style: none; padding-left: 0; }
+.is-root-container .tdd-pnotice b { display: block; }
+/* Server-rendered previews: the editor canvas is a desktop view, so phone-only copies stay hidden. */
+.tdd-only-m, .tdd-only-m.is-block, .tdd-toc-inline { display: none !important; }

@@ -1,0 +1,69 @@
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "NewsMediaOrganization",
+   "@id": "http://127.0.0.1:8090/#organization",
+   "name": "Tech Dose Daily",
+   "url": "http://127.0.0.1:8090/",
+   "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+   "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+   "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/"
+  },
+  {
+   "@type": "WebSite",
+   "@id": "http://127.0.0.1:8090/#website",
+   "url": "http://127.0.0.1:8090/",
+   "name": "Tech Dose Daily",
+   "publisher": {
+    "@id": "http://127.0.0.1:8090/#organization"
+   },
+   "inLanguage": "en-US",
+   "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+     "@type": "EntryPoint",
+     "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+   }
+  },
+  {
+   "@type": "ContactPage",
+   "@id": "http://127.0.0.1:8090/contact/#webpage",
+   "url": "http://127.0.0.1:8090/contact/",
+   "name": "Contact - Tech Dose Daily",
+   "isPartOf": {
+    "@id": "http://127.0.0.1:8090/#website"
+   },
+   "breadcrumb": {
+    "@id": "http://127.0.0.1:8090/contact/#breadcrumb"
+   },
+   "inLanguage": "en-US",
+   "description": "Choose the route that fits your message so it reaches the right person. We use role inboxes and this form rather than publishing individual staff addresses.",
+   "datePublished": "2026-10-04T10:47:27+05:30",
+   "dateModified": "2026-09-12T12:00:00+05:30",
+   "about": {
+    "@id": "http://127.0.0.1:8090/#organization"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "http://127.0.0.1:8090/contact/#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "http://127.0.0.1:8090/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Contact",
+     "item": "http://127.0.0.1:8090/contact/"
+    }
+   ]
+  }
+ ]
+}

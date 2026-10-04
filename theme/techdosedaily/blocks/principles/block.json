@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/principles",
+	"title": "Editorial principles",
+	"category": "techdosedaily",
+	"description": "Numbered principles with links to the full policies.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"rows": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false,
+		"multiple": false
+	},
+	"render": "file:./render.php",
+	"editorScript": "tdd-editor-blocks"
+}

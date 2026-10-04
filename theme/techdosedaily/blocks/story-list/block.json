@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/story-list",
+	"title": "Story list",
+	"category": "techdosedaily",
+	"description": "Several StoryCards of one variant from a placement, the latest stories or a section, optionally stacked with hairline dividers.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"variant": {
+			"type": "string",
+			"default": "compact"
+		},
+		"source": {
+			"type": "string",
+			"default": "latest"
+		},
+		"placement": {
+			"type": "string",
+			"default": ""
+		},
+		"section": {
+			"type": "string",
+			"default": ""
+		},
+		"count": {
+			"type": "integer",
+			"default": 4
+		},
+		"stack": {
+			"type": "boolean",
+			"default": true
+		},
+		"thumbs": {
+			"type": "boolean",
+			"default": true
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

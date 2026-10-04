@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/why-this-matters",
+	"title": "Why this matters",
+	"category": "techdosedaily",
+	"description": "WhyThisMatters box. Contains paragraphs. Omitted when empty.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Why this matters"
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php",
+	"editorScript": "tdd-editor-blocks"
+}

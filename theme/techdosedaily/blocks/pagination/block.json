@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/pagination",
+	"title": "Pagination",
+	"category": "techdosedaily",
+	"description": "Load more (progressive enhancement) + crawlable numbered pages for the main query (Pagination).",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"moreLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"feed": {
+			"type": "string",
+			"default": "[data-tdd-feed]"
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php",
+	"viewScript": "file:../../assets/js/pager.js",
+	"usesContext": [
+		"query"
+	]
+}

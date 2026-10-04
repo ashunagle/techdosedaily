@@ -1,0 +1,16 @@
+Yoast SEO 28.6 (real plugin). One page per mode; every <script type=application/ld+json> on the page:
+== setting=yoast yoast=on
+  /guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/?tdd_audit=1: class="yoast-schema-graph" 
+  /ai/: class="yoast-schema-graph" 
+  /author/priya-sample/: class="yoast-schema-graph" 
+  /no-such-page-xyz/: 
+== setting=core yoast=on
+  /guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/?tdd_audit=1: class="tdd-schema-graph" 
+  /ai/: class="tdd-schema-graph" 
+  /author/priya-sample/: class="tdd-schema-graph" 
+  /no-such-page-xyz/: 
+== setting=yoast yoast=off
+  /guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/?tdd_audit=1: class="tdd-schema-graph" 
+  /ai/: class="tdd-schema-graph" 
+  /author/priya-sample/: class="tdd-schema-graph" 
+  /no-such-page-xyz/: 

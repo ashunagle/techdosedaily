@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/key-takeaways",
+	"title": "Key takeaways",
+	"category": "techdosedaily",
+	"description": "KeyTakeaways box. Contains one list. Omitted when the list is empty.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Key takeaways"
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false,
+		"multiple": false
+	},
+	"render": "file:./render.php",
+	"editorScript": "tdd-editor-blocks"
+}

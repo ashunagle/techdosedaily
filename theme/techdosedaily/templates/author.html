@@ -1,0 +1,36 @@
+<!-- wp:template-part {"slug":"header","tagName":"div","className":"tdd-site-header-part"} /-->
+
+<!-- wp:group {"tagName":"main","anchor":"main","className":"tdd-container tdd-main tdd-author-page","layout":{"type":"default"}} -->
+<main class="wp-block-group tdd-container tdd-main tdd-author-page" id="main">
+	<!-- wp:tdd/breadcrumbs /-->
+	<!-- wp:tdd/author-masthead /-->
+	<!-- wp:tdd/author-featured /-->
+
+	<!-- wp:group {"tagName":"section","className":"ap-g ap-sec","layout":{"type":"default"}} -->
+	<section class="wp-block-group ap-g ap-sec">
+		<!-- wp:group {"className":"ap-main","layout":{"type":"default"}} -->
+		<div class="wp-block-group ap-main">
+			<!-- wp:tdd/author-archive /-->
+		</div>
+		<!-- /wp:group -->
+		<!-- wp:group {"tagName":"aside","className":"ap-side tdd-hide-m","layout":{"type":"default"}} -->
+		<aside class="wp-block-group ap-side tdd-hide-m">
+			<!-- wp:tdd/author-about /-->
+			<!-- wp:tdd/most-read {"context":"author","titleAuthor":true,"showWindow":false,"count":3,"minItems":3} /-->
+			<!-- wp:tdd/brief-link /-->
+		</aside>
+		<!-- /wp:group -->
+	</section>
+	<!-- /wp:group -->
+
+	<!-- wp:tdd/most-read {"context":"author","titleAuthor":true,"showWindow":false,"count":3,"minItems":3,"className":"m-section tdd-only-m is-block"} /-->
+
+	<!-- wp:group {"tagName":"section","className":"ap-sec tdd-art-newsletter","layout":{"type":"default"}} -->
+	<section class="wp-block-group ap-sec tdd-art-newsletter">
+		<!-- wp:tdd/newsletter-cta {"layout":"inline"} /-->
+	</section>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"div","className":"tdd-site-footer-part"} /-->

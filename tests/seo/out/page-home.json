@@ -1,0 +1,45 @@
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "NewsMediaOrganization",
+   "@id": "http://127.0.0.1:8090/#organization",
+   "name": "Tech Dose Daily",
+   "url": "http://127.0.0.1:8090/",
+   "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+   "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+   "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/"
+  },
+  {
+   "@type": "WebSite",
+   "@id": "http://127.0.0.1:8090/#website",
+   "url": "http://127.0.0.1:8090/",
+   "name": "Tech Dose Daily",
+   "publisher": {
+    "@id": "http://127.0.0.1:8090/#organization"
+   },
+   "inLanguage": "en-US",
+   "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+     "@type": "EntryPoint",
+     "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+   }
+  },
+  {
+   "@type": "WebPage",
+   "@id": "http://127.0.0.1:8090/#webpage",
+   "url": "http://127.0.0.1:8090/",
+   "name": "Home - Tech Dose Daily",
+   "isPartOf": {
+    "@id": "http://127.0.0.1:8090/#website"
+   },
+   "inLanguage": "en-US",
+   "about": {
+    "@id": "http://127.0.0.1:8090/#organization"
+   }
+  }
+ ]
+}

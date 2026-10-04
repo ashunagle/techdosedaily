@@ -1,0 +1,5555 @@
+{
+ "core:/author-sitemap.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/author/priya-sample/",
+   "http://127.0.0.1:8090/author/arjun-sample/",
+   "http://127.0.0.1:8090/author/admin/",
+   "http://127.0.0.1:8090/author/daniel-sample/",
+   "http://127.0.0.1:8090/author/leah-sample/",
+   "http://127.0.0.1:8090/author/mira-sample/"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "core:/category-sitemap.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/ai/",
+   "http://127.0.0.1:8090/big-tech/",
+   "http://127.0.0.1:8090/cloud/",
+   "http://127.0.0.1:8090/cybersecurity/",
+   "http://127.0.0.1:8090/developer/",
+   "http://127.0.0.1:8090/guides/",
+   "http://127.0.0.1:8090/software/",
+   "http://127.0.0.1:8090/startups/",
+   "http://127.0.0.1:8090/tech/"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "core:/page-sitemap.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/",
+   "http://127.0.0.1:8090/sample-page/",
+   "http://127.0.0.1:8090/privacy-policy-2/",
+   "http://127.0.0.1:8090/terms/",
+   "http://127.0.0.1:8090/source-policy/",
+   "http://127.0.0.1:8090/corrections-policy/",
+   "http://127.0.0.1:8090/ai-use-policy/"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "core:/post-sitemap.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/latest/"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "core:/sitemap_index.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/post-sitemap.xml",
+   "http://127.0.0.1:8090/page-sitemap.xml",
+   "http://127.0.0.1:8090/category-sitemap.xml",
+   "http://127.0.0.1:8090/tdd_format-sitemap.xml",
+   "http://127.0.0.1:8090/tdd_topic-sitemap.xml",
+   "http://127.0.0.1:8090/author-sitemap.xml"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "core:/tdd_topic-sitemap.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/topic/ai-agents/",
+   "http://127.0.0.1:8090/topic/ai-coding/",
+   "http://127.0.0.1:8090/topic/ai-infrastructure/",
+   "http://127.0.0.1:8090/topic/ai-models/",
+   "http://127.0.0.1:8090/topic/ai-tools/"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "core:404": {
+  "_cache": "BYPASS",
+  "jsonld": [],
+  "links": [],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Page not found \u00b7 Tech Dose Daily"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ]
+  ],
+  "robots_header": null,
+  "status": 404,
+  "title": [
+   "Page not found \u00b7 Tech Dose Daily"
+  ]
+ },
+ "core:about": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/about/#webpage",
+       "@type": "AboutPage",
+       "about": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/about/#breadcrumb"
+       },
+       "dateModified": "2026-10-04T10:47:27+05:30",
+       "datePublished": "2026-10-04T10:47:27+05:30",
+       "description": "Tech Dose Daily covers the most important developments in AI, software, security, cloud and the companies shaping technology. We publish news, analysis, explainers and practical guides for developers, businesses and curious readers.",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "About - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/about/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/about/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/about/",
+         "name": "About",
+         "position": 2
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [],
+  "meta": [
+   [
+    "description",
+    "Tech Dose Daily covers the most important developments in AI, software, security, cloud and the companies shaping technology. We publish news, analysis, explainers and practical guides for developers, businesses and curious readers."
+   ],
+   [
+    "og:description",
+    "Tech Dose Daily covers the most important developments in AI, software, security, cloud and the companies shaping technology. We publish news, analysis, explainers and practical guides for developers, businesses and curious readers."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "About - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/about/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "1 minute"
+   ],
+   [
+    "twitter:description",
+    "Tech Dose Daily covers the most important developments in AI, software, security, cloud and the companies shaping technology. We publish news, analysis, explainers and practical guides for developers, businesses and curious readers."
+   ],
+   [
+    "twitter:label1",
+    "Est. reading time"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "About - Tech Dose Daily"
+  ]
+ },
+ "core:analysis": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#webpage",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#breadcrumb"
+       },
+       "dateModified": "2026-10-03T20:29:00+05:30",
+       "datePublished": "2026-10-03T18:17:00+05:30",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Major AI provider unveils a reasoning model built for long-running coding agents - Tech Dose Daily",
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3.webp#image"
+       },
+       "url": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#article",
+       "@type": [
+        "NewsArticle",
+        "AnalysisNewsArticle"
+       ],
+       "articleSection": "AI",
+       "author": {
+        "@id": "http://127.0.0.1:8090/author/priya-sample/#person"
+       },
+       "correction": [
+        {
+         "@type": "CorrectionComment",
+         "datePublished": "2026-10-03T13:32:00+00:00",
+         "text": "An earlier version of this article said the model\u2019s context window was two million tokens. It is one million tokens."
+        }
+       ],
+       "dateModified": "2026-10-03T20:29:00+05:30",
+       "datePublished": "2026-10-03T18:17:00+05:30",
+       "description": "The release is aimed at hours-long software tasks rather than chat. Here is what it changes for developers, what the company has and hasn\u2019t shown, and which claims still need independent testing.",
+       "editor": {
+        "@id": "http://127.0.0.1:8090/author/mira-sample/#person"
+       },
+       "genre": "Analysis",
+       "headline": "Major AI provider unveils a reasoning model built for long-running coding agents",
+       "image": {
+        "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3.webp#image"
+       },
+       "inLanguage": "en-US",
+       "isAccessibleForFree": true,
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#webpage"
+       },
+       "keywords": [
+        "AI Models",
+        "Benchmarks",
+        "Coding agents",
+        "Developer Tools"
+       ],
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#webpage"
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "timeRequired": "PT9M",
+       "url": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/",
+       "wordCount": 607
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/ai/",
+         "name": "AI",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/",
+         "name": "Major AI provider unveils a reasoning model built for long-running coding agents",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/priya-sample/#person",
+       "@type": "Person",
+       "jobTitle": "Senior AI Correspondent [Sample]",
+       "name": "Priya Raman",
+       "sameAs": [
+        "https://www.example.com/sample-linkedin",
+        "https://www.example.com/sample-x"
+       ],
+       "url": "http://127.0.0.1:8090/author/priya-sample/",
+       "worksFor": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       }
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/mira-sample/#person",
+       "@type": "Person",
+       "jobTitle": "Editor, AI & Infrastructure",
+       "name": "Mira Castellanos",
+       "url": "http://127.0.0.1:8090/author/mira-sample/",
+       "worksFor": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       }
+      },
+      {
+       "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3.webp#image",
+       "@type": "ImageObject",
+       "caption": "The developer console shows the model\u2019s plan before it edits code. Each step can be paused or rolled back.",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3.webp",
+       "creditText": "Company screenshot via Tech Dose Daily",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3.webp",
+       "width": 1600
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:modified_time",
+    "2026-10-03T14:59:00+00:00"
+   ],
+   [
+    "article:published_time",
+    "2026-10-03T12:47:00+00:00"
+   ],
+   [
+    "description",
+    "The release is aimed at hours-long software tasks rather than chat. Here is what it changes for developers, what the company has and hasn\u2019t shown, and which claims still need independent testing."
+   ],
+   [
+    "og:description",
+    "The release is aimed at hours-long software tasks rather than chat. Here is what it changes for developers, what the company has and hasn\u2019t shown, and which claims still need independent testing."
+   ],
+   [
+    "og:image",
+    "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3.webp"
+   ],
+   [
+    "og:image:height",
+    "900"
+   ],
+   [
+    "og:image:type",
+    "image/webp"
+   ],
+   [
+    "og:image:width",
+    "1600"
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Major AI provider unveils a reasoning model built for long-running coding agents - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Priya Raman"
+   ],
+   [
+    "twitter:data2",
+    "9 minutes"
+   ],
+   [
+    "twitter:description",
+    "The release is aimed at hours-long software tasks rather than chat. Here is what it changes for developers, what the company has and hasn\u2019t shown, and which claims still need independent testing."
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ],
+   [
+    "twitter:label2",
+    "Est. reading time"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Major AI provider unveils a reasoning model built for long-running coding agents - Tech Dose Daily"
+  ]
+ },
+ "core:author": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/priya-sample/#webpage",
+       "@type": "ProfilePage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/author/priya-sample/#breadcrumb"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "mainEntity": {
+        "@id": "http://127.0.0.1:8090/author/priya-sample/#person"
+       },
+       "name": "Priya Raman - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/author/priya-sample/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/priya-sample/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/author/priya-sample/",
+         "name": "Priya Raman",
+         "position": 2
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/priya-sample/#person",
+       "@type": "Person",
+       "jobTitle": "Senior AI Correspondent [Sample]",
+       "name": "Priya Raman",
+       "sameAs": [
+        "https://www.example.com/sample-linkedin",
+        "https://www.example.com/sample-x"
+       ],
+       "url": "http://127.0.0.1:8090/author/priya-sample/",
+       "worksFor": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       }
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/author/priya-sample/"
+   ],
+   [
+    "next",
+    "http://127.0.0.1:8090/author/priya-sample/page/2/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Priya Raman - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "profile"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/author/priya-sample/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Priya Raman - Tech Dose Daily"
+  ]
+ },
+ "core:bare-news": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#webpage",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#breadcrumb"
+       },
+       "dateModified": "2026-10-04T15:43:02+05:30",
+       "datePublished": "2026-10-04T15:43:02+05:30",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "[Sample] A short news story with no image, editor or topics - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#article",
+       "@type": "NewsArticle",
+       "articleSection": "Software",
+       "author": {
+        "@id": "http://127.0.0.1:8090/author/leah-sample/#person"
+       },
+       "dateModified": "2026-10-04T15:43:02+05:30",
+       "datePublished": "2026-10-04T15:43:02+05:30",
+       "genre": "News",
+       "headline": "[Sample] A short news story with no image, editor or topics",
+       "inLanguage": "en-US",
+       "isAccessibleForFree": true,
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#webpage"
+       },
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#webpage"
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "timeRequired": "PT1M",
+       "url": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/",
+       "wordCount": 6
+      },
+      {
+       "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/software/",
+         "name": "Software",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/",
+         "name": "[Sample] A short news story with no image, editor or topics",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/leah-sample/#person",
+       "@type": "Person",
+       "jobTitle": "Cloud & Infrastructure Reporter",
+       "name": "Leah Brennan",
+       "url": "http://127.0.0.1:8090/author/leah-sample/",
+       "worksFor": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       }
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:published_time",
+    "2026-10-04T10:13:02+00:00"
+   ],
+   [
+    "og:description",
+    "[Sample] Typo fixed in fixture text."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "[Sample] A short news story with no image, editor or topics - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Leah Brennan"
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "[Sample] A short news story with no image, editor or topics - Tech Dose Daily"
+  ]
+ },
+ "core:contact": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/contact/#webpage",
+       "@type": "ContactPage",
+       "about": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/contact/#breadcrumb"
+       },
+       "dateModified": "2026-09-12T12:00:00+05:30",
+       "datePublished": "2026-10-04T10:47:27+05:30",
+       "description": "Choose the route that fits your message so it reaches the right person. We use role inboxes and this form rather than publishing individual staff addresses.",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Contact - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/contact/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/contact/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/contact/",
+         "name": "Contact",
+         "position": 2
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [],
+  "meta": [
+   [
+    "description",
+    "Choose the route that fits your message so it reaches the right person. We use role inboxes and this form rather than publishing individual staff addresses."
+   ],
+   [
+    "og:description",
+    "Choose the route that fits your message so it reaches the right person. We use role inboxes and this form rather than publishing individual staff addresses."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Contact - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/contact/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:description",
+    "Choose the route that fits your message so it reaches the right person. We use role inboxes and this form rather than publishing individual staff addresses."
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Contact - Tech Dose Daily"
+  ]
+ },
+ "core:explainer": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#webpage",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#breadcrumb"
+       },
+       "dateModified": "2026-10-03T17:54:51+05:30",
+       "datePublished": "2026-10-03T17:54:51+05:30",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Agents that use a computer are moving from demos to daily work - Tech Dose Daily",
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp#image"
+       },
+       "url": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#article",
+       "@type": [
+        "NewsArticle",
+        "BackgroundNewsArticle"
+       ],
+       "articleSection": "AI",
+       "author": {
+        "@id": "http://127.0.0.1:8090/author/daniel-sample/#person"
+       },
+       "dateModified": "2026-10-03T17:54:51+05:30",
+       "datePublished": "2026-10-03T17:54:51+05:30",
+       "description": "What changes when an assistant can click, type and file the paperwork itself.",
+       "genre": "Explainer",
+       "headline": "Agents that use a computer are moving from demos to daily work",
+       "image": {
+        "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp#image"
+       },
+       "inLanguage": "en-US",
+       "isAccessibleForFree": true,
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#webpage"
+       },
+       "keywords": [
+        "AI Agents"
+       ],
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#webpage"
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "timeRequired": "PT11M",
+       "url": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/",
+       "wordCount": 11
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/ai/",
+         "name": "AI",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/",
+         "name": "Agents that use a computer are moving from demos to daily work",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/daniel-sample/#person",
+       "@type": "Person",
+       "jobTitle": "AI Agents & Enterprise",
+       "name": "Daniel Okafor",
+       "url": "http://127.0.0.1:8090/author/daniel-sample/",
+       "worksFor": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       }
+      },
+      {
+       "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp#image",
+       "@type": "ImageObject",
+       "caption": "Sample image: sec-browser-update",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "creditText": "TDD sample graphic",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "width": 1600
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:published_time",
+    "2026-10-03T12:24:51+00:00"
+   ],
+   [
+    "description",
+    "What changes when an assistant can click, type and file the paperwork itself."
+   ],
+   [
+    "og:description",
+    "What changes when an assistant can click, type and file the paperwork itself."
+   ],
+   [
+    "og:image",
+    "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp"
+   ],
+   [
+    "og:image:height",
+    "900"
+   ],
+   [
+    "og:image:type",
+    "image/webp"
+   ],
+   [
+    "og:image:width",
+    "1600"
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Agents that use a computer are moving from demos to daily work - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Daniel Okafor"
+   ],
+   [
+    "twitter:description",
+    "What changes when an assistant can click, type and file the paperwork itself."
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Agents that use a computer are moving from demos to daily work - Tech Dose Daily"
+  ]
+ },
+ "core:guide": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#webpage",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#breadcrumb"
+       },
+       "dateModified": "2026-10-03T13:56:19+05:30",
+       "datePublished": "2026-10-03T13:56:19+05:30",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Run a local AI coding assistant without sending code off your machine - Tech Dose Daily",
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/dev-terminal-3.webp#image"
+       },
+       "url": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#article",
+       "@type": "NewsArticle",
+       "articleSection": "Guides",
+       "author": {
+        "@id": "http://127.0.0.1:8090/author/priya-sample/#person"
+       },
+       "dateModified": "2026-10-03T13:56:19+05:30",
+       "datePublished": "2026-10-03T13:56:19+05:30",
+       "description": "Choosing a model that fits your laptop and keeping it offline.",
+       "genre": "Guide",
+       "headline": "Run a local AI coding assistant without sending code off your machine",
+       "image": {
+        "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/dev-terminal-3.webp#image"
+       },
+       "inLanguage": "en-US",
+       "isAccessibleForFree": true,
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#webpage"
+       },
+       "keywords": [
+        "AI Coding"
+       ],
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#webpage"
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "timeRequired": "PT8M",
+       "url": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/",
+       "wordCount": 1688
+      },
+      {
+       "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/guides/",
+         "name": "Guides",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/",
+         "name": "Run a local AI coding assistant without sending code off your machine",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/priya-sample/#person",
+       "@type": "Person",
+       "jobTitle": "Senior AI Correspondent [Sample]",
+       "name": "Priya Raman",
+       "sameAs": [
+        "https://www.example.com/sample-linkedin",
+        "https://www.example.com/sample-x"
+       ],
+       "url": "http://127.0.0.1:8090/author/priya-sample/",
+       "worksFor": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       }
+      },
+      {
+       "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/dev-terminal-3.webp#image",
+       "@type": "ImageObject",
+       "caption": "Sample image: dev-terminal",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/dev-terminal-3.webp",
+       "creditText": "TDD sample graphic",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/dev-terminal-3.webp",
+       "width": 1600
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:published_time",
+    "2026-10-03T08:26:19+00:00"
+   ],
+   [
+    "description",
+    "Choosing a model that fits your laptop and keeping it offline."
+   ],
+   [
+    "og:description",
+    "Choosing a model that fits your laptop and keeping it offline."
+   ],
+   [
+    "og:image",
+    "http://127.0.0.1:8090/wp-content/uploads/2026/10/dev-terminal-3.webp"
+   ],
+   [
+    "og:image:height",
+    "900"
+   ],
+   [
+    "og:image:type",
+    "image/webp"
+   ],
+   [
+    "og:image:width",
+    "1600"
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Run a local AI coding assistant without sending code off your machine - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Priya Raman"
+   ],
+   [
+    "twitter:data2",
+    "8 minutes"
+   ],
+   [
+    "twitter:description",
+    "Choosing a model that fits your laptop and keeping it offline."
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ],
+   [
+    "twitter:label2",
+    "Est. reading time"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Run a local AI coding assistant without sending code off your machine - Tech Dose Daily"
+  ]
+ },
+ "core:home": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#webpage",
+       "@type": "WebPage",
+       "about": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Home - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Home - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "website"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Home - Tech Dose Daily"
+  ]
+ },
+ "core:home-audit": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#webpage",
+       "@type": "WebPage",
+       "about": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Home - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Home - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "website"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Home - Tech Dose Daily"
+  ]
+ },
+ "core:newsletter": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/newsletter/#webpage",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/newsletter/#breadcrumb"
+       },
+       "dateModified": "2026-10-04T10:47:27+05:30",
+       "datePublished": "2026-10-04T10:47:27+05:30",
+       "description": "The most important AI and technology stories, explained clearly. One email every weekday morning.",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Newsletter - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/newsletter/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/newsletter/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/newsletter/",
+         "name": "Newsletter",
+         "position": 2
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [],
+  "meta": [
+   [
+    "description",
+    "The most important AI and technology stories, explained clearly. One email every weekday morning."
+   ],
+   [
+    "og:description",
+    "The most important AI and technology stories, explained clearly. One email every weekday morning."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Newsletter - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/newsletter/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:description",
+    "The most important AI and technology stories, explained clearly. One email every weekday morning."
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Newsletter - Tech Dose Daily"
+  ]
+ },
+ "core:policy": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/editorial-standards/#webpage",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/editorial-standards/#breadcrumb"
+       },
+       "dateModified": "2026-09-12T12:00:00+05:30",
+       "datePublished": "2026-10-04T10:47:27+05:30",
+       "description": "How Tech Dose Daily reports, sources, labels and corrects its journalism \u2014 and what readers can expect from every story we publish.",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Editorial Standards - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/editorial-standards/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/editorial-standards/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/about/",
+         "name": "About",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/editorial-standards/",
+         "name": "Editorial Standards",
+         "position": 3
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [],
+  "meta": [
+   [
+    "article:modified_time",
+    "2026-10-04T11:54:22+00:00"
+   ],
+   [
+    "description",
+    "How Tech Dose Daily reports, sources, labels and corrects its journalism \u2014 and what readers can expect from every story we publish."
+   ],
+   [
+    "og:description",
+    "How Tech Dose Daily reports, sources, labels and corrects its journalism \u2014 and what readers can expect from every story we publish."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Editorial Standards - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/editorial-standards/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "2 minutes"
+   ],
+   [
+    "twitter:description",
+    "How Tech Dose Daily reports, sources, labels and corrects its journalism \u2014 and what readers can expect from every story we publish."
+   ],
+   [
+    "twitter:label1",
+    "Est. reading time"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Editorial Standards - Tech Dose Daily"
+  ]
+ },
+ "core:review": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#webpage",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#breadcrumb"
+       },
+       "dateModified": "2026-10-03T08:56:19+05:30",
+       "datePublished": "2026-10-03T08:56:19+05:30",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "A week with a lightweight laptop built around an on-device AI chip - Tech Dose Daily",
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/device-laptop-3.webp#image"
+       },
+       "url": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#article",
+       "@type": "NewsArticle",
+       "articleSection": "Tech",
+       "author": {
+        "@id": "http://127.0.0.1:8090/author/priya-sample/#person"
+       },
+       "dateModified": "2026-10-03T08:56:19+05:30",
+       "datePublished": "2026-10-03T08:56:19+05:30",
+       "description": "Battery life is the headline; the AI features are mostly promise.",
+       "genre": "Review",
+       "headline": "A week with a lightweight laptop built around an on-device AI chip",
+       "image": {
+        "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/device-laptop-3.webp#image"
+       },
+       "inLanguage": "en-US",
+       "isAccessibleForFree": true,
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#webpage"
+       },
+       "keywords": [
+        "Hardware"
+       ],
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#webpage"
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "timeRequired": "PT3M",
+       "url": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/",
+       "wordCount": 488
+      },
+      {
+       "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/tech/",
+         "name": "Tech",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/",
+         "name": "A week with a lightweight laptop built around an on-device AI chip",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/priya-sample/#person",
+       "@type": "Person",
+       "jobTitle": "Senior AI Correspondent [Sample]",
+       "name": "Priya Raman",
+       "sameAs": [
+        "https://www.example.com/sample-linkedin",
+        "https://www.example.com/sample-x"
+       ],
+       "url": "http://127.0.0.1:8090/author/priya-sample/",
+       "worksFor": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       }
+      },
+      {
+       "@id": "http://127.0.0.1:8090/wp-content/uploads/2026/10/device-laptop-3.webp#image",
+       "@type": "ImageObject",
+       "caption": "Sample image: device-laptop",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/device-laptop-3.webp",
+       "creditText": "TDD sample graphic",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/device-laptop-3.webp",
+       "width": 1600
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:published_time",
+    "2026-10-03T03:26:19+00:00"
+   ],
+   [
+    "description",
+    "Battery life is the headline; the AI features are mostly promise."
+   ],
+   [
+    "og:description",
+    "Battery life is the headline; the AI features are mostly promise."
+   ],
+   [
+    "og:image",
+    "http://127.0.0.1:8090/wp-content/uploads/2026/10/device-laptop-3.webp"
+   ],
+   [
+    "og:image:height",
+    "900"
+   ],
+   [
+    "og:image:type",
+    "image/webp"
+   ],
+   [
+    "og:image:width",
+    "1600"
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "A week with a lightweight laptop built around an on-device AI chip - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Priya Raman"
+   ],
+   [
+    "twitter:data2",
+    "3 minutes"
+   ],
+   [
+    "twitter:description",
+    "Battery life is the headline; the AI features are mostly promise."
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ],
+   [
+    "twitter:label2",
+    "Est. reading time"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "A week with a lightweight laptop built around an on-device AI chip - Tech Dose Daily"
+  ]
+ },
+ "core:search": {
+  "_cache": "BYPASS",
+  "jsonld": [],
+  "links": [],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "You searched for AI - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/search/AI/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:title",
+    "You searched for AI - Tech Dose Daily"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "You searched for AI - Tech Dose Daily"
+  ]
+ },
+ "core:section": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/#webpage",
+       "@type": "CollectionPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/ai/#breadcrumb"
+       },
+       "description": "Models, agents, tools and research \u2014 what\u2019s new in artificial intelligence, and what it means for the people who build and use it.",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "AI - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/ai/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/ai/",
+         "name": "AI",
+         "position": 2
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/ai/"
+   ],
+   [
+    "next",
+    "http://127.0.0.1:8090/ai/page/2/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:description",
+    "Models, agents, tools and research \u2014 what\u2019s new in artificial intelligence, and what it means for the people who build and use it."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "AI - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/ai/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "AI - Tech Dose Daily"
+  ]
+ },
+ "core:section-p2": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/page/2/#webpage",
+       "@type": "CollectionPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/ai/page/2/#breadcrumb"
+       },
+       "description": "Models, agents, tools and research \u2014 what\u2019s new in artificial intelligence, and what it means for the people who build and use it.",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "AI - Page 2 of 2 - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/ai/page/2/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/page/2/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/ai/page/2/",
+         "name": "AI",
+         "position": 2
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/ai/page/2/"
+   ],
+   [
+    "prev",
+    "http://127.0.0.1:8090/ai/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:description",
+    "Models, agents, tools and research \u2014 what\u2019s new in artificial intelligence, and what it means for the people who build and use it."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "AI - Page 2 of 2 - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/ai/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "AI - Page 2 of 2 - Tech Dose Daily"
+  ]
+ },
+ "core:sponsored": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#webpage",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#breadcrumb"
+       },
+       "dateModified": "2026-10-04T15:43:02+05:30",
+       "datePublished": "2026-10-04T15:43:02+05:30",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "[Sample] Sponsored explainer: what a managed vector database does - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#article",
+       "@type": [
+        "Article",
+        "AdvertiserContentArticle"
+       ],
+       "articleSection": "Developer",
+       "author": {
+        "@id": "http://127.0.0.1:8090/author/leah-sample/#person"
+       },
+       "dateModified": "2026-10-04T15:43:02+05:30",
+       "datePublished": "2026-10-04T15:43:02+05:30",
+       "description": "Produced separately from the newsroom. [Sample]",
+       "genre": "Sponsored",
+       "headline": "[Sample] Sponsored explainer: what a managed vector database does",
+       "inLanguage": "en-US",
+       "isAccessibleForFree": true,
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#webpage"
+       },
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#webpage"
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "sponsor": {
+        "@type": "Organization",
+        "name": "Example Sponsor Co [Sample]"
+       },
+       "timeRequired": "PT1M",
+       "url": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/",
+       "wordCount": 11
+      },
+      {
+       "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/developer/",
+         "name": "Developer",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/",
+         "name": "[Sample] Sponsored explainer: what a managed vector database does",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/leah-sample/#person",
+       "@type": "Person",
+       "jobTitle": "Cloud & Infrastructure Reporter",
+       "name": "Leah Brennan",
+       "url": "http://127.0.0.1:8090/author/leah-sample/",
+       "worksFor": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       }
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:published_time",
+    "2026-10-04T10:13:02+00:00"
+   ],
+   [
+    "description",
+    "Produced separately from the newsroom. [Sample]"
+   ],
+   [
+    "og:description",
+    "Produced separately from the newsroom. [Sample]"
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "[Sample] Sponsored explainer: what a managed vector database does - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Leah Brennan"
+   ],
+   [
+    "twitter:description",
+    "Produced separately from the newsroom. [Sample]"
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "[Sample] Sponsored explainer: what a managed vector database does - Tech Dose Daily"
+  ]
+ },
+ "core:topic": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/topic/ai-agents/#webpage",
+       "@type": "CollectionPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/topic/ai-agents/#breadcrumb"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "AI Agents - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/topic/ai-agents/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/topic/ai-agents/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/topic/ai-agents/",
+         "name": "AI Agents",
+         "position": 2
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/topic/ai-agents/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "AI Agents - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/topic/ai-agents/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "AI Agents - Tech Dose Daily"
+  ]
+ },
+ "core:topic-thin": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "tdd-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/#organization",
+       "@type": "NewsMediaOrganization",
+       "actionableFeedbackPolicy": "http://127.0.0.1:8090/contact/",
+       "correctionsPolicy": "http://127.0.0.1:8090/corrections-policy/",
+       "name": "Tech Dose Daily",
+       "publishingPrinciples": "http://127.0.0.1:8090/editorial-standards/",
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": {
+        "@type": "SearchAction",
+        "query-input": "required name=search_term_string",
+        "target": {
+         "@type": "EntryPoint",
+         "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+        }
+       },
+       "publisher": {
+        "@id": "http://127.0.0.1:8090/#organization"
+       },
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/topic/ai-policy/#webpage",
+       "@type": "CollectionPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/topic/ai-policy/#breadcrumb"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "AI Policy - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/topic/ai-policy/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/topic/ai-policy/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/topic/ai-policy/",
+         "name": "AI Policy",
+         "position": 2
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "AI Policy - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/topic/ai-policy/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "AI Policy - Tech Dose Daily"
+  ]
+ },
+ "yoast:/author-sitemap.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/author/priya-sample/",
+   "http://127.0.0.1:8090/author/arjun-sample/",
+   "http://127.0.0.1:8090/author/admin/",
+   "http://127.0.0.1:8090/author/daniel-sample/",
+   "http://127.0.0.1:8090/author/leah-sample/",
+   "http://127.0.0.1:8090/author/mira-sample/"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "yoast:/category-sitemap.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/ai/",
+   "http://127.0.0.1:8090/big-tech/",
+   "http://127.0.0.1:8090/cloud/",
+   "http://127.0.0.1:8090/cybersecurity/",
+   "http://127.0.0.1:8090/developer/",
+   "http://127.0.0.1:8090/guides/",
+   "http://127.0.0.1:8090/software/",
+   "http://127.0.0.1:8090/startups/",
+   "http://127.0.0.1:8090/tech/"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "yoast:/page-sitemap.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/",
+   "http://127.0.0.1:8090/sample-page/",
+   "http://127.0.0.1:8090/privacy-policy-2/",
+   "http://127.0.0.1:8090/terms/",
+   "http://127.0.0.1:8090/source-policy/",
+   "http://127.0.0.1:8090/corrections-policy/",
+   "http://127.0.0.1:8090/ai-use-policy/"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "yoast:/post-sitemap.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/latest/"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "yoast:/sitemap_index.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/post-sitemap.xml",
+   "http://127.0.0.1:8090/page-sitemap.xml",
+   "http://127.0.0.1:8090/category-sitemap.xml",
+   "http://127.0.0.1:8090/tdd_format-sitemap.xml",
+   "http://127.0.0.1:8090/tdd_topic-sitemap.xml",
+   "http://127.0.0.1:8090/author-sitemap.xml"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "yoast:/tdd_topic-sitemap.xml": {
+  "_cache": "BYPASS",
+  "locs": [
+   "http://127.0.0.1:8090/topic/ai-agents/",
+   "http://127.0.0.1:8090/topic/ai-coding/",
+   "http://127.0.0.1:8090/topic/ai-infrastructure/",
+   "http://127.0.0.1:8090/topic/ai-models/",
+   "http://127.0.0.1:8090/topic/ai-tools/"
+  ],
+  "robots_header": "noindex, follow",
+  "status": 200
+ },
+ "yoast:404": {
+  "_cache": "BYPASS",
+  "jsonld": [],
+  "links": [],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Page not found \u00b7 Tech Dose Daily"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ]
+  ],
+  "robots_header": null,
+  "status": 404,
+  "title": [
+   "Page not found \u00b7 Tech Dose Daily"
+  ]
+ },
+ "yoast:about": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/about/",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/about/#breadcrumb"
+       },
+       "datePublished": "2026-10-04T05:17:27+00:00",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "About - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/about/"
+         ]
+        }
+       ],
+       "url": "http://127.0.0.1:8090/about/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/about/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "name": "About",
+         "position": 2
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [],
+  "meta": [
+   [
+    "description",
+    "Tech Dose Daily covers the most important developments in AI, software, security, cloud and the companies shaping technology. We publish news, analysis, explainers and practical guides for developers, businesses and curious readers."
+   ],
+   [
+    "og:description",
+    "Tech Dose Daily covers the most important developments in AI, software, security, cloud and the companies shaping technology. We publish news, analysis, explainers and practical guides for developers, businesses and curious readers."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "About - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/about/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "1 minute"
+   ],
+   [
+    "twitter:description",
+    "Tech Dose Daily covers the most important developments in AI, software, security, cloud and the companies shaping technology. We publish news, analysis, explainers and practical guides for developers, businesses and curious readers."
+   ],
+   [
+    "twitter:label1",
+    "Est. reading time"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "About - Tech Dose Daily"
+  ]
+ },
+ "yoast:analysis": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#article",
+       "@type": "Article",
+       "articleSection": [
+        "AI"
+       ],
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/207a5d2a3a1be447d5c8380e186a55f1",
+        "name": "Priya Raman"
+       },
+       "commentCount": 0,
+       "dateModified": "2026-10-03T14:59:00+00:00",
+       "datePublished": "2026-10-03T12:47:00+00:00",
+       "headline": "Major AI provider unveils a reasoning model built for long-running coding agents",
+       "image": {
+        "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+       },
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+       },
+       "potentialAction": [
+        {
+         "@type": "CommentAction",
+         "name": "Comment",
+         "target": [
+          "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#respond"
+         ]
+        }
+       ],
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3.webp",
+       "wordCount": 619
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/",
+       "@type": "WebPage",
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/207a5d2a3a1be447d5c8380e186a55f1"
+       },
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#breadcrumb"
+       },
+       "dateModified": "2026-10-03T14:59:00+00:00",
+       "datePublished": "2026-10-03T12:47:00+00:00",
+       "image": {
+        "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Major AI provider unveils a reasoning model built for long-running coding agents - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+         ]
+        }
+       ],
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#primaryimage"
+       },
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3.webp",
+       "url": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#primaryimage",
+       "@type": "ImageObject",
+       "caption": "The developer console shows the model\u2019s plan before it edits code. Each step can be paused or rolled back.",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3.webp",
+       "creditText": "Company screenshot via Tech Dose Daily",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3.webp",
+       "width": 1600
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/latest/",
+         "name": "Latest",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "name": "Major AI provider unveils a reasoning model built for long-running coding agents",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#/schema/person/207a5d2a3a1be447d5c8380e186a55f1",
+       "@type": "Person",
+       "description": "Priya covers AI models, developer tools and the companies building them. She previously reported on enterprise software for six years. [Sample profile]",
+       "name": "Priya Raman",
+       "url": "http://127.0.0.1:8090/author/priya-sample/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:modified_time",
+    "2026-10-03T14:59:00+00:00"
+   ],
+   [
+    "article:published_time",
+    "2026-10-03T12:47:00+00:00"
+   ],
+   [
+    "description",
+    "The release is aimed at hours-long software tasks rather than chat. Here is what it changes for developers, what the company has and hasn\u2019t shown, and which claims still need independent testing."
+   ],
+   [
+    "og:description",
+    "The release is aimed at hours-long software tasks rather than chat. Here is what it changes for developers, what the company has and hasn\u2019t shown, and which claims still need independent testing."
+   ],
+   [
+    "og:image",
+    "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3.webp"
+   ],
+   [
+    "og:image:height",
+    "900"
+   ],
+   [
+    "og:image:type",
+    "image/webp"
+   ],
+   [
+    "og:image:width",
+    "1600"
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Major AI provider unveils a reasoning model built for long-running coding agents - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Priya Raman"
+   ],
+   [
+    "twitter:data2",
+    "9 minutes"
+   ],
+   [
+    "twitter:description",
+    "The release is aimed at hours-long software tasks rather than chat. Here is what it changes for developers, what the company has and hasn\u2019t shown, and which claims still need independent testing."
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ],
+   [
+    "twitter:label2",
+    "Est. reading time"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Major AI provider unveils a reasoning model built for long-running coding agents - Tech Dose Daily"
+  ]
+ },
+ "yoast:author": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/author/priya-sample/",
+       "@type": "ProfilePage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/author/priya-sample/#breadcrumb"
+       },
+       "image": {
+        "@id": "http://127.0.0.1:8090/author/priya-sample/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Priya Raman - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/author/priya-sample/"
+         ]
+        }
+       ],
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/author/priya-sample/#primaryimage"
+       },
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "url": "http://127.0.0.1:8090/author/priya-sample/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/priya-sample/#primaryimage",
+       "@type": "ImageObject",
+       "caption": "Sample image: sec-browser-update",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "creditText": "TDD sample graphic",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "width": 1600
+      },
+      {
+       "@id": "http://127.0.0.1:8090/author/priya-sample/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "name": "Archives for Priya Raman",
+         "position": 2
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#/schema/person/207a5d2a3a1be447d5c8380e186a55f1",
+       "@type": "Person",
+       "description": "Priya covers AI models, developer tools and the companies building them. She previously reported on enterprise software for six years. [Sample profile]",
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/author/priya-sample/"
+       },
+       "name": "Priya Raman"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/author/priya-sample/"
+   ],
+   [
+    "next",
+    "http://127.0.0.1:8090/author/priya-sample/page/2/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Priya Raman - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "profile"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/author/priya-sample/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Priya Raman - Tech Dose Daily"
+  ]
+ },
+ "yoast:bare-news": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#article",
+       "@type": "Article",
+       "articleSection": [
+        "Software"
+       ],
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/48509c9b000bf9c7f16664a04d96ebf1",
+        "name": "Leah Brennan"
+       },
+       "commentCount": 0,
+       "dateModified": "2026-10-04T10:13:02+00:00",
+       "datePublished": "2026-10-04T10:13:02+00:00",
+       "headline": "[Sample] A short news story with no image, editor or topics",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+       },
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+       },
+       "potentialAction": [
+        {
+         "@type": "CommentAction",
+         "name": "Comment",
+         "target": [
+          "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#respond"
+         ]
+        }
+       ],
+       "wordCount": 17
+      },
+      {
+       "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/",
+       "@type": "WebPage",
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/48509c9b000bf9c7f16664a04d96ebf1"
+       },
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#breadcrumb"
+       },
+       "dateModified": "2026-10-04T10:13:02+00:00",
+       "datePublished": "2026-10-04T10:13:02+00:00",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "[Sample] A short news story with no image, editor or topics - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+         ]
+        }
+       ],
+       "url": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/latest/",
+         "name": "Latest",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "name": "[Sample] A short news story with no image, editor or topics",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#/schema/person/48509c9b000bf9c7f16664a04d96ebf1",
+       "@type": "Person",
+       "name": "Leah Brennan",
+       "url": "http://127.0.0.1:8090/author/leah-sample/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:published_time",
+    "2026-10-04T10:13:02+00:00"
+   ],
+   [
+    "og:description",
+    "[Sample] Typo fixed in fixture text."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "[Sample] A short news story with no image, editor or topics - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Leah Brennan"
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "[Sample] A short news story with no image, editor or topics - Tech Dose Daily"
+  ]
+ },
+ "yoast:contact": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/contact/",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/contact/#breadcrumb"
+       },
+       "datePublished": "2026-10-04T05:17:27+00:00",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Contact - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/contact/"
+         ]
+        }
+       ],
+       "url": "http://127.0.0.1:8090/contact/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/contact/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "name": "Contact",
+         "position": 2
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [],
+  "meta": [
+   [
+    "description",
+    "Choose the route that fits your message so it reaches the right person. We use role inboxes and this form rather than publishing individual staff addresses."
+   ],
+   [
+    "og:description",
+    "Choose the route that fits your message so it reaches the right person. We use role inboxes and this form rather than publishing individual staff addresses."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Contact - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/contact/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:description",
+    "Choose the route that fits your message so it reaches the right person. We use role inboxes and this form rather than publishing individual staff addresses."
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Contact - Tech Dose Daily"
+  ]
+ },
+ "yoast:explainer": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#article",
+       "@type": "Article",
+       "articleSection": [
+        "AI"
+       ],
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/a237f74f9242b81821ca4445fbaeca56",
+        "name": "Daniel Okafor"
+       },
+       "commentCount": 0,
+       "dateModified": "2026-10-03T12:24:51+00:00",
+       "datePublished": "2026-10-03T12:24:51+00:00",
+       "headline": "Agents that use a computer are moving from demos to daily work",
+       "image": {
+        "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+       },
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+       },
+       "potentialAction": [
+        {
+         "@type": "CommentAction",
+         "name": "Comment",
+         "target": [
+          "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#respond"
+         ]
+        }
+       ],
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "wordCount": 23
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/",
+       "@type": "WebPage",
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/a237f74f9242b81821ca4445fbaeca56"
+       },
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#breadcrumb"
+       },
+       "dateModified": "2026-10-03T12:24:51+00:00",
+       "datePublished": "2026-10-03T12:24:51+00:00",
+       "image": {
+        "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Agents that use a computer are moving from demos to daily work - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+         ]
+        }
+       ],
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#primaryimage"
+       },
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "url": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#primaryimage",
+       "@type": "ImageObject",
+       "caption": "Sample image: sec-browser-update",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "creditText": "TDD sample graphic",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "width": 1600
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/latest/",
+         "name": "Latest",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "name": "Agents that use a computer are moving from demos to daily work",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#/schema/person/a237f74f9242b81821ca4445fbaeca56",
+       "@type": "Person",
+       "name": "Daniel Okafor",
+       "url": "http://127.0.0.1:8090/author/daniel-sample/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:published_time",
+    "2026-10-03T12:24:51+00:00"
+   ],
+   [
+    "description",
+    "What changes when an assistant can click, type and file the paperwork itself."
+   ],
+   [
+    "og:description",
+    "What changes when an assistant can click, type and file the paperwork itself."
+   ],
+   [
+    "og:image",
+    "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp"
+   ],
+   [
+    "og:image:height",
+    "900"
+   ],
+   [
+    "og:image:type",
+    "image/webp"
+   ],
+   [
+    "og:image:width",
+    "1600"
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Agents that use a computer are moving from demos to daily work - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Daniel Okafor"
+   ],
+   [
+    "twitter:description",
+    "What changes when an assistant can click, type and file the paperwork itself."
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Agents that use a computer are moving from demos to daily work - Tech Dose Daily"
+  ]
+ },
+ "yoast:guide": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#article",
+       "@type": "Article",
+       "articleSection": [
+        "Guides"
+       ],
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/207a5d2a3a1be447d5c8380e186a55f1",
+        "name": "Priya Raman"
+       },
+       "commentCount": 0,
+       "dateModified": "2026-10-03T08:26:19+00:00",
+       "datePublished": "2026-10-03T08:26:19+00:00",
+       "headline": "Run a local AI coding assistant without sending code off your machine",
+       "image": {
+        "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+       },
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+       },
+       "potentialAction": [
+        {
+         "@type": "CommentAction",
+         "name": "Comment",
+         "target": [
+          "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#respond"
+         ]
+        }
+       ],
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/dev-terminal-3.webp",
+       "wordCount": 1700
+      },
+      {
+       "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/",
+       "@type": "WebPage",
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/207a5d2a3a1be447d5c8380e186a55f1"
+       },
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#breadcrumb"
+       },
+       "dateModified": "2026-10-03T08:26:19+00:00",
+       "datePublished": "2026-10-03T08:26:19+00:00",
+       "image": {
+        "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Run a local AI coding assistant without sending code off your machine - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+         ]
+        }
+       ],
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#primaryimage"
+       },
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/dev-terminal-3.webp",
+       "url": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#primaryimage",
+       "@type": "ImageObject",
+       "caption": "Sample image: dev-terminal",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/dev-terminal-3.webp",
+       "creditText": "TDD sample graphic",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/dev-terminal-3.webp",
+       "width": 1600
+      },
+      {
+       "@id": "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/latest/",
+         "name": "Latest",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "name": "Run a local AI coding assistant without sending code off your machine",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#/schema/person/207a5d2a3a1be447d5c8380e186a55f1",
+       "@type": "Person",
+       "description": "Priya covers AI models, developer tools and the companies building them. She previously reported on enterprise software for six years. [Sample profile]",
+       "name": "Priya Raman",
+       "url": "http://127.0.0.1:8090/author/priya-sample/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:published_time",
+    "2026-10-03T08:26:19+00:00"
+   ],
+   [
+    "description",
+    "Choosing a model that fits your laptop and keeping it offline."
+   ],
+   [
+    "og:description",
+    "Choosing a model that fits your laptop and keeping it offline."
+   ],
+   [
+    "og:image",
+    "http://127.0.0.1:8090/wp-content/uploads/2026/10/dev-terminal-3.webp"
+   ],
+   [
+    "og:image:height",
+    "900"
+   ],
+   [
+    "og:image:type",
+    "image/webp"
+   ],
+   [
+    "og:image:width",
+    "1600"
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Run a local AI coding assistant without sending code off your machine - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Priya Raman"
+   ],
+   [
+    "twitter:data2",
+    "8 minutes"
+   ],
+   [
+    "twitter:description",
+    "Choosing a model that fits your laptop and keeping it offline."
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ],
+   [
+    "twitter:label2",
+    "Est. reading time"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Run a local AI coding assistant without sending code off your machine - Tech Dose Daily"
+  ]
+ },
+ "yoast:home": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/#breadcrumb"
+       },
+       "datePublished": "2026-10-03T14:49:16+00:00",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Home - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/"
+         ]
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "name": "Home",
+         "position": 1
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Home - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "website"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Home - Tech Dose Daily"
+  ]
+ },
+ "yoast:home-audit": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/#breadcrumb"
+       },
+       "datePublished": "2026-10-03T14:49:16+00:00",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Home - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/"
+         ]
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "name": "Home",
+         "position": 1
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Home - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "website"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Home - Tech Dose Daily"
+  ]
+ },
+ "yoast:newsletter": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/newsletter/",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/newsletter/#breadcrumb"
+       },
+       "datePublished": "2026-10-04T05:17:27+00:00",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Newsletter - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/newsletter/"
+         ]
+        }
+       ],
+       "url": "http://127.0.0.1:8090/newsletter/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/newsletter/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "name": "Newsletter",
+         "position": 2
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [],
+  "meta": [
+   [
+    "description",
+    "The most important AI and technology stories, explained clearly. One email every weekday morning."
+   ],
+   [
+    "og:description",
+    "The most important AI and technology stories, explained clearly. One email every weekday morning."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Newsletter - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/newsletter/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:description",
+    "The most important AI and technology stories, explained clearly. One email every weekday morning."
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Newsletter - Tech Dose Daily"
+  ]
+ },
+ "yoast:policy": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/editorial-standards/",
+       "@type": "WebPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/editorial-standards/#breadcrumb"
+       },
+       "dateModified": "2026-10-04T11:54:22+00:00",
+       "datePublished": "2026-10-04T05:17:27+00:00",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "Editorial Standards - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/editorial-standards/"
+         ]
+        }
+       ],
+       "url": "http://127.0.0.1:8090/editorial-standards/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/editorial-standards/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "name": "Editorial Standards",
+         "position": 2
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [],
+  "meta": [
+   [
+    "article:modified_time",
+    "2026-10-04T11:54:22+00:00"
+   ],
+   [
+    "description",
+    "How Tech Dose Daily reports, sources, labels and corrects its journalism \u2014 and what readers can expect from every story we publish."
+   ],
+   [
+    "og:description",
+    "How Tech Dose Daily reports, sources, labels and corrects its journalism \u2014 and what readers can expect from every story we publish."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "Editorial Standards - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/editorial-standards/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "2 minutes"
+   ],
+   [
+    "twitter:description",
+    "How Tech Dose Daily reports, sources, labels and corrects its journalism \u2014 and what readers can expect from every story we publish."
+   ],
+   [
+    "twitter:label1",
+    "Est. reading time"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "Editorial Standards - Tech Dose Daily"
+  ]
+ },
+ "yoast:review": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#article",
+       "@type": "Article",
+       "articleSection": [
+        "Tech"
+       ],
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/207a5d2a3a1be447d5c8380e186a55f1",
+        "name": "Priya Raman"
+       },
+       "commentCount": 0,
+       "dateModified": "2026-10-03T03:26:19+00:00",
+       "datePublished": "2026-10-03T03:26:19+00:00",
+       "headline": "A week with a lightweight laptop built around an on-device AI chip",
+       "image": {
+        "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/"
+       },
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/"
+       },
+       "potentialAction": [
+        {
+         "@type": "CommentAction",
+         "name": "Comment",
+         "target": [
+          "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#respond"
+         ]
+        }
+       ],
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/device-laptop-3.webp",
+       "wordCount": 500
+      },
+      {
+       "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/",
+       "@type": "WebPage",
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/207a5d2a3a1be447d5c8380e186a55f1"
+       },
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#breadcrumb"
+       },
+       "dateModified": "2026-10-03T03:26:19+00:00",
+       "datePublished": "2026-10-03T03:26:19+00:00",
+       "image": {
+        "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "A week with a lightweight laptop built around an on-device AI chip - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/"
+         ]
+        }
+       ],
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#primaryimage"
+       },
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/device-laptop-3.webp",
+       "url": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#primaryimage",
+       "@type": "ImageObject",
+       "caption": "Sample image: device-laptop",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/device-laptop-3.webp",
+       "creditText": "TDD sample graphic",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/device-laptop-3.webp",
+       "width": 1600
+      },
+      {
+       "@id": "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/latest/",
+         "name": "Latest",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "name": "A week with a lightweight laptop built around an on-device AI chip",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#/schema/person/207a5d2a3a1be447d5c8380e186a55f1",
+       "@type": "Person",
+       "description": "Priya covers AI models, developer tools and the companies building them. She previously reported on enterprise software for six years. [Sample profile]",
+       "name": "Priya Raman",
+       "url": "http://127.0.0.1:8090/author/priya-sample/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:published_time",
+    "2026-10-03T03:26:19+00:00"
+   ],
+   [
+    "description",
+    "Battery life is the headline; the AI features are mostly promise."
+   ],
+   [
+    "og:description",
+    "Battery life is the headline; the AI features are mostly promise."
+   ],
+   [
+    "og:image",
+    "http://127.0.0.1:8090/wp-content/uploads/2026/10/device-laptop-3.webp"
+   ],
+   [
+    "og:image:height",
+    "900"
+   ],
+   [
+    "og:image:type",
+    "image/webp"
+   ],
+   [
+    "og:image:width",
+    "1600"
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "A week with a lightweight laptop built around an on-device AI chip - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Priya Raman"
+   ],
+   [
+    "twitter:data2",
+    "3 minutes"
+   ],
+   [
+    "twitter:description",
+    "Battery life is the headline; the AI features are mostly promise."
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ],
+   [
+    "twitter:label2",
+    "Est. reading time"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "A week with a lightweight laptop built around an on-device AI chip - Tech Dose Daily"
+  ]
+ },
+ "yoast:search": {
+  "_cache": "BYPASS",
+  "jsonld": [],
+  "links": [],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "You searched for AI - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/search/AI/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:title",
+    "You searched for AI - Tech Dose Daily"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "You searched for AI - Tech Dose Daily"
+  ]
+ },
+ "yoast:section": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/ai/",
+       "@type": "CollectionPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/ai/#breadcrumb"
+       },
+       "image": {
+        "@id": "http://127.0.0.1:8090/ai/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "AI - Tech Dose Daily",
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/ai/#primaryimage"
+       },
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-benchmark-3.webp",
+       "url": "http://127.0.0.1:8090/ai/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/#primaryimage",
+       "@type": "ImageObject",
+       "caption": "Sample image: ai-benchmark",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-benchmark-3.webp",
+       "creditText": "TDD sample graphic",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-benchmark-3.webp",
+       "width": 1600
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "name": "AI",
+         "position": 2
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/ai/"
+   ],
+   [
+    "next",
+    "http://127.0.0.1:8090/ai/page/2/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:description",
+    "Models, agents, tools and research \u2014 what\u2019s new in artificial intelligence, and what it means for the people who build and use it."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "AI - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/ai/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "AI - Tech Dose Daily"
+  ]
+ },
+ "yoast:section-p2": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/ai/",
+       "@type": "CollectionPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/ai/page/2/#breadcrumb"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "AI - Page 2 of 2 - Tech Dose Daily",
+       "url": "http://127.0.0.1:8090/ai/page/2/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/ai/page/2/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "name": "AI",
+         "position": 2
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/ai/page/2/"
+   ],
+   [
+    "prev",
+    "http://127.0.0.1:8090/ai/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:description",
+    "Models, agents, tools and research \u2014 what\u2019s new in artificial intelligence, and what it means for the people who build and use it."
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "AI - Page 2 of 2 - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/ai/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "AI - Page 2 of 2 - Tech Dose Daily"
+  ]
+ },
+ "yoast:sponsored": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#article",
+       "@type": "Article",
+       "articleSection": [
+        "Developer"
+       ],
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/48509c9b000bf9c7f16664a04d96ebf1",
+        "name": "Leah Brennan"
+       },
+       "commentCount": 0,
+       "dateModified": "2026-10-04T10:13:02+00:00",
+       "datePublished": "2026-10-04T10:13:02+00:00",
+       "headline": "[Sample] Sponsored explainer: what a managed vector database does",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+       },
+       "mainEntityOfPage": {
+        "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+       },
+       "potentialAction": [
+        {
+         "@type": "CommentAction",
+         "name": "Comment",
+         "target": [
+          "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#respond"
+         ]
+        }
+       ],
+       "wordCount": 20
+      },
+      {
+       "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/",
+       "@type": "WebPage",
+       "author": {
+        "@id": "http://127.0.0.1:8090/#/schema/person/48509c9b000bf9c7f16664a04d96ebf1"
+       },
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#breadcrumb"
+       },
+       "dateModified": "2026-10-04T10:13:02+00:00",
+       "datePublished": "2026-10-04T10:13:02+00:00",
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "[Sample] Sponsored explainer: what a managed vector database does - Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "ReadAction",
+         "target": [
+          "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+         ]
+        }
+       ],
+       "url": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/latest/",
+         "name": "Latest",
+         "position": 2
+        },
+        {
+         "@type": "ListItem",
+         "name": "[Sample] Sponsored explainer: what a managed vector database does",
+         "position": 3
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#/schema/person/48509c9b000bf9c7f16664a04d96ebf1",
+       "@type": "Person",
+       "name": "Leah Brennan",
+       "url": "http://127.0.0.1:8090/author/leah-sample/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+   ]
+  ],
+  "meta": [
+   [
+    "article:published_time",
+    "2026-10-04T10:13:02+00:00"
+   ],
+   [
+    "description",
+    "Produced separately from the newsroom. [Sample]"
+   ],
+   [
+    "og:description",
+    "Produced separately from the newsroom. [Sample]"
+   ],
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "[Sample] Sponsored explainer: what a managed vector database does - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ],
+   [
+    "twitter:data1",
+    "Leah Brennan"
+   ],
+   [
+    "twitter:description",
+    "Produced separately from the newsroom. [Sample]"
+   ],
+   [
+    "twitter:label1",
+    "Written by"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "[Sample] Sponsored explainer: what a managed vector database does - Tech Dose Daily"
+  ]
+ },
+ "yoast:topic": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/topic/ai-agents/",
+       "@type": "CollectionPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/topic/ai-agents/#breadcrumb"
+       },
+       "image": {
+        "@id": "http://127.0.0.1:8090/topic/ai-agents/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "AI Agents - Tech Dose Daily",
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/topic/ai-agents/#primaryimage"
+       },
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "url": "http://127.0.0.1:8090/topic/ai-agents/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/topic/ai-agents/#primaryimage",
+       "@type": "ImageObject",
+       "caption": "Sample image: sec-browser-update",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "creditText": "TDD sample graphic",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/sec-browser-update-3.webp",
+       "width": 1600
+      },
+      {
+       "@id": "http://127.0.0.1:8090/topic/ai-agents/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "name": "AI Agents",
+         "position": 2
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [
+   [
+    "canonical",
+    "http://127.0.0.1:8090/topic/ai-agents/"
+   ]
+  ],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "AI Agents - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/topic/ai-agents/"
+   ],
+   [
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "AI Agents - Tech Dose Daily"
+  ]
+ },
+ "yoast:topic-thin": {
+  "_cache": "BYPASS",
+  "jsonld": [
+   [
+    "yoast-schema-graph",
+    {
+     "@context": "https://schema.org",
+     "@graph": [
+      {
+       "@id": "http://127.0.0.1:8090/topic/ai-policy/",
+       "@type": "CollectionPage",
+       "breadcrumb": {
+        "@id": "http://127.0.0.1:8090/topic/ai-policy/#breadcrumb"
+       },
+       "image": {
+        "@id": "http://127.0.0.1:8090/topic/ai-policy/#primaryimage"
+       },
+       "inLanguage": "en-US",
+       "isPartOf": {
+        "@id": "http://127.0.0.1:8090/#website"
+       },
+       "name": "AI Policy - Tech Dose Daily",
+       "primaryImageOfPage": {
+        "@id": "http://127.0.0.1:8090/topic/ai-policy/#primaryimage"
+       },
+       "thumbnailUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-benchmark-3.webp",
+       "url": "http://127.0.0.1:8090/topic/ai-policy/"
+      },
+      {
+       "@id": "http://127.0.0.1:8090/topic/ai-policy/#primaryimage",
+       "@type": "ImageObject",
+       "caption": "Sample image: ai-benchmark",
+       "contentUrl": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-benchmark-3.webp",
+       "creditText": "TDD sample graphic",
+       "height": 900,
+       "inLanguage": "en-US",
+       "url": "http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-benchmark-3.webp",
+       "width": 1600
+      },
+      {
+       "@id": "http://127.0.0.1:8090/topic/ai-policy/#breadcrumb",
+       "@type": "BreadcrumbList",
+       "itemListElement": [
+        {
+         "@type": "ListItem",
+         "item": "http://127.0.0.1:8090/",
+         "name": "Home",
+         "position": 1
+        },
+        {
+         "@type": "ListItem",
+         "name": "AI Policy",
+         "position": 2
+        }
+       ]
+      },
+      {
+       "@id": "http://127.0.0.1:8090/#website",
+       "@type": "WebSite",
+       "description": "",
+       "inLanguage": "en-US",
+       "name": "Tech Dose Daily",
+       "potentialAction": [
+        {
+         "@type": "SearchAction",
+         "query-input": {
+          "@type": "PropertyValueSpecification",
+          "valueName": "search_term_string",
+          "valueRequired": true
+         },
+         "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://127.0.0.1:8090/?s={search_term_string}"
+         }
+        }
+       ],
+       "url": "http://127.0.0.1:8090/"
+      }
+     ]
+    }
+   ]
+  ],
+  "links": [],
+  "meta": [
+   [
+    "og:locale",
+    "en_US"
+   ],
+   [
+    "og:site_name",
+    "Tech Dose Daily"
+   ],
+   [
+    "og:title",
+    "AI Policy - Tech Dose Daily"
+   ],
+   [
+    "og:type",
+    "article"
+   ],
+   [
+    "og:url",
+    "http://127.0.0.1:8090/topic/ai-policy/"
+   ],
+   [
+    "robots",
+    "noindex, follow"
+   ],
+   [
+    "twitter:card",
+    "summary_large_image"
+   ]
+  ],
+  "robots_header": null,
+  "status": 200,
+  "title": [
+   "AI Policy - Tech Dose Daily"
+  ]
+ }
+}

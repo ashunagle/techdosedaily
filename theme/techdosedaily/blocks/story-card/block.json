@@ -1,0 +1,47 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/story-card",
+	"title": "Story card",
+	"category": "techdosedaily",
+	"description": "Design-system StoryCard (feature \u00b7 large \u00b7 medium \u00b7 compact) for one story from a placement, the latest stories or a specific post.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"variant": {
+			"type": "string",
+			"default": "medium"
+		},
+		"source": {
+			"type": "string",
+			"default": "placement"
+		},
+		"placement": {
+			"type": "string",
+			"default": "homepage_lead"
+		},
+		"position": {
+			"type": "integer",
+			"default": 1
+		},
+		"section": {
+			"type": "string",
+			"default": ""
+		},
+		"postId": {
+			"type": "integer",
+			"default": 0
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

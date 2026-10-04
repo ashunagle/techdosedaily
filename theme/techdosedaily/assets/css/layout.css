@@ -1,0 +1,484 @@
+/*
+ * Layout layer — hand-written, loaded after the generated design-system CSS.
+ * Only adds what the fixed-width previews could not express: page gutters, the
+ * header/footer at in-between widths, the menu drawer, skip link and WP admin bar.
+ * Uses design tokens only. No new visual language.
+ */
+
+/* Skip link */
+.tdd-skip { position: absolute; left: 12px; top: -100px; z-index: 100; background: var(--primary); color: var(--on-primary); padding: 10px 16px; border-radius: var(--radius-md); font: 600 15px var(--font-display); }
+.tdd-skip:focus { top: 12px; }
+
+/* Containers: approved 1280px content inside a 1440 frame = 80px sides; below that a token gutter. */
+.tdd-container { max-width: calc(var(--container-section) + 2 * var(--gutter)); padding-inline: var(--gutter); }
+.tdd main { display: block; }
+
+/* Sticky header; compacts to --header-sticky after scrolling (token: "Sticky compact header after scroll"). */
+.tdd-site-header-part { position: sticky; top: 0; z-index: 20; }
+.admin-bar .tdd-site-header-part { top: var(--wp-admin--admin-bar--height, 32px); }
+.tdd-header__inner, .tdd-nav a { transition: height 180ms ease; }
+.tdd-header.is-compact .tdd-header__inner,
+.tdd-header.is-compact .tdd-nav a { height: var(--header-sticky); }
+.tdd-header__menu { display: none; }
+.tdd-footer__logo { display: block; height: 28px; width: auto; }
+.tdd-logo img { width: auto; } /* width/height attributes reserve space (CLS); CSS sets the approved height */
+
+/* Content-fit: ≥1200px but the sections don't fit (set by header.js). */
+.tdd-header.is-nav-overflow .tdd-nav { display: none; }
+.tdd-header.is-nav-overflow .tdd-logo { margin-right: auto; }
+.tdd-header.is-nav-overflow .tdd-header__menu { display: inline-flex; }
+
+/* 768–1199: no tablet design exists and the nine sections do not fit — they move into the drawer. */
+@media (max-width: 1199px) {
+	.tdd-header .tdd-nav { display: none; }
+	.tdd-header .tdd-logo { margin-right: auto; }
+	.tdd-header__menu { display: inline-flex; }
+}
+@media (max-width: 1023px) {
+	.tdd-footer__top { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--space-40); }
+	.tdd-footer__top > :first-child { grid-column: 1 / -1; }
+}
+
+/* ≤767: the approved 56px mobile header (same values as .m-header in the design system). */
+@media (max-width: 767px) {
+	.tdd-header__inner { height: 55px; gap: 4px; padding: 0 8px 0 20px; }
+	.tdd-header .tdd-logo img { height: 24px; }
+	.tdd-header__subscribe { display: none; }
+	.tdd-header .tdd-btn--icon { width: 44px; height: 44px; }
+	.tdd-header.is-compact .tdd-header__inner { height: 55px; }
+}
+
+/* Footer variants (approved desktop vs mobile structures). */
+.tdd-footer--mobile { display: none; }
+.tdd-footer--mobile .tdd-footer__logo { height: 24px; }
+.m-footer__h4-gap { margin-top: 24px; }
+.m-footer__copy { font-size: 13px; margin: 16px 0 0; }
+@media (max-width: 767px) {
+	.tdd-footer--desktop { display: none; }
+	.tdd-footer--mobile { display: block; }
+}
+
+/* Menu drawer (approved approach): full screen on phones, 400px side panel from 768px.
+   Sections first, then Latest / Daily Tech Brief / Newsletter, then About. Search stays in the header.
+   Built only from existing tokens and type styles. */
+.tdd-drawer { position: fixed; inset: 0; z-index: 60; background: var(--bg); overflow-y: auto; padding: 0 20px 32px; }
+.tdd-drawer[hidden] { display: none; }
+.admin-bar .tdd-drawer { top: var(--wp-admin--admin-bar--height, 32px); }
+.tdd-drawer__head { height: 56px; display: flex; align-items: center; justify-content: space-between; margin: 0 -12px 0 0; border-bottom: 1px solid var(--border); }
+.tdd-drawer__head .tdd-logo img { height: 24px; }
+.tdd-drawer__nav li a { display: flex; align-items: center; min-height: 48px; border-bottom: 1px solid var(--border); font: 600 17px var(--font-display); color: var(--text); }
+.tdd-drawer__nav li a:hover, .tdd-drawer__nav li a[aria-current="page"] { color: var(--primary); }
+.tdd-drawer__nav--secondary { margin-top: 24px; }
+.tdd-drawer__nav--secondary li a { min-height: 44px; border-bottom-color: var(--border-subtle); font-size: 15px; color: var(--text-secondary); }
+@media (min-width: 768px) {
+	.tdd-drawer { inset: 0 0 0 auto; width: 400px; border-left: 1px solid var(--border); box-shadow: var(--shadow-overlay); padding-inline: 32px; }
+}
+.tdd.tdd-menu-open { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+	.tdd *, .tdd *::before, .tdd *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Short pages: keep the footer at the bottom of the viewport. */
+.wp-site-blocks { min-height: 100vh; display: flex; flex-direction: column; }
+.wp-site-blocks > main, .wp-site-blocks > .tdd-main { flex: 1 0 auto; }
+
+/* ---------- Phase 2 component glue (values taken from the approved markup) ---------- */
+.tdd-story__stack { display: grid; gap: 14px; } /* approved feature card: inline "display:grid;gap:14px" */
+.tdd-ic--16 { width: 16px; height: 16px; }
+.tdd-hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.tdd-nl-status:empty { display: none; }
+.tdd-newsletter .tdd-nlsign__note { margin: 4px 0 0; }
+.tdd-newsletter form.is-error .tdd-input { border-color: var(--breaking); box-shadow: inset 0 0 0 1px var(--breaking); }
+.tdd-newsletter .tdd-btn[aria-disabled="true"] { opacity: 0.7; cursor: progress; }
+
+/* Trending bar ≤767: the approved mobile strip (no separators or date, 44px row, 20px padding). */
+@media (max-width: 767px) {
+	.tdd-trending__inner { height: 44px; gap: 4px; padding: 0 20px; scroll-padding: 20px; }
+	.tdd-trending__inner::-webkit-scrollbar { display: none; }
+	.tdd-trending__title { font-size: 13px; margin-right: 8px; }
+	.tdd-trending__inner a { font-size: 14px; font-weight: 500; color: var(--text-secondary); height: 44px; display: inline-flex; align-items: center; padding: 0 8px; }
+	.tdd-trending__sep, .tdd-trending__date { display: none; }
+}
+
+/* ---------- One DOM, approved mobile values (≤767) ---------- */
+.tdd-only-m { display: none !important; }
+@media (max-width: 767px) {
+	.tdd-hide-m { display: none !important; }
+	.tdd-only-m { display: flex !important; }
+	/* Feature card = approved mobile lead (.m-lead); the desktop text stack keeps its own gap. */
+	.tdd-story--feature .tdd-story__stack { gap: 12px; }
+	.tdd-story--feature.m-lead { padding-top: 0; }
+	/* Stacked lists use the approved mobile .m-list spacing instead of the desktop stack. */
+	.tdd-stack.m-list > * + * { margin-top: 0; }
+	/* Latest feed: approved mobile rows are text-first (no deck). */
+	.tdd-latest-row__dek { display: none; }
+}
+.tdd-newsletter > .tdd-nlok { margin-top: var(--space-24); }
+.tdd-only-m.is-block { display: none !important; }
+@media (max-width: 767px) {
+	.tdd-only-m.is-block { display: block !important; }
+}
+.tdd [hidden] { display: none !important; }
+.screen-reader-text { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* ---------- Phase 3A: Article (values from the approved ArticleDesktop / ArticleMobile markup) ---------- */
+.tdd-art--top { margin-top: 28px; }
+.tdd-art--body { margin-top: 48px; }
+.tdd-art__head .tdd-labels { margin-top: 22px; }
+.tdd-prose .tdd-sources__title, .m-prose .tdd-sources__title { margin: 0; } /* approved markup: inline margin:0 */
+.tdd-byline__share { margin-left: auto; }
+.tdd-byline__who .tdd-byline__how { font-weight: 500; color: var(--primary); }
+.tdd-prose > .tdd-notice--update { margin-bottom: 28px; }
+.tdd-prose > :first-child { margin-top: 0; }
+.tdd-art__side .tdd-sh__title { font-size: 18px; }
+.tdd-art__side .tdd-mr-row__title, .tdd-art__side .tdd-story__title { font-size: 16px; }
+.tdd-art-related { margin-top: 96px; }
+.tdd-art-newsletter { margin-top: 80px; }
+.tdd-table-wrap { overflow-x: auto; }
+.tdd-table-wrap:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.tdd-figure figcaption:empty { display: none; }
+@media (min-width: 1024px) {
+	.tdd-newsletter--inline { display: grid; grid-template-columns: 1fr 460px; gap: 48px; align-items: end; padding: 40px 48px; }
+	.tdd-newsletter--inline form { padding-top: 0; margin-top: 0; }
+	.tdd-newsletter--inline > .tdd-nlok { margin-top: 0; }
+}
+/* 1200–1359: no 1280px content box yet — the reading column gives way, rail and sidebar keep their widths. */
+@media (max-width: 1359px) {
+	.tdd-art { grid-template-columns: 168px minmax(0, 740px) 292px; }
+	.tdd-art__hero { width: auto; max-width: 960px; }
+}
+/* < 1200 (approved rule): the rail folds into the header share row, the sidebar moves under the article. */
+@media (max-width: 1199px) {
+	.tdd-art { display: block; max-width: 740px; margin-inline: auto; }
+	.tdd-art__rail { display: none; }
+	.tdd-art__hero { margin-top: 32px; }
+	.tdd-art__side { margin-top: 64px; }
+}
+@media (max-width: 1023px) {
+	.tdd-related { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+	.tdd-art { max-width: none; }
+	.tdd-art--top, .tdd-art--body { margin-top: 0; }
+	.tdd .tdd-art .m-art-head { padding-left: 0; padding-right: 0; }
+	.tdd .tdd-art .m-prose { padding-left: 0; padding-right: 0; }
+	.tdd-art__hero { margin: 20px calc(-1 * var(--gutter)) 0; }
+	.tdd .tdd-art__hero .m-hero { margin-top: 0; }
+	.tdd .tdd-art__hero .m-cap { display: block; margin: 0; }
+	.tdd .m-bleed figcaption { display: block; }
+	.tdd-prose > .tdd-notice--update { margin-bottom: 0; }
+	.tdd .m-prose > .tdd-takeaways { margin: 1.8em 0; }
+	.tdd .m-prose > .tdd-takeaways:first-child { margin-top: 0; }
+	.tdd .m-prose > .tdd-author { margin-bottom: 0; }
+	.tdd-art-related, .tdd-art-newsletter { margin-top: var(--space-48); }
+	.m-list--after-sh { margin-top: -16px; }
+}
+
+/* ---------- Phase 3B: Section page (values from the approved CategoryDesktop / CategoryMobile markup) ---------- */
+/* Page grid used by the approved section preview (.cp-*): 12 columns, 48px gutters, 80px between sections. */
+.cp-g { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 48px; }
+.c4 { grid-column: span 4; } .c6 { grid-column: span 6; } .c8 { grid-column: span 8; }
+.cp-sec { margin-top: 80px; }
+.cp-sec3 { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 40px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border); }
+.cp-an2 { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; row-gap: 28px; align-content: start; }
+.cp-anlead .tdd-story__title { font-size: 30px; line-height: 1.15; letter-spacing: -0.018em; }
+.tdd-sec-top { margin-top: 40px; }
+.tdd-feed-fresh { margin-top: 6px; }
+.tdd-sec-side > * + * { margin-top: 48px; }
+.tdd-sec-side > .tdd-side-brief { margin-top: 32px; }
+.tdd-topics__note { font-size: 13px; color: var(--text-muted); margin-top: 12px; }
+.tdd-desk__note { font-size: 15px; line-height: 1.55; color: var(--text-secondary); }
+.tdd-desk__people { display: grid; gap: 10px; margin-top: 14px; }
+.tdd-desk__people .tdd-anby { margin: 0; }
+.tdd-desk__people .tdd-anby:hover b { color: var(--primary); }
+.tdd-desk__how { margin-top: 14px; }
+.tdd-feed .tdd-feed-date:first-child { padding-top: 0; }
+@media (max-width: 1199px) {
+	.cp-sec3 { column-gap: 24px; }
+	.tdd-guides { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 1023px) {
+	.cp-g { display: block; }
+	.cp-g > * + * { margin-top: 48px; }
+	.cp-an2 { margin-top: 32px; }
+	.tdd-split { grid-template-columns: 1fr; row-gap: 20px; }
+}
+@media (max-width: 767px) {
+	.tdd-cathead.m-cathead { padding-left: 0; padding-right: 0; }
+	.tdd-cathead { display: block; }
+	.tdd .tdd-cathead__aside.m-cathead__meta { display: flex; justify-items: start; text-align: left; padding-bottom: 0; }
+	.tdd .m-cathead__meta .tdd-fresh { margin: 0; }
+	.tdd .m-cathead__meta .tdd-btn--text { flex-basis: 100%; justify-content: flex-start; margin-top: -4px; }
+	.tdd .tdd-topicnav.m-topicnav { margin-inline: calc(-1 * var(--gutter)); }
+	.tdd-sec-top { margin-top: 0; }
+	.tdd .m-feature { padding-left: 0; padding-right: 0; }
+	.tdd .m-feature .tdd-media { aspect-ratio: 16 / 9; }
+	.tdd .m-feature .tdd-split__body { gap: 12px; }
+	.tdd-sec-toplist { margin-top: 20px; }
+	.cp-sec, .tdd-sec-feedrow { margin-top: var(--space-48); }
+	.tdd .cp-anlead .tdd-story__title { font-size: 22px; }
+	.cp-an2 { display: grid; grid-template-columns: 1fr; row-gap: 20px; margin-top: 24px; }
+	.tdd-sec-analysis__more { margin-top: 20px; }
+	.tdd-sec-guides__head .tdd-sh__title { font-size: 22px; }
+	.tdd .tdd-desk__how { min-height: 44px; display: inline-flex; align-items: center; margin-top: 6px; }
+}
+.tdd-latest-row__body .tdd-labels { flex-wrap: wrap; row-gap: 2px; }
+.tdd-labels .tdd-label { white-space: nowrap; }
+.tdd-pager span.tdd-only-m { display: none !important; }
+@media (max-width: 767px) {
+	.tdd-pager span.tdd-only-m { display: inline !important; }
+	.tdd-pager .tdd-pager__more.tdd-only-m:not([hidden]) { display: inline-flex !important; }
+}
+
+/* ---------- Phase 3C: Homepage (values from the approved HomepageDesktop v1.1 / HomepageMobile v1 markup) ---------- */
+.hp-airy.tdd-grid { column-gap: var(--space-48); }
+.tdd-home .hp-hero { margin-top: var(--space-40); } /* beats WP's flow-layout first-child reset */
+.hp-hero__main { grid-column: span 8; display: grid; gap: var(--space-24); align-content: start; }
+.hp-hero__main .tdd-media { aspect-ratio: 2 / 1; }
+.hp-rail { grid-column: span 4; padding-top: 2px; }
+.hp-rail > * + * { margin-top: var(--space-24); padding-top: var(--space-24); border-top: 1px solid var(--border-subtle); }
+.hp-rail .tdd-story--medium .tdd-media { margin-bottom: 4px; }
+.hp-col3 { grid-column: span 3; } .hp-col4 { grid-column: span 4; } .hp-col6 { grid-column: span 6; } .hp-col12 { grid-column: span 12; } .hp-col5 { grid-column: span 5; } .hp-col7 { grid-column: span 7; } .hp-col8 { grid-column: span 8; }
+.hp-more { margin-top: var(--space-24); display: flex; justify-content: center; }
+.hp-ai .tdd-story--large .tdd-story__title { font-size: 32px; }
+.hp-ai .tdd-story--large .tdd-media { aspect-ratio: 2 / 1; }
+.hp-picks__primary .tdd-story__title { font-size: 32px; line-height: 1.12; }
+.hp-picks__secondary .tdd-story__title { font-size: 23px; line-height: 1.22; }
+.hp-picks__tertiary { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-24); margin-top: var(--space-24); padding-top: var(--space-24); border-top: 1px solid var(--border); }
+.hp-picks__tertiary .tdd-story__title { font-size: 16px; }
+.tdd-cat__head.tdd-sh--small { margin-bottom: 0; }
+.tdd-cat--list .tdd-cat__lead .tdd-story__title { font-size: 19px; }
+.hp-side .hp-guides { margin-top: var(--space-48); }
+.hp-ai > .tdd-container { margin-inline: auto; }
+.tdd-home > .tdd-container + .tdd-ai-band { margin-top: var(--space-80); }
+.hp-brief-row { margin-inline: auto; }
+.hp-brief > .tdd-brief, .hp-nl > .tdd-newsletter { height: 100%; }
+@media (max-width: 1199px) {
+	.hp-hero__main { grid-column: span 7; } .hp-rail { grid-column: span 5; }
+	.hp-col3, .hp-col4, .hp-col5 { grid-column: span 6; } .hp-col7, .hp-col8 { grid-column: span 12; }
+	.hp-airy.tdd-grid { row-gap: var(--space-48); }
+	.hp-side, .hp-nl { grid-column: span 12; }
+	.hp-brief-row { row-gap: var(--space-32); }
+}
+@media (max-width: 1023px) {
+	.hp-hero__main, .hp-rail { grid-column: span 12; }
+	.hp-hero { row-gap: var(--space-40); }
+}
+@media (max-width: 767px) {
+	.tdd-home .tdd-grid { display: block; }
+	.tdd-home .hp-hero { margin-top: 0; }
+	.hp-hero__main .tdd-media { aspect-ratio: 16 / 9; }
+	.hp-toplist { margin-top: var(--space-24); }
+	.tdd-home > .tdd-container + .tdd-ai-band { margin-top: var(--space-48); }
+	.hp-ai .tdd-sh { margin-bottom: 20px; }
+	.hp-ai__list { margin-top: 20px; }
+	.tdd .hp-ai .tdd-story--large .tdd-story__title { font-size: 22px; }
+	.hp-ai .tdd-story--large .tdd-media { aspect-ratio: 16 / 9; }
+	.tdd .hp-picks__primary .tdd-story__title { font-size: 22px; line-height: 1.2; }
+	.hp-picks__mlist { margin-top: 20px; }
+	.tdd-cat__mlead .tdd-story__title { font-size: 20px; line-height: 1.25; }
+	.tdd-cat__mlead .tdd-story__summary { font-size: 16px; }
+	.hp-guides-swipe .m-swipe { margin-inline: calc(-1 * var(--gutter)); }
+	.hp-guides-swipe { padding-inline: var(--gutter); }
+	.hp-brief-row { padding-inline: 0; }
+	.hp-brief-row .hp-brief { margin-top: var(--space-48); }
+	.hp-brief-row .hp-nl { margin-top: var(--space-48); padding-inline: var(--gutter); }
+}
+@media (max-width: 767px) {
+	.tdd-home .tdd-story--feature.m-lead { padding-top: var(--space-24); }
+}
+
+/* ---------- Phase 3D: Author page (values from the approved AuthorDesktop / AuthorMobile markup) ---------- */
+.ap-g { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 48px; }
+.ap-sec { margin-top: 64px; }
+.ap-main { grid-column: span 8; }
+.ap-side { grid-column: span 4; }
+.tdd-author-page > .tdd-crumbs { margin-top: 24px; }
+.tdd-afeat__text { display: grid; gap: 12px; }
+.tdd-asocial__tip { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-top: 4px; }
+.tdd-asocial__tip a { color: var(--primary); }
+.tdd-aabout__editor { color: var(--primary); font-weight: 600; }
+.ap-side .tdd-mostread { margin-top: 48px; }
+.ap-side .tdd-mr-row__title { font-size: 16px; }
+.ap-side .tdd-side-brief { margin-top: 40px; }
+.tdd-empty__links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 6px; }
+@media (max-width: 1199px) {
+	.tdd-amast { grid-template-columns: 144px minmax(0, 1fr); }
+	.tdd-asocial { grid-column: 2; margin-top: 24px; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+	.tdd-asocial__title, .tdd-asocial__tip { grid-column: 1 / -1; }
+	.tdd-afeat { grid-template-columns: 1fr; row-gap: 32px; }
+}
+@media (max-width: 1023px) {
+	.ap-g { display: block; }
+	.ap-side { margin-top: 48px; }
+}
+@media (max-width: 767px) {
+	.tdd-author-page > .tdd-crumbs { margin-top: 16px; }
+	.tdd-amast { display: block; }
+	.tdd .tdd-amast.m-amast { padding-left: 0; padding-right: 0; padding-top: 0; }
+	.tdd-afeat__lead { display: grid; grid-template-columns: 1fr; gap: 12px; }
+	.tdd-afeat__lead .tdd-media { aspect-ratio: 16 / 9; }
+	.tdd .tdd-afeat__lead .tdd-story__title { font-size: 22px; line-height: 1.2; }
+	.tdd-afeat__text { gap: 12px; }
+	.tdd-afeat__mlist { margin-top: 16px; }
+	.ap-sec { margin-top: var(--space-48); }
+	.tdd-abeats { margin-top: 20px; }
+}
+@media (max-width: 767px) {
+	.tdd .m-ameta2.tdd-only-m { display: grid !important; }
+	.tdd-afeat { row-gap: 0; }
+}
+.ap-side > :first-child { margin-top: 0; }
+
+/* ---------- Phase 3E: Search (values from the approved SearchDesktop / SearchMobile markup) ---------- */
+.sp-head { max-width: 920px; padding-top: 40px; }
+.sp-head .tdd-search { margin-top: 20px; }
+.sp-g { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 48px; margin-top: 32px; }
+.sp-filters { grid-column: span 3; }
+.sp-results { grid-column: span 9; }
+.sp-g--nofilters .sp-results { grid-column: 1 / span 9; }
+.tdd-topicmatch + .tdd-results { margin-top: 20px; }
+.tdd-topicmatch svg { color: var(--primary); }
+.tdd-filters__apply { justify-self: start; }
+.tdd-js-search .tdd-filters__apply { display: none; }
+.tdd-empty__pop { margin-top: 6px; font-size: 14px; color: var(--text-muted); }
+.m-chip__x { display: grid; place-items: center; width: 28px; height: 28px; color: inherit; }
+@media (max-width: 1023px) {
+	.sp-filters { grid-column: span 4; }
+	.sp-results, .sp-g--nofilters .sp-results { grid-column: span 8; }
+}
+@media (max-width: 767px) {
+	.tdd .sp-head.m-search-head { padding: 20px 0 0; }
+	.sp-g { display: block; margin-top: 0; }
+	.sp-head .tdd-search .tdd-btn--primary { display: none; } /* approved search page only; the 404 search keeps its button */
+	.tdd-topicmatch + .tdd-results { margin-top: 16px; }
+	.tdd-results { margin-top: 0; }
+	/* Without JS the filters sit under the results bar; with JS they become a bottom sheet. */
+	.tdd-js-search .sp-filters { display: none; }
+	.tdd-js-search .sp-filters.is-open { display: flex; align-items: flex-end; position: fixed; inset: 0; z-index: 60; background: rgba(17, 24, 39, 0.4); }
+	.sp-filters.is-open .tdd-filters { width: 100%; max-height: 85vh; overflow-y: auto; background: var(--bg); border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 20px 20px 24px; box-shadow: var(--shadow-overlay); }
+	.tdd-js-search .sp-filters.is-open .tdd-filters__apply { display: inline-flex; width: 100%; justify-content: center; height: 48px; position: sticky; bottom: 0; }
+	.sp-filters:not(.is-open) .tdd-filters { margin: 0 0 24px; }
+	.tdd-filters label { min-height: 44px; }
+}
+.tdd-header .tdd-btn--icon[aria-current="page"] { color: var(--primary); } /* approved search page: search icon active */
+@media (max-width: 767px) {
+	.tdd-pager__nav { flex-wrap: wrap; justify-content: center; row-gap: 4px; }
+}
+
+/* ---------- Phase 4 prep: inline TOC below 1200 (approved change) ----------
+   ≥1200: sticky side TOC. <1200: the collapsible inline TOC (approved mobile m-toc), so tablets always have one.
+   The m-toc values below are the approved mobile rules from article.css, applied at 768–1199. */
+.tdd-toc-inline { display: none; }
+@media (max-width: 1199px) {
+	.tdd-toc-inline { display: block; }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+	.tdd .m-toc { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 1.6em 0; }
+	.tdd .m-toc summary { list-style: none; display: flex; align-items: center; justify-content: space-between; min-height: 48px; cursor: pointer; font: 700 15px var(--font-display); color: var(--text); }
+	.tdd .m-toc summary::-webkit-details-marker { display: none; }
+	.tdd .m-toc summary span { font: 500 14px var(--font-body); color: var(--text-muted); margin-left: 8px; }
+	.tdd .m-toc summary svg { width: 20px; height: 20px; stroke: var(--text-secondary); fill: none; stroke-width: 2; transition: transform 180ms ease; flex: none; }
+	.tdd .m-toc[open] summary svg { transform: rotate(180deg); }
+	.tdd .m-toc ol { padding: 0 0 12px; counter-reset: toc; }
+	.tdd .m-toc li { counter-increment: toc; }
+	.tdd .m-toc a { display: flex; gap: 12px; align-items: center; min-height: 44px; font-size: 16px; color: var(--text-secondary); border-top: 1px solid var(--border-subtle); }
+	.tdd .m-toc a::before { content: counter(toc); font: 700 13px var(--font-display); color: var(--text-muted); width: 16px; }
+	.tdd .m-toc summary { justify-content: flex-start; }
+	.tdd .m-toc summary svg { margin-left: auto; }
+}
+
+/* ---------- Phase 4: static pages, About, Contact, Newsletter, 404 ----------
+   Page frames from the approved previews (.sp-main: crumbs 948 wide, 24px top, 96px bottom). */
+.tdd-static-main, .tdd-nl-main, .tdd-404-main { padding-bottom: 96px; }
+.tdd-static-main > .tdd-crumbs { max-width: 948px; margin: 24px auto 0; }
+.tdd-contact-main > .tdd-crumbs { max-width: 1088px; }
+.tdd-sp, .tdd-cpage { justify-content: center; }
+.tdd-sp__head > :first-child { margin-top: 22px; }
+.tdd-sp--about .tdd-sp__intro { font-size: 19px; }
+.tdd-sp--about .tdd-newsletter { padding: 32px 36px; }
+.tdd-sp--about .tdd-newsletter__title { font-size: 30px; }
+.tdd-spsec .tdd-polinks { margin-top: 16px; }
+/* Policy table on phones: labelled stacked rows (approved StaticPageMobile). */
+.tdd .m-cmp__row:has(> .sp-mrow) { display: block; }
+.sp-mrow { display: grid; gap: 8px; margin-top: 6px; }
+.sp-mrow p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--text-secondary); }
+.sp-mrow small { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); }
+.tdd-data--policy .tdd-table td { text-align: left; }
+/* Below 1200: one 740 column; the contents become the inline collapsible (see .tdd-toc-inline). */
+@media (max-width: 1199px) {
+	.tdd-sp, .tdd-sp--short, .tdd-cpage { grid-template-columns: minmax(0, 740px); }
+	.tdd-sp__rail { display: none; }
+	.tdd-sp__head, .tdd-sp__body, .tdd-sp--short .tdd-sp__head, .tdd-sp--short .tdd-sp__body { grid-column: 1; }
+	.tdd-sp__body { grid-row: auto; }
+	.tdd-static-main > .tdd-crumbs, .tdd-contact-main > .tdd-crumbs { max-width: 740px; }
+	/* One column in the approved mobile order: routes, sensitive tip, form, what to expect, related. */
+	.tdd-cpage { display: flex; flex-direction: column; max-width: 740px; margin-inline: auto; }
+	.tdd-cpage__main, .tdd-cpage__aside, .tdd-cpage__aside-inner { display: contents; }
+	.tdd-cpage__main > .tdd-cpage__h { order: 1; margin-top: 32px; }
+	.tdd-cpage__main > .tdd-routes { order: 2; margin-bottom: 0; }
+	.tdd-cpage__extra { order: 3; }
+	.tdd-cpage .tdd-stip { order: 4; margin-top: 28px; }
+	.tdd-cpage__form { order: 5; }
+	.tdd-cpage__resp { order: 6; margin-top: 40px; }
+	.tdd-cpage__rel { order: 7; }
+}
+@media (max-width: 767px) {
+	.tdd .tdd-static-main > .tdd-crumbs { margin-top: 16px; }
+	.tdd .tdd-static-main { padding-bottom: 48px; } /* approved mobile: 96px total above the footer incl. its own margin */
+	.tdd .tdd-static-main .m-sp { padding: 0; }
+	.tdd .tdd-sp__end { margin-top: 40px; }
+	.tdd .tdd-sp--about .tdd-sp__intro { font-size: 18px; }
+	.tdd .tdd-sp--about .tdd-newsletter { padding: 24px 20px; }
+	.tdd .tdd-sp--about .tdd-newsletter__title { font-size: 26px; }
+	.tdd .tdd-cpage h2.tdd-cpage__h { font-size: 24px; margin-top: 32px; } /* approved m-h2 */
+}
+/* Contact form spacing (approved ContactDesktop wrappers: form +40, related +56). */
+.tdd-cpage__form { margin-top: 40px; }
+.tdd-cpage__rel { margin-top: 56px; }
+.tdd-cpage__extra { margin-top: 32px; }
+.tdd-cform__sum { display: contents; }
+.tdd-cform__sum:empty { display: none; }
+.tdd-errsum ul { margin-top: 4px; }
+.tdd-cform .tdd-field__err[hidden] { display: none; }
+.tdd-cform [aria-disabled="true"] { opacity: 0.7; cursor: progress; }
+.tdd-stip__ph--live a { color: var(--primary); text-decoration: underline; }
+@media (max-width: 767px) {
+	.tdd .tdd-cpage__form { margin-top: 32px; }
+	.tdd .tdd-cpage__rel { margin-top: 40px; }
+}
+/* Newsletter page */
+.tdd-pagecol { max-width: 100%; }
+.tdd-nlpage__crumbs { margin-top: 24px; }
+.tdd-nlrepeat .tdd-nlsign--inline { padding: 0; border: 0; background: none; }
+.tdd-issue-notes__p.tdd-sp__intro { font-size: 16px; margin: 0; }
+.tdd-nlpage__content:empty { display: none; }
+@media (max-width: 1023px) {
+	.tdd-pagecol { width: auto; }
+}
+@media (max-width: 767px) {
+	.tdd .tdd-nl-main .tdd-pagecol { padding: 0; }
+	.tdd .tdd-nlpage__crumbs { margin-top: 16px; }
+	.tdd .tdd-404-main .tdd-nf { padding-left: 0; padding-right: 0; }
+}
+/* 404 */
+.tdd-nf { max-width: 100%; }
+.tdd-sp .tdd-prose > .tdd-pcallout:first-child { margin-top: 1.6em; } /* approved: the "In short" box keeps its top margin */
+.tdd-sp .tdd-prose > h2:first-child { margin-top: 1.9em; } /* approved short page: first H2 keeps its prose margin */
+/* Newsletter page: core flow layout (post content inside the page column) zeroes child margins;
+   restore the approved section rhythm with matching specificity. */
+.tdd .tdd-nl-main .tdd-nlpage__crumbs { margin-top: 24px; }
+.tdd .tdd-nl-main .tdd-pgsec { margin-top: 72px; }
+@media (max-width: 767px) {
+	.tdd .tdd-nl-main .tdd-nlpage__crumbs { margin-top: 16px; }
+	.tdd .tdd-nl-main .tdd-pgsec { margin-top: 48px; }
+}
+.tdd-nlfaq-delivery { margin-bottom: 20px; }
+/* Approved NewsletterMobile: delivery facts sit under the sign-up form. */
+@media (max-width: 767px) {
+	.tdd .tdd-nl-main .tdd-nlhero { display: flex; flex-direction: column; align-items: stretch; row-gap: 0; }
+	.tdd .tdd-nl-main .tdd-nlhero > div:first-child { display: contents; }
+	.tdd .tdd-nl-main .tdd-nlhero > div:last-child { margin-top: 20px; }
+	.tdd .tdd-nl-main .tdd-nlhero .tdd-nlfacts { order: 3; margin-top: 4px; }
+}

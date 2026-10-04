@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/section-feed",
+	"title": "Section feed",
+	"category": "techdosedaily",
+	"description": "The archive’s main query as a time-led feed with date groups, freshness line, RSS link and pagination (Load more + numbered pages).",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php",
+	"viewScript": "file:../../assets/js/pager.js"
+}

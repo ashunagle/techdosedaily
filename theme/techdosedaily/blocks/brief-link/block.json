@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/brief-link",
+	"title": "Daily Tech Brief link",
+	"category": "techdosedaily",
+	"description": "Quiet sidebar link to the Daily Tech Brief; shown only when today’s brief has real items.",
+	"textdomain": "techdosedaily",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

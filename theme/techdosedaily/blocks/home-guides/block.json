@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/home-guides",
+	"title": "Practical Guides",
+	"category": "techdosedaily",
+	"description": "Newest guides: compact stack (desktop sidebar) or swipe row (approved mobile). Both variants show the same stories.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"variant": {
+			"type": "string",
+			"enum": [
+				"stack",
+				"swipe"
+			],
+			"default": "stack"
+		},
+		"count": {
+			"type": "integer",
+			"default": 3
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

@@ -1,0 +1,363 @@
+{
+ "404@mobile": {
+  "error": "ERRORED_DOCUMENT_REQUEST"
+ },
+ "404@desktop": {
+  "error": "ERRORED_DOCUMENT_REQUEST"
+ },
+ "home@mobile": {
+  "score": 96,
+  "fcp": 1800,
+  "lcp": 2470,
+  "cls": 0,
+  "tbt": 28,
+  "ttfb": 240,
+  "requests": 24,
+  "kb": 224,
+  "byType": {
+   "Document": 16,
+   "Font": 138,
+   "Stylesheet": 17,
+   "Script": 3,
+   "Image": 50,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"1200\\\" height=\\\"675\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-768x432.webp\\\" class=\\\"attachment-td"
+ },
+ "home@desktop": {
+  "score": 100,
+  "fcp": 409,
+  "lcp": 543,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 319,
+  "requests": 28,
+  "kb": 259,
+  "byType": {
+   "Document": 16,
+   "Font": 138,
+   "Stylesheet": 17,
+   "Script": 3,
+   "Image": 85,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"1200\\\" height=\\\"675\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-1024x576.webp\\\" class=\\\"attachment-t"
+ },
+ "article-hero@mobile": {
+  "score": 96,
+  "fcp": 1996,
+  "lcp": 2446,
+  "cls": 0,
+  "tbt": 42,
+  "ttfb": 224,
+  "requests": 23,
+  "kb": 217,
+  "byType": {
+   "Document": 19,
+   "Font": 138,
+   "Stylesheet": 19,
+   "Script": 5,
+   "Image": 34,
+   "Other": 1,
+   "Ping": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<h1 class=\\\"tdd-art__h1 m-art-h1\\\">\""
+ },
+ "article-hero@desktop": {
+  "score": 100,
+  "fcp": 408,
+  "lcp": 534,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 160,
+  "requests": 24,
+  "kb": 238,
+  "byType": {
+   "Document": 19,
+   "Font": 138,
+   "Stylesheet": 19,
+   "Script": 5,
+   "Image": 55,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"1600\\\" height=\\\"900\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-1024x576.webp\\\" class=\\\"attachment-t"
+ },
+ "article-nohero@mobile": {
+  "score": 100,
+  "fcp": 906,
+  "lcp": 1506,
+  "cls": 0.002,
+  "tbt": 0,
+  "ttfb": 166,
+  "requests": 21,
+  "kb": 190,
+  "byType": {
+   "Document": 12,
+   "Font": 138,
+   "Stylesheet": 19,
+   "Script": 5,
+   "Image": 16,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<h1 class=\\\"tdd-art__h1 m-art-h1\\\">\""
+ },
+ "article-nohero@desktop": {
+  "score": 100,
+  "fcp": 374,
+  "lcp": 456,
+  "cls": 0.001,
+  "tbt": 0,
+  "ttfb": 144,
+  "requests": 21,
+  "kb": 185,
+  "byType": {
+   "Document": 12,
+   "Font": 138,
+   "Stylesheet": 19,
+   "Script": 5,
+   "Image": 10,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<h1 class=\\\"tdd-art__h1 m-art-h1\\\">\""
+ },
+ "section@mobile": {
+  "score": 99,
+  "fcp": 1506,
+  "lcp": 2031,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 210,
+  "requests": 24,
+  "kb": 221,
+  "byType": {
+   "Document": 15,
+   "Font": 138,
+   "Stylesheet": 17,
+   "Script": 5,
+   "Image": 46,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"1200\\\" height=\\\"675\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-768x432.webp\\\" class=\\\"attachment-td"
+ },
+ "section@desktop": {
+  "score": 100,
+  "fcp": 416,
+  "lcp": 503,
+  "cls": 0.001,
+  "tbt": 0,
+  "ttfb": 192,
+  "requests": 24,
+  "kb": 213,
+  "byType": {
+   "Document": 15,
+   "Font": 138,
+   "Stylesheet": 17,
+   "Script": 5,
+   "Image": 38,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"1200\\\" height=\\\"675\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-768x432.webp\\\" class=\\\"attachment-td"
+ },
+ "author@mobile": {
+  "score": 100,
+  "fcp": 1055,
+  "lcp": 1508,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 155,
+  "requests": 22,
+  "kb": 200,
+  "byType": {
+   "Document": 13,
+   "Font": 138,
+   "Stylesheet": 19,
+   "Script": 5,
+   "Image": 25,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<p class=\\\"tdd-amast__bio\\\">\""
+ },
+ "author@desktop": {
+  "score": 100,
+  "fcp": 384,
+  "lcp": 468,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 134,
+  "requests": 24,
+  "kb": 200,
+  "byType": {
+   "Document": 13,
+   "Font": 138,
+   "Stylesheet": 19,
+   "Script": 5,
+   "Image": 25,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"800\\\" height=\\\"450\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-400x225.webp\\\" class=\\\"attachment-tdd"
+ },
+ "newsletter@mobile": {
+  "score": 100,
+  "fcp": 1065,
+  "lcp": 1515,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 125,
+  "requests": 21,
+  "kb": 189,
+  "byType": {
+   "Document": 11,
+   "Font": 138,
+   "Stylesheet": 27,
+   "Script": 3,
+   "Image": 8,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<p class=\\\"tdd-nlhero__deck\\\">\""
+ },
+ "newsletter@desktop": {
+  "score": 100,
+  "fcp": 381,
+  "lcp": 472,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 111,
+  "requests": 21,
+  "kb": 189,
+  "byType": {
+   "Document": 11,
+   "Font": 138,
+   "Stylesheet": 27,
+   "Script": 3,
+   "Image": 8,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<h1 class=\\\"tdd-nlhero__title\\\" id=\\\"nl-title\\\">\""
+ },
+ "contact@mobile": {
+  "score": 100,
+  "fcp": 1055,
+  "lcp": 1508,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 145,
+  "requests": 20,
+  "kb": 185,
+  "byType": {
+   "Document": 11,
+   "Font": 138,
+   "Stylesheet": 24,
+   "Script": 4,
+   "Image": 8,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090",
+   ""
+  ],
+  "lcpElement": "\"<p class=\\\"tdd-sp__intro\\\">\""
+ },
+ "contact@desktop": {
+  "score": 100,
+  "fcp": 364,
+  "lcp": 449,
+  "cls": 0,
+  "tbt": 0,
+  "ttfb": 121,
+  "requests": 20,
+  "kb": 185,
+  "byType": {
+   "Document": 11,
+   "Font": 138,
+   "Stylesheet": 24,
+   "Script": 4,
+   "Image": 8,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090",
+   ""
+  ],
+  "lcpElement": "\"<p class=\\\"tdd-sp__intro\\\">\""
+ },
+ "search@mobile": {
+  "score": 76,
+  "fcp": 1660,
+  "lcp": 2188,
+  "cls": 0.573,
+  "tbt": 0,
+  "ttfb": 126,
+  "requests": 25,
+  "kb": 199,
+  "byType": {
+   "Document": 11,
+   "Font": 138,
+   "Stylesheet": 19,
+   "Script": 4,
+   "Image": 26,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<img width=\\\"400\\\" height=\\\"225\\\" src=\\\"http://127.0.0.1:8090/wp-content/uploads/2026/10/ai-console-3-300x169.webp\\\" class=\\\"attachment-tdd"
+ },
+ "search@desktop": {
+  "score": 100,
+  "fcp": 300,
+  "lcp": 430,
+  "cls": 0.002,
+  "tbt": 0,
+  "ttfb": 126,
+  "requests": 26,
+  "kb": 203,
+  "byType": {
+   "Document": 11,
+   "Font": 138,
+   "Stylesheet": 19,
+   "Script": 4,
+   "Image": 30,
+   "Other": 1
+  },
+  "hosts": [
+   "127.0.0.1:8090"
+  ],
+  "lcpElement": "\"<span class=\\\"tdd-result__title\\\">\""
+ }
+}

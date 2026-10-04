@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/more-in-section",
+	"title": "More in section",
+	"category": "techdosedaily",
+	"description": "Mobile “More in <section>” list after the article (the desktop version sits in the article sidebar).",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"count": {
+			"type": "integer",
+			"default": 3
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php",
+	"usesContext": [
+		"postId"
+	]
+}

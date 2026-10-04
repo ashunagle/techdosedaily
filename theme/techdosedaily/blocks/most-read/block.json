@@ -1,0 +1,72 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/most-read",
+	"title": "Most Read",
+	"category": "techdosedaily",
+	"description": "Numbered Most Read list (MostReadRow) from first-party view counts. Window comes from the context (home 24h, section 7 days, author 30 days — configurable in Core) unless hours is set. Section/author default to the current archive. Hidden when there is not enough real data.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"count": {
+			"type": "integer",
+			"default": 5
+		},
+		"section": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"default": "Most Read"
+		},
+		"minItems": {
+			"type": "integer",
+			"default": 3
+		},
+		"context": {
+			"type": "string",
+			"enum": [
+				"home",
+				"section",
+				"author"
+			],
+			"default": "home"
+		},
+		"hours": {
+			"type": "integer",
+			"default": 0
+		},
+		"showWindow": {
+			"type": "boolean",
+			"default": true
+		},
+		"className": {
+			"type": "string",
+			"default": ""
+		},
+		"titleSection": {
+			"type": "boolean",
+			"default": false
+		},
+		"labelStyle": {
+			"type": "string",
+			"enum": [
+				"last",
+				"short"
+			],
+			"default": "last"
+		},
+		"titleAuthor": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

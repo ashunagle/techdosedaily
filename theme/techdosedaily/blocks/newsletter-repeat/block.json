@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/newsletter-repeat",
+	"title": "Newsletter closing sign-up",
+	"category": "techdosedaily",
+	"description": "Closing sign-up line on the Newsletter page.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Get tomorrow’s issue"
+		},
+		"text": {
+			"type": "string",
+			"default": "One email every weekday morning. Free."
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false,
+		"multiple": false,
+		"inserter": false
+	},
+	"render": "file:./render.php"
+}

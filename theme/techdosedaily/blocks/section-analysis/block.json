@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/section-analysis",
+	"title": "Analysis & Explainers",
+	"category": "techdosedaily",
+	"description": "Author-led Analysis and Explainer stories in the current section (1 lead + 4). Omitted when there are none.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"count": {
+			"type": "integer",
+			"default": 5
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

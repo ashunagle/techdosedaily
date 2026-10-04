@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/article-body",
+	"title": "Article body",
+	"category": "techdosedaily",
+	"description": "Rail (TOC + share) · story content with update/correction notices, sources, tags and author card · sidebar (Most Read, More in section, Daily Tech Brief). Single-story template only.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"sidebar": {
+			"type": "boolean",
+			"default": true
+		},
+		"tocMinutes": {
+			"type": "integer",
+			"default": 7
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php",
+	"usesContext": [
+		"postId"
+	],
+	"viewScript": "file:../../assets/js/article.js"
+}

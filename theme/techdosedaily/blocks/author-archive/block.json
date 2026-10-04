@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/author-archive",
+	"title": "Author archive",
+	"category": "techdosedaily",
+	"description": "The author’s stories (main query) as AuthorArticleRows with pagination, or the empty state for new writers.",
+	"textdomain": "techdosedaily",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php",
+	"viewScript": "file:../../assets/js/pager.js"
+}

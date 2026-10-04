@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/topic-chips",
+	"title": "Follow a topic",
+	"category": "techdosedaily",
+	"description": "Topic chips with real story counts for the current section.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"mobile": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

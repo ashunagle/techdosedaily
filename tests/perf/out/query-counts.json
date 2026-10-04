@@ -1,0 +1,63 @@
+{
+ "_note": "Uncached render, warm transients, local SQLite. before = Phase 7 code with batched priming disabled (Phase 6 behaviour); after = Phase 7. Cached anonymous hits run 0 queries.",
+ "/about/": {
+  "queries": 102,
+  "db_ms": 46.8,
+  "peak_mb": 8.1,
+  "queries_before": 102
+ },
+ "/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/": {
+  "queries": 132,
+  "db_ms": 59.6,
+  "peak_mb": 8.4,
+  "queries_before": 151
+ },
+ "/ai/": {
+  "queries": 145,
+  "db_ms": 66.8,
+  "peak_mb": 8.6,
+  "queries_before": 174
+ },
+ "/author/priya-sample/": {
+  "queries": 117,
+  "db_ms": 52.9,
+  "peak_mb": 8.3,
+  "queries_before": 116
+ },
+ "/contact/": {
+  "queries": 90,
+  "db_ms": 56,
+  "peak_mb": 8,
+  "queries_before": 90
+ },
+ "/": {
+  "queries": 161,
+  "db_ms": 73.1,
+  "peak_mb": 8.7,
+  "queries_before": 234
+ },
+ "/newsletter/": {
+  "queries": 90,
+  "db_ms": 41.8,
+  "peak_mb": 8.2,
+  "queries_before": 102
+ },
+ "/no-such-page-xyz/": {
+  "queries": 73,
+  "db_ms": 36.7,
+  "peak_mb": 7.9,
+  "queries_before": 73
+ },
+ "/?s=AI": {
+  "queries": 110,
+  "db_ms": 55.2,
+  "peak_mb": 8.3,
+  "queries_before": 110
+ },
+ "/software/sample-a-short-news-story-with-no-image-editor-or-topics/": {
+  "queries": 118,
+  "db_ms": 55.5,
+  "peak_mb": 8.3,
+  "queries_before": 134
+ }
+}

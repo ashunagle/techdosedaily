@@ -1,0 +1,3 @@
+  uncached: 50 URL×owner outputs compared
+  cached: 50 URL×owner outputs compared, 36 served from the page cache
+PASS: SEO output identical

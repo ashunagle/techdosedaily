@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/newsletter-cta",
+	"title": "Newsletter CTA",
+	"category": "techdosedaily",
+	"description": "Navy newsletter panel (NewsletterCTA) with the approved sign-up form. Submits through TechDoseDaily Core; provider-agnostic.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Your Daily Dose of Technology"
+		},
+		"text": {
+			"type": "string",
+			"default": "The most important AI and technology stories, explained clearly. One email every weekday morning."
+		},
+		"layout": {
+			"type": "string",
+			"enum": [
+				"stacked",
+				"inline"
+			],
+			"default": "stacked"
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php",
+	"viewScript": "file:../../assets/js/newsletter.js"
+}

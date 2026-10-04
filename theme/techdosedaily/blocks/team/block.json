@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/team",
+	"title": "Our editors",
+	"category": "techdosedaily",
+	"description": "Team cards for people with “Show on About” turned on in their profile. Hidden (with its section) when nobody is set.",
+	"textdomain": "techdosedaily",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false,
+		"multiple": false
+	},
+	"render": "file:./render.php",
+	"editorScript": "tdd-editor-blocks"
+}

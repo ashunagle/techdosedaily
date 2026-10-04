@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="TechDoseDaily">
+	<file>theme/techdosedaily</file>
+	<exclude-pattern>*/assets/*</exclude-pattern>
+	<arg name="extensions" value="php"/>
+	<rule ref="WordPress"/>
+	<config name="minimum_supported_wp_version" value="6.6"/>
+	<rule ref="WordPress.WP.I18n"><properties><property name="text_domain" type="array"><element value="techdosedaily"/></property></properties></rule>
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals"><properties><property name="prefixes" type="array"><element value="tdd"/></property></properties></rule>
+</ruleset>

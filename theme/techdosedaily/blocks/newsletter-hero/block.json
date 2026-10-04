@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/newsletter-hero",
+	"title": "Newsletter hero",
+	"category": "techdosedaily",
+	"description": "Newsletter page hero with the sign-up form. Used by the Newsletter template.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"facts": {
+			"type": "array",
+			"default": [
+				"Weekday mornings",
+				"Free",
+				"Unsubscribe anytime"
+			]
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false,
+		"multiple": false,
+		"inserter": false
+	},
+	"render": "file:./render.php"
+}

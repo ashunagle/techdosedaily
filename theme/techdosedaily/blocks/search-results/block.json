@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/search-results",
+	"title": "Search results",
+	"category": "techdosedaily",
+	"description": "Search page: field, result count, sort, filters with real counts, TopicMatch, result rows with highlighted terms, pagination, empty state.",
+	"textdomain": "techdosedaily",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php",
+	"viewScript": [ "file:../../assets/js/search.js", "file:../../assets/js/pager.js" ]
+}

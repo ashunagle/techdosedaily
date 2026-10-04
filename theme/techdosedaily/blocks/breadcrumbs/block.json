@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/breadcrumbs",
+	"title": "Breadcrumbs",
+	"category": "techdosedaily",
+	"description": "Home \u203a Section \u203a Story type (articles), Home \u203a Section (sections), Home \u203a Page.",
+	"textdomain": "techdosedaily",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

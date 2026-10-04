@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/site-header",
+	"title": "Site header",
+	"category": "techdosedaily",
+	"description": "Approved header: logo, section navigation, search, Subscribe. Collapses to the 56px mobile header with menu drawer.",
+	"textdomain": "techdosedaily",
+	"supports": { "html": false, "inserter": false, "multiple": false, "reusable": false, "lock": false },
+	"render": "file:./render.php"
+}

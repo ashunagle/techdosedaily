@@ -1,0 +1,53 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/home-sections",
+	"title": "Section blocks row",
+	"category": "techdosedaily",
+	"description": "CategoryBlocks for chosen sections (alert / feature / list) with the approved mobile order and “more sections” chips.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"blocks": {
+			"type": "array",
+			"default": [
+				[
+					"cybersecurity",
+					"alert"
+				],
+				[
+					"developer",
+					"feature"
+				],
+				[
+					"startups",
+					"list"
+				]
+			]
+		},
+		"mobileOrder": {
+			"type": "array",
+			"default": [
+				"developer",
+				"cybersecurity",
+				"startups"
+			]
+		},
+		"chips": {
+			"type": "array",
+			"default": [
+				"software",
+				"cloud",
+				"big-tech",
+				"tech"
+			]
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

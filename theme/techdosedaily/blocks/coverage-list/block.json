@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/coverage-list",
+	"title": "Coverage list",
+	"category": "techdosedaily",
+	"description": "The sections Tech Dose Daily covers, from the live section list, each with its one-line description.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"exclude": {
+			"type": "array",
+			"default": [
+				"tech"
+			]
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false,
+		"multiple": false
+	},
+	"render": "file:./render.php",
+	"editorScript": "tdd-editor-blocks"
+}

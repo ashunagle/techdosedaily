@@ -1,0 +1,23 @@
+{
+  "name": "techdosedaily-theme",
+  "private": true,
+  "version": "0.1.0",
+  "description": "TechDoseDaily block theme \u2014 build tools and QA. Design source of truth: ../01-Design-System and ../03-Approved.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "sync:design": "node tools/sync-design.mjs",
+    "build:tokens": "node tools/build-tokens.mjs",
+    "build:css": "node tools/build-css.mjs",
+    "build": "npm run build:tokens && npm run build:css && npm run minify",
+    "zip": "node tools/zip-theme.mjs",
+    "minify": "node tools/minify.mjs",
+    "fonts": "sh tools/subset-fonts.sh"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0",
+    "lightningcss": "^1.33.0"
+  }
+}

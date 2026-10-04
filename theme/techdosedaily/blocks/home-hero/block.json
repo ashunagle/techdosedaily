@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/home-hero",
+	"title": "Homepage hero",
+	"category": "techdosedaily",
+	"description": "Lead story (placement homepage_lead) + rail of four (homepage_secondary); automatic fallback per slot, never a hole.",
+	"textdomain": "techdosedaily",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

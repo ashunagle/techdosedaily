@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/section-guides",
+	"title": "Practical guides",
+	"category": "techdosedaily",
+	"description": "Guide stories in the current section, most recently updated first. Omitted when there are none.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"count": {
+			"type": "integer",
+			"default": 4
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php"
+}

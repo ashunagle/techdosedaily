@@ -1,0 +1,38 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/static-page",
+	"title": "Static page",
+	"category": "techdosedaily",
+	"description": "The whole policy/static page: header (kicker, title, intro, last updated), sections from the page's H2s with the contents rail (≥1200px) or collapsible contents (<1200px), related documents, related policies and the contact CTA. Used by the page templates.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"variant": {
+			"type": "string",
+			"enum": [
+				"auto",
+				"short",
+				"long"
+			],
+			"default": "auto"
+		},
+		"end": {
+			"type": "string",
+			"enum": [
+				"policies",
+				"about"
+			],
+			"default": "policies"
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false,
+		"multiple": false,
+		"inserter": false
+	},
+	"render": "file:./render.php"
+}

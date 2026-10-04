@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/article-header",
+	"title": "Article header",
+	"category": "techdosedaily",
+	"description": "ArticleHeader: breadcrumbs, labels, H1, deck, byline with share, timestamps and the hero figure, from the current story. Single-story template only.",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"hero": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false
+	},
+	"render": "file:./render.php",
+	"usesContext": [
+		"postId"
+	]
+}

@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tdd/contact-cta",
+	"title": "Contact CTA",
+	"category": "techdosedaily",
+	"description": "Closing contact box. Shown at the end of the page. Links: a URL, contact:<topic> (contact form with that topic) or page:<path> (only if published).",
+	"textdomain": "techdosedaily",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"text": {
+			"type": "string",
+			"default": ""
+		},
+		"primaryLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"primaryUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"secondaryLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"secondaryUrl": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"customClassName": false,
+		"color": false,
+		"typography": false,
+		"spacing": false,
+		"multiple": false
+	},
+	"render": "file:./render.php",
+	"editorScript": "tdd-editor-blocks"
+}

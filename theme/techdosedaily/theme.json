@@ -1,0 +1,545 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": false,
+		"useRootPaddingAwareAlignments": false,
+		"color": {
+			"custom": false,
+			"customDuotone": false,
+			"customGradient": false,
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"gradients": [],
+			"duotone": [],
+			"palette": [
+				{
+					"slug": "bg",
+					"name": "bg",
+					"color": "var(--bg)"
+				},
+				{
+					"slug": "surface",
+					"name": "surface",
+					"color": "var(--surface)"
+				},
+				{
+					"slug": "surface-warm",
+					"name": "surface-warm",
+					"color": "var(--surface-warm)"
+				},
+				{
+					"slug": "text",
+					"name": "text",
+					"color": "var(--text)"
+				},
+				{
+					"slug": "text-secondary",
+					"name": "text-secondary",
+					"color": "var(--text-secondary)"
+				},
+				{
+					"slug": "text-muted",
+					"name": "text-muted",
+					"color": "var(--text-muted)"
+				},
+				{
+					"slug": "text-subtle",
+					"name": "text-subtle",
+					"color": "var(--text-subtle)"
+				},
+				{
+					"slug": "primary",
+					"name": "primary",
+					"color": "var(--primary)"
+				},
+				{
+					"slug": "primary-hover",
+					"name": "primary-hover",
+					"color": "var(--primary-hover)"
+				},
+				{
+					"slug": "primary-soft",
+					"name": "primary-soft",
+					"color": "var(--primary-soft)"
+				},
+				{
+					"slug": "ai-wash",
+					"name": "ai-wash",
+					"color": "var(--ai-wash)"
+				},
+				{
+					"slug": "on-primary",
+					"name": "on-primary",
+					"color": "var(--on-primary)"
+				},
+				{
+					"slug": "secondary",
+					"name": "secondary",
+					"color": "var(--secondary)"
+				},
+				{
+					"slug": "secondary-soft",
+					"name": "secondary-soft",
+					"color": "var(--secondary-soft)"
+				},
+				{
+					"slug": "border",
+					"name": "border",
+					"color": "var(--border)"
+				},
+				{
+					"slug": "border-subtle",
+					"name": "border-subtle",
+					"color": "var(--border-subtle)"
+				},
+				{
+					"slug": "border-strong",
+					"name": "border-strong",
+					"color": "var(--border-strong)"
+				},
+				{
+					"slug": "inverse",
+					"name": "inverse",
+					"color": "var(--inverse)"
+				},
+				{
+					"slug": "inverse-text",
+					"name": "inverse-text",
+					"color": "var(--inverse-text)"
+				},
+				{
+					"slug": "inverse-text-secondary",
+					"name": "inverse-text-secondary",
+					"color": "var(--inverse-text-secondary)"
+				},
+				{
+					"slug": "inverse-border",
+					"name": "inverse-border",
+					"color": "var(--inverse-border)"
+				},
+				{
+					"slug": "inverse-accent",
+					"name": "inverse-accent",
+					"color": "var(--inverse-accent)"
+				},
+				{
+					"slug": "breaking",
+					"name": "breaking",
+					"color": "var(--breaking)"
+				},
+				{
+					"slug": "on-breaking",
+					"name": "on-breaking",
+					"color": "var(--on-breaking)"
+				},
+				{
+					"slug": "analysis",
+					"name": "analysis",
+					"color": "var(--analysis)"
+				},
+				{
+					"slug": "explainer",
+					"name": "explainer",
+					"color": "var(--explainer)"
+				},
+				{
+					"slug": "guide",
+					"name": "guide",
+					"color": "var(--guide)"
+				},
+				{
+					"slug": "review",
+					"name": "review",
+					"color": "var(--review)"
+				},
+				{
+					"slug": "review-ink",
+					"name": "review-ink",
+					"color": "var(--review-ink)"
+				},
+				{
+					"slug": "correction",
+					"name": "correction",
+					"color": "var(--correction)"
+				}
+			]
+		},
+		"typography": {
+			"customFontSize": false,
+			"fluid": false,
+			"dropCap": false,
+			"fontStyle": false,
+			"fontWeight": false,
+			"letterSpacing": false,
+			"lineHeight": false,
+			"textDecoration": false,
+			"textTransform": false,
+			"writingMode": false,
+			"defaultFontSizes": false,
+			"fontFamilies": [
+				{
+					"slug": "display",
+					"name": "Manrope",
+					"fontFamily": "Manrope, \"Manrope Fallback\", system-ui, sans-serif",
+					"fontFace": [
+						{
+							"fontFamily": "Manrope",
+							"fontWeight": "500",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/Manrope-500.woff2"
+							]
+						},
+						{
+							"fontFamily": "Manrope",
+							"fontWeight": "600",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/Manrope-600.woff2"
+							]
+						},
+						{
+							"fontFamily": "Manrope",
+							"fontWeight": "700",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/Manrope-700.woff2"
+							]
+						},
+						{
+							"fontFamily": "Manrope",
+							"fontWeight": "800",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/Manrope-800.woff2"
+							]
+						}
+					]
+				},
+				{
+					"slug": "body",
+					"name": "Inter",
+					"fontFamily": "Inter, \"Inter Fallback\", system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+					"fontFace": [
+						{
+							"fontFamily": "Inter",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/Inter-400.woff2"
+							]
+						},
+						{
+							"fontFamily": "Inter",
+							"fontWeight": "500",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/Inter-500.woff2"
+							]
+						},
+						{
+							"fontFamily": "Inter",
+							"fontWeight": "600",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/Inter-600.woff2"
+							]
+						},
+						{
+							"fontFamily": "Inter",
+							"fontWeight": "700",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/Inter-700.woff2"
+							]
+						}
+					]
+				}
+			],
+			"fontSizes": [
+				{
+					"slug": "label",
+					"name": "Label",
+					"size": "11px",
+					"fluid": false
+				},
+				{
+					"slug": "metadata",
+					"name": "Metadata",
+					"size": "13px",
+					"fluid": false
+				},
+				{
+					"slug": "ui",
+					"name": "Ui",
+					"size": "15px",
+					"fluid": false
+				},
+				{
+					"slug": "summary",
+					"name": "Summary",
+					"size": "16px",
+					"fluid": false
+				},
+				{
+					"slug": "card-small",
+					"name": "Card small",
+					"size": "17px",
+					"fluid": false
+				},
+				{
+					"slug": "article-body",
+					"name": "Article body",
+					"size": "18px",
+					"fluid": false
+				},
+				{
+					"slug": "card-medium",
+					"name": "Card medium",
+					"size": "20px",
+					"fluid": false
+				},
+				{
+					"slug": "h3",
+					"name": "H3",
+					"size": "24px",
+					"fluid": false
+				},
+				{
+					"slug": "section-heading",
+					"name": "Section heading",
+					"size": "28px",
+					"fluid": false
+				},
+				{
+					"slug": "h2",
+					"name": "H2",
+					"size": "32px",
+					"fluid": false
+				},
+				{
+					"slug": "h1",
+					"name": "H1",
+					"size": "48px",
+					"fluid": false
+				},
+				{
+					"slug": "display",
+					"name": "Display",
+					"size": "50px",
+					"fluid": false
+				}
+			]
+		},
+		"spacing": {
+			"customSpacingSize": false,
+			"margin": false,
+			"padding": false,
+			"blockGap": false,
+			"defaultSpacingSizes": false,
+			"units": [
+				"px",
+				"em",
+				"rem",
+				"%"
+			],
+			"spacingSizes": [
+				{
+					"slug": "10",
+					"name": "space-4",
+					"size": "var(--space-4)"
+				},
+				{
+					"slug": "20",
+					"name": "space-8",
+					"size": "var(--space-8)"
+				},
+				{
+					"slug": "30",
+					"name": "space-12",
+					"size": "var(--space-12)"
+				},
+				{
+					"slug": "40",
+					"name": "space-16",
+					"size": "var(--space-16)"
+				},
+				{
+					"slug": "50",
+					"name": "space-24",
+					"size": "var(--space-24)"
+				},
+				{
+					"slug": "60",
+					"name": "space-32",
+					"size": "var(--space-32)"
+				},
+				{
+					"slug": "70",
+					"name": "space-40",
+					"size": "var(--space-40)"
+				},
+				{
+					"slug": "80",
+					"name": "space-48",
+					"size": "var(--space-48)"
+				},
+				{
+					"slug": "90",
+					"name": "space-64",
+					"size": "var(--space-64)"
+				},
+				{
+					"slug": "100",
+					"name": "space-80",
+					"size": "var(--space-80)"
+				},
+				{
+					"slug": "110",
+					"name": "space-96",
+					"size": "var(--space-96)"
+				},
+				{
+					"slug": "120",
+					"name": "space-128",
+					"size": "var(--space-128)"
+				}
+			]
+		},
+		"border": {
+			"color": false,
+			"radius": false,
+			"style": false,
+			"width": false
+		},
+		"shadow": {
+			"defaultPresets": false,
+			"presets": []
+		},
+		"dimensions": {
+			"aspectRatios": [
+				{
+					"name": "16:9",
+					"slug": "16-9",
+					"ratio": "16/9"
+				},
+				{
+					"name": "4:3",
+					"slug": "4-3",
+					"ratio": "4/3"
+				},
+				{
+					"name": "1:1",
+					"slug": "1-1",
+					"ratio": "1/1"
+				}
+			],
+			"defaultAspectRatios": false
+		},
+		"layout": {
+			"contentSize": "740px",
+			"wideSize": "1280px"
+		},
+		"custom": {
+			"radius": {
+				"sm": "4px",
+				"md": "6px",
+				"card": "8px",
+				"lg": "10px"
+			},
+			"container": {
+				"site": "1360px",
+				"section": "1280px",
+				"wide": "960px",
+				"content": "740px"
+			}
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--bg)",
+			"text": "var(--text)"
+		},
+		"typography": {
+			"fontFamily": "var(--font-body)",
+			"fontSize": "15px",
+			"lineHeight": "1.5"
+		},
+		"spacing": {
+			"blockGap": "0px",
+			"padding": {
+				"top": "0px",
+				"right": "0px",
+				"bottom": "0px",
+				"left": "0px"
+			}
+		},
+		"elements": {
+			"link": {
+				"color": {
+					"text": "inherit"
+				},
+				"typography": {
+					"textDecoration": "none"
+				}
+			},
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--font-display)"
+				}
+			}
+		}
+	},
+	"templateParts": [
+		{
+			"name": "header",
+			"title": "Header",
+			"area": "header"
+		},
+		{
+			"name": "footer",
+			"title": "Footer",
+			"area": "footer"
+		}
+	],
+	"customTemplates": [
+		{
+			"name": "page-short",
+			"title": "Short page (no contents rail)",
+			"postTypes": [
+				"page"
+			]
+		},
+		{
+			"name": "page-about",
+			"title": "About",
+			"postTypes": [
+				"page"
+			]
+		},
+		{
+			"name": "page-contact",
+			"title": "Contact",
+			"postTypes": [
+				"page"
+			]
+		},
+		{
+			"name": "page-newsletter",
+			"title": "Newsletter",
+			"postTypes": [
+				"page"
+			]
+		}
+	]
+}
