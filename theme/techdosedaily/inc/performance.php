@@ -95,3 +95,43 @@ add_action(
 	},
 	2
 );
+
+/**
+ * Phase 8: blocks that print the current post's content (story body, static page, contact page)
+ * must never run again inside that content — a story whose body contains one of them would render
+ * itself forever and exhaust memory (a denial of service any author could trigger). A nested copy
+ * renders nothing.
+ */
+function tdd_content_renderer_blocks(): array {
+	return array( 'tdd/article-body', 'tdd/static-page', 'tdd/contact-page' );
+}
+add_filter(
+	'pre_render_block',
+	static function ( $pre, array $block ) {
+		global $tdd_rendering_content;
+		$name = $block['blockName'] ?? '';
+		if ( null !== $pre || ! in_array( $name, tdd_content_renderer_blocks(), true ) ) {
+			return $pre;
+		}
+		$tdd_rendering_content = (array) $tdd_rendering_content;
+		if ( ! empty( $tdd_rendering_content ) ) {
+			return ''; // Already inside a post body: never nest.
+		}
+		$tdd_rendering_content[] = $name;
+		return $pre;
+	},
+	10,
+	2
+);
+add_filter(
+	'render_block',
+	static function ( $html, array $block ) {
+		global $tdd_rendering_content;
+		if ( in_array( $block['blockName'] ?? '', tdd_content_renderer_blocks(), true ) && ! empty( $tdd_rendering_content ) && end( $tdd_rendering_content ) === $block['blockName'] ) {
+			array_pop( $tdd_rendering_content );
+		}
+		return $html;
+	},
+	10,
+	2
+);

@@ -33,6 +33,7 @@ $tdd_core_modules = array(
 	'newsletter/class-mailpoet-provider',
 	'newsletter/newsletter',
 	'security',     // Shared nonce / honeypot / timing / throttle helpers for public forms.
+	'hardening',    // XML-RPC, app passwords, REST users, login errors, headers, uploads, image metadata.
 	'pages',        // Static page fields (policies, About, Newsletter, Contact).
 	'contact',      // Contact routes, settings and form processing (REST + no-JS PRG).
 	'seo',          // Description fallback, noindex rules, sitemap exclusions (Yoast + core).

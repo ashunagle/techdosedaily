@@ -1,0 +1,52 @@
+PASS article: payload never rendered unescaped
+PASS article containing every tdd/* block (incl. body/page renderers) renders without recursion (200)
+PASS article: payload marker is present (field really rendered)
+PASS article-amp-embed: payload never rendered unescaped
+PASS article-amp-embed: payload marker is present (field really rendered)
+PASS home: payload never rendered unescaped
+PASS home: payload marker is present (field really rendered)
+PASS section: payload never rendered unescaped
+PASS section: payload marker is present (field really rendered)
+PASS author: payload never rendered unescaped
+PASS author: payload marker is present (field really rendered)
+PASS topic: payload never rendered unescaped
+PASS topic: payload marker is present (field really rendered)
+PASS about: payload never rendered unescaped
+PASS about: payload marker is present (field really rendered)
+PASS contact: payload never rendered unescaped
+PASS contact: payload marker is present (field really rendered)
+PASS contact-topic: payload never rendered unescaped
+PASS contact-topic: payload marker is present (field really rendered)
+PASS newsletter: payload never rendered unescaped
+PASS newsletter: payload marker is present (field really rendered)
+PASS advertise: payload never rendered unescaped
+PASS advertise: payload marker is present (field really rendered)
+PASS search: payload never rendered unescaped
+PASS search: payload marker is present (field really rendered)
+PASS search-paged: payload never rendered unescaped
+PASS search-paged: payload marker is present (field really rendered)
+PASS 404: payload never rendered unescaped
+PASS 404: payload marker is present (field really rendered)
+PASS feed: payload never rendered unescaped
+PASS feed: payload marker is present (field really rendered)
+PASS json: payload never rendered unescaped
+PASS json: payload marker is present (field really rendered)
+PASS editor · posts list: payload never rendered unescaped
+PASS editor · placements: payload never rendered unescaped
+PASS editor · sections: payload never rendered unescaped
+PASS editor · section edit: payload never rendered unescaped
+PASS editor · topics: payload never rendered unescaped
+PASS editor · media: payload never rendered unescaped
+PASS editor · placement board JSON is data only (rendered by React, never as HTML)
+PASS administrator · posts list: payload never rendered unescaped
+PASS administrator · placements: payload never rendered unescaped
+PASS administrator · sections: payload never rendered unescaped
+PASS administrator · section edit: payload never rendered unescaped
+PASS administrator · topics: payload never rendered unescaped
+PASS administrator · media: payload never rendered unescaped
+PASS administrator · users: payload never rendered unescaped
+PASS administrator · settings: payload never rendered unescaped
+PASS administrator · author profile: payload never rendered unescaped
+PASS administrator · placement board JSON is data only (rendered by React, never as HTML)
+
+50 passed, 0 failed

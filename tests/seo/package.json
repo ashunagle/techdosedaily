@@ -4,7 +4,7 @@
   "description": "Offline Schema.org + Google rich-result rule checks for the Core graph (local only).",
   "type": "module",
   "dependencies": {
-    "@adobe/structured-data-validator": "*",
-    "@marbec/web-auto-extractor": "*"
+    "@adobe/structured-data-validator": "1.7.0",
+    "@marbec/web-auto-extractor": "2.2.1"
   }
 }

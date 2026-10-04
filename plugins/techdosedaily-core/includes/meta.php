@@ -42,7 +42,8 @@ add_action(
 			'tdd_reading_time'     => $int( 'Minutes to read. Computed on save.' ),
 			'tdd_severity'         => $str( 'Security severity line for alert treatments, e.g. "Patch now · Critical". Only from the vendor/CVE rating.' ),
 		);
-		$post_meta['tdd_editor']['sanitize_callback']         = static fn( $v ) => get_userdata( (int) $v ) ? (int) $v : 0;
+		$post_meta['tdd_editor']['sanitize_callback']         = static fn( $v ) => ( (int) $v && user_can( (int) $v, 'edit_others_posts' ) ) ? (int) $v : 0; // Editors only (Phase 8).
+		$post_meta['tdd_primary_section']['sanitize_callback'] = static fn( $v ) => ( (int) $v && get_term( (int) $v, 'category' ) instanceof WP_Term ) ? (int) $v : 0;
 		$post_meta['tdd_updated_at']['sanitize_callback']     = 'tdd_core_sanitize_datetime';
 		$post_meta['tdd_breaking_until']['sanitize_callback'] = 'tdd_core_sanitize_datetime';
 		$post_meta['tdd_breaking_from']['sanitize_callback']  = 'tdd_core_sanitize_datetime';
@@ -115,7 +116,7 @@ add_action(
 				'tdd_license_note' => 'Licence / usage terms note.',
 			) as $key => $desc
 		) {
-			register_post_meta( 'attachment', $key, array( 'type' => 'string', 'single' => true, 'default' => '', 'description' => $desc, 'show_in_rest' => true, 'sanitize_callback' => 'tdd_source_url' === $key ? 'esc_url_raw' : 'sanitize_text_field', 'auth_callback' => $att_can ) );
+			register_post_meta( 'attachment', $key, array( 'type' => 'string', 'single' => true, 'default' => '', 'description' => $desc, 'show_in_rest' => true, 'sanitize_callback' => 'tdd_source_url' === $key ? 'tdd_core_sanitize_http_url' : 'sanitize_text_field', 'auth_callback' => $att_can ) );
 		}
 		register_post_meta(
 			'attachment',
@@ -133,6 +134,9 @@ add_action(
 
 		// Author profile fields. Only true, author-approved facts.
 		$user_can = static fn( $allowed, $meta_key, $user_id ) => current_user_can( 'edit_user', $user_id );
+		// About listing, Featured Reporting: editors only (Phase 5 rule), never the person themselves.
+		$editor_can = static fn( $allowed, $meta_key, $user_id ) => current_user_can( 'edit_others_posts' ) && current_user_can( 'edit_user', $user_id );
+		$editor_only = array( 'tdd_show_on_about', 'tdd_about_order' );
 		$user     = array(
 			'tdd_title'          => array( 'string', 'Job title, e.g. "Senior AI Correspondent".' ),
 			'tdd_location'       => array( 'string', 'City/country, only if the author wants it shown.' ),
@@ -145,11 +149,15 @@ add_action(
 			'tdd_about_order'    => array( 'integer', 'Order on the About page.' ),
 		);
 		foreach ( $user as $key => [ $type, $desc ] ) {
-			register_meta( 'user', $key, array( 'type' => $type, 'single' => true, 'description' => $desc, 'show_in_rest' => true, 'auth_callback' => $user_can, 'sanitize_callback' => 'string' === $type ? 'sanitize_text_field' : ( 'integer' === $type ? 'absint' : null ) ) );
+			$sanitize = 'string' === $type ? 'sanitize_text_field' : ( 'integer' === $type ? 'absint' : null );
+			if ( 'tdd_photo' === $key ) {
+				$sanitize = static fn( $v ) => ( (int) $v && wp_attachment_is_image( (int) $v ) ) ? (int) $v : 0; // A real image attachment only.
+			}
+			register_meta( 'user', $key, array( 'type' => $type, 'single' => true, 'description' => $desc, 'show_in_rest' => true, 'auth_callback' => in_array( $key, $editor_only, true ) ? $editor_can : $user_can, 'sanitize_callback' => $sanitize ) );
 		}
-		register_meta( 'user', 'tdd_featured_posts', array( 'type' => 'array', 'single' => true, 'default' => array(), 'description' => 'Featured Reporting on the author page: up to 3 story IDs chosen by editors.', 'auth_callback' => static fn() => current_user_can( 'edit_others_posts' ), 'sanitize_callback' => static fn( $v ) => array_slice( array_values( array_filter( array_map( 'absint', (array) $v ), static fn( $id ) => 'post' === get_post_type( $id ) ) ), 0, 3 ), 'show_in_rest' => array( 'schema' => array( 'type' => 'array', 'items' => array( 'type' => 'integer' ) ) ) ) );
-		register_meta( 'user', 'tdd_editor_user', array( 'type' => 'integer', 'single' => true, 'default' => 0, 'description' => 'The reporter’s editor (user ID), shown in "About this reporter".', 'auth_callback' => static fn() => current_user_can( 'edit_users' ), 'sanitize_callback' => static fn( $v ) => get_userdata( (int) $v ) ? (int) $v : 0, 'show_in_rest' => true ) );
-		register_meta( 'user', 'tdd_beats', array( 'type' => 'array', 'single' => true, 'default' => array(), 'description' => 'Topic term IDs the author covers (4–8).', 'auth_callback' => $user_can, 'sanitize_callback' => static fn( $v ) => array_values( array_filter( array_map( 'absint', (array) $v ) ) ), 'show_in_rest' => array( 'schema' => array( 'type' => 'array', 'items' => array( 'type' => 'integer' ) ) ) ) );
+		register_meta( 'user', 'tdd_featured_posts', array( 'type' => 'array', 'single' => true, 'default' => array(), 'description' => 'Featured Reporting on the author page: up to 3 story IDs chosen by editors.', 'auth_callback' => $editor_can, 'sanitize_callback' => static fn( $v ) => array_slice( array_values( array_filter( array_map( 'absint', (array) $v ), static fn( $id ) => 'post' === get_post_type( $id ) && 'publish' === get_post_status( $id ) ) ), 0, 3 ), 'show_in_rest' => array( 'schema' => array( 'type' => 'array', 'items' => array( 'type' => 'integer' ) ) ) ) );
+		register_meta( 'user', 'tdd_editor_user', array( 'type' => 'integer', 'single' => true, 'default' => 0, 'description' => 'The reporter’s editor (user ID), shown in "About this reporter".', 'auth_callback' => static fn() => current_user_can( 'edit_users' ), 'sanitize_callback' => static fn( $v ) => ( (int) $v && user_can( (int) $v, 'edit_others_posts' ) ) ? (int) $v : 0, 'show_in_rest' => true ) );
+		register_meta( 'user', 'tdd_beats', array( 'type' => 'array', 'single' => true, 'default' => array(), 'description' => 'Topic term IDs the author covers (4–8).', 'auth_callback' => $user_can, 'sanitize_callback' => static fn( $v ) => array_slice( tdd_core_existing_term_ids( $v, 'tdd_topic' ), 0, 8 ), 'show_in_rest' => array( 'schema' => array( 'type' => 'array', 'items' => array( 'type' => 'integer' ) ) ) ) );
 		register_meta(
 			'user',
 			'tdd_social',
@@ -159,7 +167,7 @@ add_action(
 				'default'           => array(),
 				'description'       => 'Real profiles only: [{label, url}].',
 				'auth_callback'     => $user_can,
-				'sanitize_callback' => static fn( $v ) => array_values( array_filter( array_map( static fn( $i ) => ( ! empty( $i['url'] ) ? array( 'label' => sanitize_text_field( $i['label'] ?? '' ), 'url' => esc_url_raw( $i['url'] ) ) : null ), (array) $v ) ) ),
+				'sanitize_callback' => static fn( $v ) => array_slice( array_values( array_filter( array_map( static fn( $i ) => ( is_array( $i ) && '' !== tdd_core_sanitize_http_url( $i['url'] ?? '' ) ? array( 'label' => mb_substr( sanitize_text_field( $i['label'] ?? '' ), 0, 40 ), 'url' => tdd_core_sanitize_http_url( $i['url'] ) ) : null ), (array) $v ) ) ), 0, 10 ),
 				'show_in_rest'      => array( 'schema' => array( 'type' => 'array', 'items' => array( 'type' => 'object', 'properties' => array( 'label' => array( 'type' => 'string' ), 'url' => array( 'type' => 'string' ) ) ) ) ),
 			)
 		);
@@ -169,14 +177,55 @@ add_action(
 		$ids      = static fn( $v ) => array_values( array_filter( array_map( 'absint', (array) $v ) ) );
 		register_term_meta( 'category', 'tdd_short_description', array( 'type' => 'string', 'single' => true, 'default' => '', 'description' => 'One line for the About page coverage list.', 'show_in_rest' => true, 'auth_callback' => $term_can, 'sanitize_callback' => 'sanitize_text_field' ) );
 		register_term_meta( 'category', 'tdd_desk_note', array( 'type' => 'string', 'single' => true, 'default' => '', 'description' => 'Short statement for the section desk module.', 'show_in_rest' => true, 'auth_callback' => $term_can, 'sanitize_callback' => 'sanitize_text_field' ) );
-		register_term_meta( 'category', 'tdd_desk_url', array( 'type' => 'string', 'single' => true, 'default' => '', 'description' => '"How we cover" link.', 'show_in_rest' => true, 'auth_callback' => $term_can, 'sanitize_callback' => 'esc_url_raw' ) );
+		register_term_meta( 'category', 'tdd_desk_url', array( 'type' => 'string', 'single' => true, 'default' => '', 'description' => '"How we cover" link.', 'show_in_rest' => true, 'auth_callback' => $term_can, 'sanitize_callback' => 'tdd_core_sanitize_http_url' ) );
 		register_term_meta( 'category', 'tdd_section_hidden', array( 'type' => 'array', 'single' => true, 'default' => array(), 'description' => 'Section-page modules turned off (analysis, guides, topics, desk, brief).', 'auth_callback' => $term_can, 'sanitize_callback' => static fn( $v ) => array_values( array_intersect( array_map( 'strval', (array) $v ), array( 'analysis', 'guides', 'topics', 'desk', 'brief' ) ) ), 'show_in_rest' => array( 'schema' => array( 'type' => 'array', 'items' => array( 'type' => 'string' ) ) ) ) );
+		$sanitizers = array(
+			// Desk people: real accounts with editing rights only (never subscribers), max 6.
+			'tdd_desk_members' => static fn( $v ) => array_slice( array_values( array_filter( $ids( $v ), static fn( $u ) => user_can( $u, 'edit_posts' ) ) ), 0, 6 ),
+			'tdd_topic_nav'    => static fn( $v ) => array_slice( tdd_core_existing_term_ids( $v, 'tdd_topic' ), 0, 7 ),
+		);
 		foreach ( array( 'tdd_desk_members' => 'User IDs on the section desk (real people only).', 'tdd_topic_nav' => 'Topic term IDs for the section topic navigation, in order.' ) as $key => $desc ) {
-			register_term_meta( 'category', $key, array( 'type' => 'array', 'single' => true, 'default' => array(), 'description' => $desc, 'auth_callback' => $term_can, 'sanitize_callback' => $ids, 'show_in_rest' => array( 'schema' => array( 'type' => 'array', 'items' => array( 'type' => 'integer' ) ) ) ) );
+			register_term_meta( 'category', $key, array( 'type' => 'array', 'single' => true, 'default' => array(), 'description' => $desc, 'auth_callback' => $term_can, 'sanitize_callback' => $sanitizers[ $key ], 'show_in_rest' => array( 'schema' => array( 'type' => 'array', 'items' => array( 'type' => 'integer' ) ) ) ) );
 		}
 	},
 	6
 );
+
+/** IDs of existing terms in a taxonomy, order kept, duplicates dropped. */
+function tdd_core_existing_term_ids( $value, string $taxonomy ): array {
+	$out = array();
+	foreach ( (array) $value as $id ) {
+		$id = absint( $id );
+		if ( $id && ! in_array( $id, $out, true ) && get_term( $id, $taxonomy ) instanceof WP_Term ) {
+			$out[] = $id;
+		}
+	}
+	return $out;
+}
+
+/**
+ * Phase 8: every stored link that is shown to readers (sources, social profiles, image source/licence
+ * links, media kit, section "How we cover") must be an absolute http(s) URL with a host. Anything
+ * else — javascript:, data:, mailto:, relative paths, protocol-relative // — is stored as ''.
+ */
+function tdd_core_sanitize_http_url( $value ): string {
+	$value = trim( (string) $value );
+	if ( '' === $value || strlen( $value ) > 2000 || ! preg_match( '#^https?://#i', $value ) ) {
+		return '';
+	}
+	$url  = esc_url_raw( $value, array( 'http', 'https' ) );
+	$host = (string) wp_parse_url( $url, PHP_URL_HOST );
+	return ( '' !== $url && '' !== $host ) ? $url : '';
+}
+
+/** Like tdd_core_sanitize_http_url(), but a site-relative path ("/about/") is also accepted. */
+function tdd_core_sanitize_link( $value ): string {
+	$value = trim( (string) $value );
+	if ( preg_match( '#^/(?!/)#', $value ) ) {
+		return esc_url_raw( $value );
+	}
+	return tdd_core_sanitize_http_url( $value );
+}
 
 /** ISO 8601 or empty. */
 function tdd_core_sanitize_datetime( $value ): string {
@@ -194,6 +243,9 @@ function tdd_core_sanitize_datetime( $value ): string {
 function tdd_core_sanitize_corrections( $value ): array {
 	$out = array();
 	foreach ( (array) $value as $row ) {
+		if ( ! is_array( $row ) ) {
+			continue;
+		}
 		$text = sanitize_textarea_field( $row['text'] ?? '' );
 		if ( '' === $text ) {
 			continue;
@@ -206,6 +258,9 @@ function tdd_core_sanitize_corrections( $value ): array {
 function tdd_core_sanitize_sources( $value ): array {
 	$out = array();
 	foreach ( (array) $value as $row ) {
+		if ( ! is_array( $row ) ) {
+			continue;
+		}
 		$title = sanitize_text_field( $row['title'] ?? '' );
 		if ( '' === $title ) {
 			continue;
@@ -213,7 +268,7 @@ function tdd_core_sanitize_sources( $value ): array {
 		$type  = in_array( $row['type'] ?? '', tdd_core_source_types(), true ) ? $row['type'] : 'supporting';
 		$out[] = array(
 			'title'     => $title,
-			'url'       => esc_url_raw( $row['url'] ?? '' ),
+			'url'       => tdd_core_sanitize_http_url( $row['url'] ?? '' ),
 			'type'      => $type,
 			'publisher' => sanitize_text_field( $row['publisher'] ?? '' ),
 			'date'      => sanitize_text_field( $row['date'] ?? '' ),

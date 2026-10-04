@@ -21,7 +21,7 @@ add_action(
 			'tdd_page_headline'        => $str( 'Page headline (H1) when it differs from the short page title, e.g. title "About", headline "About Tech Dose Daily". The title stays in breadcrumbs and menus.' ),
 			'tdd_last_reviewed'   => $str( 'Date of the last substantive change (YYYY-MM-DD). Shown as "Last updated" and used as dateModified.', 'tdd_core_sanitize_date' ),
 			'tdd_review_cadence'  => $str( 'e.g. "Reviewed every six months" — only if true.' ),
-			'tdd_version_url'     => $str( 'Version history (or media kit) link.', 'esc_url_raw' ),
+			'tdd_version_url'     => $str( 'Version history (or media kit) link.', 'tdd_core_sanitize_link' ),
 			'tdd_version_label'   => $str( 'Label for that link. Default "Version history →".' ),
 			'tdd_summary'         => $str( 'Short description used in "Related policies" lists, e.g. "How we fix errors".' ),
 		);
@@ -38,7 +38,7 @@ add_action(
 				'default'           => array(),
 				'description'       => 'About only: the three-item focus row [{title, text}].',
 				'auth_callback'     => $can,
-				'sanitize_callback' => static fn( $v ) => array_slice( array_values( array_filter( array_map( static fn( $r ) => empty( $r['title'] ) ? null : array( 'title' => sanitize_text_field( $r['title'] ), 'text' => sanitize_text_field( $r['text'] ?? '' ) ), (array) $v ) ) ), 0, 3 ),
+				'sanitize_callback' => static fn( $v ) => array_slice( array_values( array_filter( array_map( static fn( $r ) => ( ! is_array( $r ) || empty( $r['title'] ) ) ? null : array( 'title' => sanitize_text_field( $r['title'] ), 'text' => sanitize_text_field( $r['text'] ?? '' ) ), (array) $v ) ) ), 0, 3 ),
 				'show_in_rest'      => array( 'schema' => array( 'type' => 'array', 'items' => array( 'type' => 'object', 'properties' => array( 'title' => array( 'type' => 'string' ), 'text' => array( 'type' => 'string' ) ) ) ) ),
 			)
 		);
@@ -51,7 +51,7 @@ add_action(
 				'default'           => array(),
 				'description'       => 'Related documents [{title, url, kind: policy|external}].',
 				'auth_callback'     => $can,
-				'sanitize_callback' => static fn( $v ) => array_values( array_filter( array_map( static fn( $r ) => ( empty( $r['title'] ) || empty( $r['url'] ) ) ? null : array( 'title' => sanitize_text_field( $r['title'] ), 'url' => esc_url_raw( $r['url'] ), 'kind' => 'external' === ( $r['kind'] ?? '' ) ? 'external' : 'policy' ), (array) $v ) ) ),
+				'sanitize_callback' => static fn( $v ) => array_values( array_filter( array_map( static fn( $r ) => ( ! is_array( $r ) || empty( $r['title'] ) || '' === tdd_core_sanitize_link( $r['url'] ?? '' ) ) ? null : array( 'title' => sanitize_text_field( $r['title'] ), 'url' => tdd_core_sanitize_link( $r['url'] ), 'kind' => 'external' === ( $r['kind'] ?? '' ) ? 'external' : 'policy' ), (array) $v ) ) ),
 				'show_in_rest'      => array( 'schema' => array( 'type' => 'array', 'items' => array( 'type' => 'object', 'properties' => array( 'title' => array( 'type' => 'string' ), 'url' => array( 'type' => 'string' ), 'kind' => array( 'type' => 'string', 'enum' => array( 'policy', 'external' ) ) ) ) ) ),
 			)
 		);

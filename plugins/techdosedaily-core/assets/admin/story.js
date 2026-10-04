@@ -323,7 +323,7 @@
 								h(Text, { label: __('Title', 'techdosedaily-core'), value: s.title || '', onChange: (v) => update(i, 'title', v), help: !s.title ? __('Required — untitled sources are dropped on save.', 'techdosedaily-core') : null }),
 								h(Text, { label: __('Link', 'techdosedaily-core'), type: 'url', value: s.url || '', onChange: (v) => update(i, 'url', v) }),
 								h(Select, { label: __('Type', 'techdosedaily-core'), value: s.type || 'primary', options: cfg.sourceTypes, onChange: (v) => update(i, 'type', v) }),
-								s.type === 'confidential' ? h(Note, { tone: 'warn' }, __('Confidential sources need an editor’s approval and a reason given in the story.', 'techdosedaily-core')) : null,
+								s.type === 'confidential' ? h(Note, { tone: 'warn' }, __('Confidential sources need an editor’s approval and a reason given in the story. Only the description is published; the link, publisher and note stay internal.', 'techdosedaily-core')) : null,
 								h(Text, { label: __('Publisher / organisation', 'techdosedaily-core'), value: s.publisher || '', onChange: (v) => update(i, 'publisher', v) }),
 								h(Text, { label: __('Date', 'techdosedaily-core'), value: s.date || '', placeholder: 'YYYY-MM-DD', onChange: (v) => update(i, 'date', v), help: __('When the source was published, if known.', 'techdosedaily-core') }),
 								h(Text, { label: __('Note', 'techdosedaily-core'), value: s.note || '', onChange: (v) => update(i, 'note', v), help: __('Optional, e.g. “Vendor-reported benchmark”.', 'techdosedaily-core') }),

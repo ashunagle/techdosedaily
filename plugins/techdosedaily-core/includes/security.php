@@ -52,6 +52,32 @@ function tdd_core_throttle( string $bucket, int $limit, int $window ): bool {
 }
 
 /**
+ * Site-wide ceiling for one bucket (all clients together). Stops a distributed flood from filling
+ * the newsroom inbox or a mailing list even when every request comes from a different address.
+ */
+function tdd_core_throttle_global( string $bucket, int $limit, int $window ): bool {
+	$key   = 'tdd_tg_' . md5( $bucket . '|' . (int) floor( time() / max( 1, $window ) ) );
+	$count = (int) get_transient( $key );
+	if ( $count >= $limit ) {
+		return false;
+	}
+	set_transient( $key, $count + 1, $window );
+	return true;
+}
+
+/** Site-wide ceilings per bucket: [ limit, window ]. Filter `tdd_core_global_limits` to tune. */
+function tdd_core_global_limit( string $bucket ): array {
+	$limits = (array) apply_filters(
+		'tdd_core_global_limits',
+		array(
+			'contact'   => array( 60, HOUR_IN_SECONDS ),
+			'subscribe' => array( 200, HOUR_IN_SECONDS ),
+		)
+	);
+	return $limits[ $bucket ] ?? array( 0, 0 );
+}
+
+/**
  * Common checks for a public submission. Returns true or WP_Error.
  *
  * @param WP_REST_Request $request Must carry `tdd_token` and the `tdd_hp` honeypot.
@@ -65,6 +91,10 @@ function tdd_core_guard_submission( WP_REST_Request $request, string $bucket, in
 		return $token;
 	}
 	if ( ! tdd_core_throttle( $bucket, $limit, $window ) ) {
+		return new WP_Error( 'tdd_rate', __( 'Too many attempts. Please wait a few minutes and try again.', 'techdosedaily-core' ), array( 'status' => 429 ) );
+	}
+	[ $g_limit, $g_window ] = tdd_core_global_limit( $bucket );
+	if ( $g_limit && ! tdd_core_throttle_global( $bucket, $g_limit, $g_window ) ) {
 		return new WP_Error( 'tdd_rate', __( 'Too many attempts. Please wait a few minutes and try again.', 'techdosedaily-core' ), array( 'status' => 429 ) );
 	}
 	if ( apply_filters( 'tdd_core_is_spam', false, $request, $bucket ) ) {

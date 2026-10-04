@@ -7,7 +7,7 @@ Every field below is registered in **TechDoseDaily Core** (sanitizer + permissio
 | Role | Story panels | Placements | Sections | Site settings | Profile |
 |---|---|---|---|---|---|
 | Contributor / Author | Story details, Status & labels, Sources, Corrections, Hero image credit, checklist | — | — | — | Own public profile |
-| Editor | + Homepage & section placement panel | ✅ | ✅ | — | + About listing, Featured Reporting, reporter's editor (for others) |
+| Editor | + Homepage & section placement panel | ✅ | ✅ | — | + About listing and Featured Reporting (own profile; administrators set them for others). No raw HTML/scripts since Phase 8. |
 | Administrator | everything | ✅ | ✅ | ✅ | everything |
 
 ## Stories (post meta, block-editor sidebar)
@@ -26,8 +26,8 @@ Every field below is registered in **TechDoseDaily Core** (sanitizer + permissio
 | | Vendor-reported | `tdd_vendor_reported` | Toggle. |
 | | AI disclosure | `tdd_ai_disclosure` | Text appears only when "Contains AI-generated material" is on. |
 | | Severity line | `tdd_severity` | Only for **Cybersecurity**. |
-| Sources | Repeatable, ordered rows | `tdd_sources` [{title, url, type, publisher, date, note}] | Collapsed rows, move up/down, warning when renumbered; confidential type shows the approval rule; untitled rows dropped. |
-| Corrections | Dated entries | `tdd_corrections` [{time, text}] | Entry field only after publication and only after "Add a correction". Published corrections are read-only; only administrators can change them (REST refuses removal for others). |
+| Sources | Repeatable, ordered rows | `tdd_sources` [{title, url, type, publisher, date, note}] | Collapsed rows, move up/down, warning when renumbered; confidential type shows the approval rule; untitled rows dropped. Links must be http(s). **Confidential:** only the description (title), type and date are published; link, publisher and note stay internal (Phase 8). |
+| Corrections | Dated entries | `tdd_corrections` [{time, text}] | Entry field only after publication and only after "Add a correction". Published corrections are read-only — text and date — from first publication on (also after unpublishing); only administrators can change or remove them, on every write path (Phase 8). |
 | Hero image credit | Credit, source type, source link, licence | attachment `tdd_credit`, `tdd_source_type`, `tdd_source_url`, `tdd_license_note` | Saved on the image with the story. Link only for external sources; licence only for licensed/official; AI-generated shows the label note. Same fields in the Media Library. |
 | Placement (editors) | Current placements + "Place this story…" | placements table | Published/scheduled stories. |
 | Pre-publish checklist | Section, deck, sources, editor, image credit, sponsor, breaking end | — | Advisory, never blocks publishing. |

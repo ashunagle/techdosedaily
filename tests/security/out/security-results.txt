@@ -1,0 +1,161 @@
+PASS anonymous: list placements → denied
+PASS anonymous: create placement → denied
+PASS anonymous: placement board → denied
+PASS subscriber: list placements → denied
+PASS subscriber: create placement → denied
+PASS subscriber: placement board → denied
+PASS contributor: list placements → denied
+PASS contributor: create placement → denied
+PASS contributor: placement board → denied
+PASS author: list placements → denied
+PASS author: create placement → denied
+PASS author: placement board → denied
+PASS editor: list placements → 200
+PASS editor: create placement → 200
+PASS editor: placement board → 200
+PASS editor: PATCH end before start refused (400)
+PASS editor: end placement → 200
+PASS editor: end unknown placement → 404
+PASS administrator: list placements → 200
+PASS administrator: create placement → 200
+PASS administrator: placement board → 200
+PASS administrator: PATCH end before start refused (400)
+PASS administrator: end placement → 200
+PASS administrator: end unknown placement → 404
+PASS editor: placement POST without nonce (forged cross-site) refused
+PASS administrator: placement POST without nonce (forged cross-site) refused
+PASS subscriber: forged DELETE of a placement refused
+PASS author: forged DELETE of a placement refused
+PASS editor: a draft cannot be placed
+PASS editor: SQL-shaped placement key rejected by schema (400)
+PASS method enforcement: PUT /placements → 404 no route
+PASS subscriber: forged settings save rejected
+PASS subscriber: settings screen not available
+PASS contributor: forged settings save rejected
+PASS contributor: settings screen not available
+PASS author: forged settings save rejected
+PASS author: settings screen not available
+PASS editor: forged settings save rejected
+PASS editor: settings screen not available
+PASS administrator: settings save without nonce rejected (CSRF)
+PASS operational settings are not exposed in /wp/v2/settings
+PASS contact inboxes never printed on the Contact page
+PASS editor: rewriting a published correction refused (400)
+PASS editor: re-dating a published correction refused
+PASS editor: removing all corrections refused
+PASS editor: deleting corrections with null refused (record intact)
+PASS editor: appending a correction works
+PASS editor: unpublishing first does not unlock corrections
+PASS author (own story): removing a correction refused
+PASS administrator: may amend corrections (legal fixes)
+PASS anonymous: edit another author’s published story → denied
+PASS subscriber: edit another author’s published story → denied
+PASS contributor: edit another author’s published story → denied
+PASS author: edit another author’s published story → denied
+PASS editor: edit another author’s published story → allowed
+PASS editor: <script>/event handlers stripped on save (no unfiltered_html → no editor→admin XSS)
+PASS administrator: keeps unfiltered HTML (trusted)
+PASS contributor: cannot publish (saved as pending at most)
+PASS author: "Edited by" must be a real editor (subscriber ID dropped)
+PASS author: unknown section ID dropped
+PASS author: javascript:/data: source links stored empty
+PASS anonymous: another author’s draft is unreadable over REST
+PASS anonymous: draft headline never rendered
+PASS subscriber: another author’s draft is unreadable over REST
+PASS subscriber: draft headline never rendered
+PASS contributor: another author’s draft is unreadable over REST
+PASS contributor: draft headline never rendered
+PASS author: another author’s draft is unreadable over REST
+PASS author: draft headline never rendered
+PASS author: story-card block cannot surface another author’s draft
+PASS author: placement info of a draft refused
+PASS public page shows the confidential source description
+PASS public page never shows its link, publisher or note
+PASS public REST: confidential link/publisher/note removed
+PASS editor (context=edit): full source record available
+PASS subscriber: context=edit on another’s story refused
+PASS contributor: context=edit on another’s story refused
+PASS author: context=edit on another’s story refused
+PASS subscriber: cannot grant itself administrator over REST
+PASS subscriber: cannot edit another account
+PASS contributor: cannot grant itself administrator over REST
+PASS contributor: cannot edit another account
+PASS author: cannot grant itself administrator over REST
+PASS author: cannot edit another account
+PASS author: editors-only field tdd_show_on_about cannot be self-set
+PASS author: editors-only field tdd_about_order cannot be self-set
+PASS author: editors-only field tdd_featured_posts cannot be self-set
+PASS author: editors-only field tdd_editor_user cannot be self-set
+PASS author: javascript: social URL dropped, https kept
+PASS author: profile photo must be an image attachment
+PASS author: title stored without markup
+PASS author: forged profile form cannot set role or editors-only fields
+PASS editor: cannot write another user’s account over REST (no edit_user)
+PASS administrator: Featured Reporting keeps only the person’s own published stories
+PASS subscriber: section settings over REST refused
+PASS subscriber: forged section form refused
+PASS contributor: section settings over REST refused
+PASS contributor: forged section form refused
+PASS author: section settings over REST refused
+PASS author: forged section form refused
+PASS editor: desk members must have editing rights (subscriber dropped)
+PASS editor: javascript: desk link stored empty
+PASS editor: upload of evil.html refused
+PASS editor: upload of evil.svg refused
+PASS editor: upload of shell.php refused
+PASS editor: upload of shell.php.jpg refused
+PASS editor: upload of doc.docx refused
+PASS editor: upload of script.js refused
+PASS contributor: no upload rights (403)
+PASS author: JPEG upload accepted
+PASS uploaded original has no GPS, camera make or artist
+PASS REST image_meta carries no camera/credit data
+PASS editor: PDF upload still allowed (media kit, policies)
+PASS XML-RPC refused (403)
+PASS PHP level too: XML-RPC off, no methods, app passwords off (independent of the server rule)
+PASS server rule (local mirror of production config): /wp-content/uploads/x.php → 403/404
+PASS server rule (local mirror of production config): /.env → 403/404
+PASS server rule (local mirror of production config): /.git/config → 403/404
+PASS server rule (local mirror of production config): /readme.html → 403/404
+PASS server rule (local mirror of production config): /wp-config.php → 403/404
+PASS no X-Pingback header
+PASS application passwords unavailable
+PASS anonymous: /wp/v2/users refused
+PASS anonymous: /wp/v2/users/37 refused
+PASS anonymous: /wp/v2/users?search=admin refused
+PASS author: user list with emails (context=edit) refused
+PASS administrator: theme/plugin file editor disabled
+PASS login: same message for unknown user and wrong password
+PASS GET /tdd/v1/contact → 404 (POST only)
+PASS GET /tdd/v1/subscribe → 404 (POST only)
+PASS GET /tdd/v1/view → 404 (POST only)
+PASS contact REST without the page nonce refused
+PASS no-JS contact form still sends (303 → ?tdd_cf=sent) with security headers
+PASS send failure: generic message, no internals
+PASS message bodies are never logged (subject excerpt only)
+PASS newsletter: 6th+ request from one client within 10 min → 429
+PASS no-JS newsletter form still works (303 back with state)
+PASS no-JS newsletter never redirects off-site (open redirect)
+PASS forged form token refused
+PASS honeypot filled → refused
+PASS site-wide ceiling stops a distributed flood
+PASS malformed JSON → clean 400, no internals
+PASS view count: one per reader per 30 min (refreshes ignored)
+PASS view endpoint: non-integer id rejected (400)
+PASS view endpoint: drafts are never counted
+PASS /?s=%27%20OR%201%3D1--&section[]=ai%27--… → no DB error or internals
+PASS /?author=1%27… → no DB error or internals
+PASS /ai/?paged=1%27… → no DB error or internals
+PASS /?p=1%27%20UNION%20SELECT%201--… → no DB error or internals
+PASS headers on /
+PASS headers on /ai/security-fixture-published-story/
+PASS headers on /contact/
+PASS headers on /?s=AI
+PASS headers on /wp-login.php
+PASS headers on /no-such-page-xyz/
+PASS headers also on page-cache HITs
+PASS logged-in pages: private, no-store, never from the cache
+PASS authenticated REST responses: no-store
+PASS oEmbed card stays embeddable by other sites
+
+159 passed, 0 failed

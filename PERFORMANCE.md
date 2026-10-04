@@ -9,7 +9,7 @@ This phase covers performance only. There is no security hardening and no launch
 | Hero image | Only the likely LCP image is `loading="eager"` + `fetchpriority="high"`: the homepage lead, the section lead and the article hero. The homepage rail and the mobile top list were eager before; they are now lazy. | theme `inc/home.php`, `inc/template-tags.php` (`tdd_media`) |
 | Content media | Every image and iframe/embed inside story or page content is lazy and never high priority. WordPress had given the first body image `fetchpriority="high"` and left iframes eager. Content images get reading-column `sizes`: `(max-width: 767px) calc(100vw - 40px), 740px`, or `100vw` for wide/full alignments. WordPress had used `(max-width: 1024px) 100vw, 1024px`. | theme `inc/performance.php` |
 | Image formats | JPEG uploads keep the original file. Every generated size (the srcset candidates) is WebP when the server can write WebP. Filter: `tdd_core_webp_subsizes`. The local sample images are already WebP. | Core `includes/performance.php` |
-| Fonts | 8 woff2 files went from 149 KB to 129 KB. Unused OpenType features (fractions, numerators/denominators, proportional figures) and the STAT table were dropped; every character is kept. The script is `tools/subset-fonts.sh`, run on the original design-system files. | `assets/fonts/` |
+| Fonts | The 8 woff2 files went from 152,820 bytes (149.2 KiB) to 131,920 bytes (128.8 KiB) on disk. Unused OpenType features (fractions, numerators/denominators, proportional figures) and the STAT table were dropped; every character is kept. The script is `tools/subset-fonts.sh`, run on the original design-system files. | `assets/fonts/` |
 | Font fallback | `font-display: swap` stays. Metric-matched local fallback faces ("Inter Fallback", "Manrope Fallback": Arial/Liberation Sans with `size-adjust`, `ascent-override`, `descent-override`, computed from the shipped files) sit second in each stack, so text laid out before the swap takes the same space. Rendering after the swap is unchanged. | `tools/build-tokens.mjs` → `tokens.css`, `theme.json` |
 | Preloads | Two fonts are preloaded (Manrope 800, Inter 400), the ones above the fold on every template. This is unchanged and was re-checked. | theme `inc/assets.php` |
 | Search CLS | The filter bottom-sheet class is set in `<head>` before first paint, not after the deferred script. Mobile CLS went from 0.573 to 0. Without JS nothing changes. | theme `inc/performance.php` |
@@ -35,10 +35,10 @@ These are lab budgets, with Lighthouse mobile = simulated Moto G Power / slow 4G
 | LCP, mobile | ≤ 2.5 s (target ≤ 2.0 s) | 1.96 s uncached homepage |
 | CLS | ≤ 0.05 | 0.003 |
 | TBT, mobile | ≤ 100 ms | 0 ms |
-| Total transfer, first view | ≤ 250 KB mobile, ≤ 300 KB desktop homepage | 198 KB / 227 KB |
-| Fonts | ≤ 125 KB, at most 2 preloads | 119 KB, 2 |
-| CSS per page (gz) | ≤ 25 KB | 23 KB (newsletter) |
-| JS per page (gz) | ≤ 10 KB, all deferred | 4 KB |
+| Total transfer, first view | ≤ 250 KiB mobile, ≤ 300 KiB desktop homepage | 198 KiB / 227 KiB |
+| Font transfer per page (measured by Lighthouse, all font requests incl. headers) | ≤ 125 KiB, at most 2 preloads | 119 KiB, 2 preloads |
+| CSS per page (gz) | ≤ 25 KiB | 23 KiB (newsletter) |
+| JS per page (gz) | ≤ 10 KiB, all deferred | 4 KiB |
 | Requests | ≤ 30 | 26 |
 | Third-party requests | 0 | 0 |
 | High-priority images | ≤ 1 per page | 1 (home, section, article with hero), otherwise 0 |
@@ -129,9 +129,9 @@ Measured locally on nginx 1.24 + PHP-FPM 8.3, SQLite and Yoast 28.6 active, with
 
 - "→ x / y": uncached / served from the page cache.
 - Scores and LCP move by about ±300 ms between identical runs, from simulated throttling.
-- Raw data: `tests/perf/out/lighthouse-*.json`.
+- Raw data: `tests/perf/out/lighthouse-*.json`. Transfer figures are measured network transfer in KiB (1,024 bytes), headers included; they are not file sizes on disk.
 
-| Page | Score | LCP ms | CLS | TBT ms | TTFB ms | Transfer KB | Fonts KB | CSS KB | JS KB | Requests |
+| Page | Score | LCP ms | CLS | TBT ms | TTFB ms | Transfer KiB | Font transfer KiB | CSS transfer KiB | JS transfer KiB | Requests |
 |---|---|---|---|---|---|---|---|---|---|---|
 | home · mobile | 96 → 99 / 100 | 2470 → 1960 / 1658 | 0 → 0 | 28 → 0 | 240 → 163 / 3 | 224 → 196 | 138 → 119 | 17 → 13 | 3 → 2 | 24 → 22 |
 | home · desktop | 100 → 100 / 100 | 543 → 490 / 501 | 0 → 0 | 0 → 0 | 319 → 168 / 0 | 259 → 227 | 138 → 119 | 17 → 13 | 3 → 2 | 28 → 26 |
@@ -154,8 +154,8 @@ Measured locally on nginx 1.24 + PHP-FPM 8.3, SQLite and Yoast 28.6 active, with
 
 | Run | LCP / FCP | CLS | TTFB | Transfer | Requests |
 |---|---|---|---|---|---|
-| Mobile, uncached / cached | 808 / 744 ms | 0 | 101 / 6 ms | 154 KB | 17 |
-| Desktop, uncached / cached | 248 / 124 ms | 0 | 123 / 6 ms | 154 KB | 17 |
+| Mobile, uncached / cached | 808 / 744 ms | 0 | 101 / 6 ms | 154 KiB | 17 |
+| Desktop, uncached / cached | 248 / 124 ms | 0 | 123 / 6 ms | 154 KiB | 17 |
 
 **LCP elements:**
 

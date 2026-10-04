@@ -65,7 +65,7 @@ Every piece of illustrative or provisional material from the design phase and th
 ## Phase 5 local fixtures (never on staging or production)
 
 - [ ] Test story **"[Sample] Phase 5 panel test story"** (`_tdd_fixture = phase5`), with sample sponsor, sources, correction and image credit. Delete before launch (Site settings → Launch readiness counts sample data).
-- [ ] Local sample users have the password `local-test-only` for role testing. Never create them on a real site.
+- [ ] Local sample users have a shared local-only password for role testing (not recorded in the repo). Never create them on a real site.
 - [ ] Work through **Site settings → Launch readiness** before launch: every "!" item must be resolved.
 
 ## Phase 6 (SEO / structured data)
@@ -89,4 +89,14 @@ Every piece of illustrative or provisional material from the design phase and th
 - [ ] Confirm WebP sub-size support and Brotli/gzip on the server; enable an object cache if offered.
 - [ ] Still open from Phase 6: **Google Rich Results Test**, **final Site Icon**, **Yoast SEO data optimisation**.
 - [ ] Local harness only, never deployed: `tests/perf/mu-local-page-cache.php`, `tests/perf/mu-query-log.php`, `tests/perf/nginx.conf`, `fpm.conf`.
+
+## Phase 8 (security and privacy) — staging/pre-launch
+
+- [ ] Work through **SECURITY.md §8**: wp-config constants (no debug display, `DISALLOW_FILE_EDIT`, `FORCE_SSL_ADMIN`, `DISABLE_WP_CRON`), server rules (no PHP in uploads, XML-RPC denied, dotfiles hidden), HTTPS + HSTS, real client IP behind any CDN, PHP with Imagick.
+- [ ] **Accounts:** personal accounts only (remove the generic `admin` login), 2FA for administrators and editors, registration off, least-privilege roles.
+- [ ] **MailPoet double opt-in on**; SPF/DKIM/DMARC for the sender domain; SMTP credentials outside Git.
+- [ ] **Backups** per SECURITY.md §8 (daily DB + uploads, 30/12 retention, off-site, encrypted) and a restore test to staging before launch.
+- [ ] Re-run `tests/security/security_test.py` and `xss_test.py` against staging before real content exists; securityheaders.com and SSL Labs grade A.
+- [ ] Decide the accepted risks in SECURITY.md §6 (newsletter "already subscribed" state; authors deleting their own published stories).
+- [ ] Still open: Google Rich Results Test, final Site Icon, Yoast SEO data optimisation, production cache verification.
 

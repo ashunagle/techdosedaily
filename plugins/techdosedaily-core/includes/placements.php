@@ -433,7 +433,14 @@ function tdd_core_placement_update( int $id, ?string $start, ?string $expires, b
 	if ( ! $data ) {
 		return new WP_Error( 'tdd_nothing', __( 'Nothing to change.', 'techdosedaily-core' ), array( 'status' => 400 ) );
 	}
-	if ( isset( $data['start_at'], $data['expires_at'] ) && $data['expires_at'] && $data['expires_at'] <= $data['start_at'] ) {
+	// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+	$row = $wpdb->get_row( $wpdb->prepare( "SELECT start_at, expires_at FROM {$table} WHERE id = %d", $id ), ARRAY_A );
+	if ( ! $row ) {
+		return new WP_Error( 'tdd_not_found', __( 'Placement not found.', 'techdosedaily-core' ), array( 'status' => 404 ) );
+	}
+	$eff_start = $data['start_at'] ?? $row['start_at'];
+	$eff_end   = array_key_exists( 'expires_at', $data ) ? $data['expires_at'] : $row['expires_at'];
+	if ( $eff_end && $eff_end <= $eff_start ) {
 		return new WP_Error( 'tdd_bad_window', __( 'The end must be after the start.', 'techdosedaily-core' ), array( 'status' => 400 ) );
 	}
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -538,7 +545,10 @@ add_action(
 				array(
 					'methods'             => 'DELETE',
 					'permission_callback' => $perm,
-					'callback'            => static fn( WP_REST_Request $r ) => rest_ensure_response( array( 'ended' => tdd_core_unplace( (int) $r['id'] ) ) ),
+					'callback'            => static function ( WP_REST_Request $r ) {
+						$ended = tdd_core_unplace( (int) $r['id'] );
+						return $ended ? rest_ensure_response( array( 'ended' => true ) ) : new WP_Error( 'tdd_not_found', __( 'Placement not found.', 'techdosedaily-core' ), array( 'status' => 404 ) );
+					},
 				),
 				array(
 					'methods'             => 'PATCH',

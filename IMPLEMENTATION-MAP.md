@@ -232,3 +232,6 @@ Generated in Phase 1 from the 94 design-system entries (`01-Design-System/compon
 | Clock-correct placement cache, start/expiry indexes, batched post/meta/term/thumbnail priming | `placements.php`, `api.php` | 7 | ✅ |
 | Most Read excludes lab/uptime tools (`X-TDD-Perf-Test`, webdriver, prerender) | `popularity.php`, theme `view-beacon.js` | 7 | ✅ |
 | Theme loading: one high-priority hero, lazy content media + column `sizes`, minified + file-versioned assets, trimmed fonts + metric fallbacks, early search class | theme `inc/performance.php`, `tools/minify.mjs`, `tools/subset-fonts.sh`, `tools/build-tokens.mjs` | 7 | ✅ (see `PERFORMANCE.md`) |
+| Security hardening: XML-RPC / application passwords off, anonymous REST users off, generic login errors, security headers, uploads (images + PDF), image-metadata stripping, raw HTML for administrators only, file editor off, featured-reporting ownership | `hardening.php` | 8 | ✅ (see `SECURITY.md`) |
+| Append-only corrections on every write path; confidential source details internal; http(s)-only links; validated references; site-wide form ceilings; placement window validation | `editorial.php`, `meta.php`, `pages.php`, `security.php`, `placements.php` | 8 | ✅ |
+| Theme: recursion guard for content-rendering blocks | theme `inc/performance.php` | 8 | ✅ |

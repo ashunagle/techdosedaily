@@ -61,7 +61,7 @@ add_action(
 			array(
 				'type'              => 'array',
 				'default'           => array(),
-				'sanitize_callback' => static fn( $v ) => array_values( array_filter( array_map( static fn( $r ) => empty( $r['title'] ) ? null : array( 'title' => sanitize_text_field( $r['title'] ), 'text' => sanitize_text_field( $r['text'] ?? '' ) ), (array) $v ) ) ),
+				'sanitize_callback' => static fn( $v ) => array_slice( array_values( array_filter( array_map( static fn( $r ) => ( ! is_array( $r ) || empty( $r['title'] ) ) ? null : array( 'title' => mb_substr( sanitize_text_field( (string) $r['title'] ), 0, 80 ), 'text' => mb_substr( sanitize_text_field( (string) ( $r['text'] ?? '' ) ), 0, 300 ) ), (array) $v ) ) ), 0, 6 ),
 			)
 		);
 		register_setting( TDD_CORE_SETTINGS, 'tdd_secure_tip', array( 'type' => 'string', 'default' => '', 'sanitize_callback' => 'wp_kses_post' ) );
@@ -77,7 +77,7 @@ add_action(
 				},
 			)
 		);
-		register_setting( TDD_CORE_SETTINGS, 'tdd_media_kit_url', array( 'type' => 'string', 'default' => '', 'sanitize_callback' => static fn( $v ) => esc_url_raw( (string) $v, array( 'http', 'https' ) ) ) );
+		register_setting( TDD_CORE_SETTINGS, 'tdd_media_kit_url', array( 'type' => 'string', 'default' => '', 'sanitize_callback' => 'tdd_core_sanitize_http_url' ) );
 		register_setting( TDD_CORE_SETTINGS, 'tdd_newsletter_mailpoet_list', array( 'type' => 'integer', 'default' => 0, 'sanitize_callback' => 'absint' ) );
 		register_setting(
 			TDD_CORE_SETTINGS,
@@ -186,6 +186,28 @@ function tdd_core_launch_checks(): array {
 		? array( 'ok', __( 'Yoast SEO', 'techdosedaily-core' ), __( 'Active: titles, descriptions, canonicals, robots, social tags and sitemaps.', 'techdosedaily-core' ), admin_url( 'admin.php?page=wpseo_dashboard' ) )
 		: array( 'todo', __( 'Yoast SEO', 'techdosedaily-core' ), __( 'Not active. Install and configure it (see SEO-SCHEMA.md): without it there are no meta descriptions, social tags or Yoast sitemaps.', 'techdosedaily-core' ), admin_url( 'plugins.php' ) );
 	$out[] = array( 'info', __( 'Structured data', 'techdosedaily-core' ), 'core' === tdd_core_schema_owner() ? __( 'TechDoseDaily Core graph is printed.', 'techdosedaily-core' ) : __( 'Yoast SEO graph is printed.', 'techdosedaily-core' ), admin_url( 'admin.php?page=tdd-settings#tdd-schema' ) );
+
+	// Security (Phase 8; see SECURITY.md).
+	$https = str_starts_with( home_url( '/' ), 'https://' ) && str_starts_with( site_url( '/' ), 'https://' );
+	$out[] = $https
+		? array( 'ok', __( 'HTTPS', 'techdosedaily-core' ), __( 'Site and admin URLs use https.', 'techdosedaily-core' ), admin_url( 'options-general.php' ) )
+		: array( 'todo', __( 'HTTPS', 'techdosedaily-core' ), __( 'Site or admin URL is not https. Production must be HTTPS-only (FORCE_SSL_ADMIN).', 'techdosedaily-core' ), admin_url( 'options-general.php' ) );
+	$shows = ( defined( 'WP_DEBUG' ) && WP_DEBUG && ( ! defined( 'WP_DEBUG_DISPLAY' ) || WP_DEBUG_DISPLAY ) ) || '1' === (string) ini_get( 'display_errors' );
+	$out[] = $shows
+		? array( 'todo', __( 'Error display', 'techdosedaily-core' ), __( 'PHP errors can be shown to visitors. Set WP_DEBUG_DISPLAY false and display_errors off.', 'techdosedaily-core' ), '' )
+		: array( 'ok', __( 'Error display', 'techdosedaily-core' ), __( 'Errors are not shown to visitors.', 'techdosedaily-core' ), '' );
+	$out[] = get_option( 'users_can_register' )
+		? array( 'todo', __( 'Open registration', 'techdosedaily-core' ), __( 'Anyone can register. Turn off “Anyone can register” (Settings → General); accounts are created by administrators.', 'techdosedaily-core' ), admin_url( 'options-general.php' ) )
+		: array( 'ok', __( 'Open registration', 'techdosedaily-core' ), __( 'Off — accounts are created by administrators.', 'techdosedaily-core' ), '' );
+	$out[] = get_user_by( 'login', 'admin' )
+		? array( 'todo', __( 'Account named “admin”', 'techdosedaily-core' ), __( 'Use personal administrator accounts; remove the generic “admin” login.', 'techdosedaily-core' ), admin_url( 'users.php' ) )
+		: array( 'ok', __( 'Account named “admin”', 'techdosedaily-core' ), __( 'None.', 'techdosedaily-core' ), '' );
+	$out[] = ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON )
+		? array( 'ok', __( 'Cron', 'techdosedaily-core' ), __( 'Runs from the server scheduler.', 'techdosedaily-core' ), '' )
+		: array( 'todo', __( 'Cron', 'techdosedaily-core' ), __( 'Set DISABLE_WP_CRON and a server cron job every minute (scheduled stories on a cached site).', 'techdosedaily-core' ), '' );
+	$out[] = ( extension_loaded( 'imagick' ) )
+		? array( 'ok', __( 'Image metadata', 'techdosedaily-core' ), __( 'Removed on upload (Imagick; colour profile kept).', 'techdosedaily-core' ), '' )
+		: array( 'info', __( 'Image metadata', 'techdosedaily-core' ), __( 'Removed on upload by re-saving with GD (quality 90). Imagick keeps original quality.', 'techdosedaily-core' ), '' );
 
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 	$fixtures = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = '_tdd_fixture'" );
