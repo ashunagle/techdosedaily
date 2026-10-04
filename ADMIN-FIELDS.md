@@ -7,7 +7,7 @@ Every field below is registered in **TechDoseDaily Core** (sanitizer + permissio
 | Role | Story panels | Placements | Sections | Site settings | Profile |
 |---|---|---|---|---|---|
 | Contributor / Author | Story details, Status & labels, Sources, Corrections, Hero image credit, checklist | — | — | — | Own public profile |
-| Editor | + Homepage & section placement panel | ✅ | ✅ | — | + About listing and Featured Reporting (own profile; administrators set them for others). No raw HTML/scripts since Phase 8. |
+| Editor | + Homepage & section placement panel | ✅ | ✅ | — | + About listing and Featured Reporting for every reporter (Tech Dose Daily → Reporter profiles). No raw HTML/scripts; only editors take published stories down (Phase 8). |
 | Administrator | everything | ✅ | ✅ | ✅ | everything |
 
 ## Stories (post meta, block-editor sidebar)
@@ -83,8 +83,8 @@ Replace = search published stories, optional start and end. End before start is 
 | Beats (4–8 topics, ordered) | `tdd_beats` | The person |
 | Social profiles (repeatable) | `tdd_social` [{label, url}] | The person |
 | Email link on author page | `tdd_public_email` | The person |
-| Listed on About + order | `tdd_show_on_about`, `tdd_about_order` | Editors |
-| Featured Reporting (max 3, own published stories) | `tdd_featured_posts` | Editors |
+| Listed on About + order | `tdd_show_on_about`, `tdd_about_order` | Editors (Tech Dose Daily → Reporter profiles, or their own profile) |
+| Featured Reporting (max 3, own published stories) | `tdd_featured_posts` | Editors (Reporter profiles; validated against that reporter's published stories) |
 | Reporter's editor | `tdd_editor_user` | Administrators |
 
 ## Site settings (administrators; options)
@@ -97,3 +97,8 @@ Replace = search published stories, optional start and end. End before start is 
 | Newsletter | `tdd_newsletter_mailpoet_list` | Shows the active provider and whether it is ready. |
 | Publishing | `tdd_breaking_hours`, `tdd_core_most_read_windows` | Bounded values. |
 | Structured data | `tdd_core_schema_owner` (`yoast` default, `core`) | One JSON-LD graph per page. If Yoast is chosen but not active, the Core graph is printed and a warning shown. See `SEO-SCHEMA.md`. |
+
+## Reporter profiles (Tech Dose Daily → Reporter profiles; editors)
+
+List of everyone with a byline (administrators are shown only to administrators) with their About status and Featured Reporting. **Edit** opens one reporter with exactly three fields: *List under "Our editors" on the About page*, *Order* (0–99), *Featured Reporting* (up to 3 of that reporter's published stories, in order). Nothing else about the account — role, email, password, name, bio, photo, social links, the reporter's editor — can be changed here. Saves through a per-reporter nonce; Phase 8 (SECURITY.md finding 23).
+

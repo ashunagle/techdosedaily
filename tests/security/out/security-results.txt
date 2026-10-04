@@ -69,6 +69,15 @@ PASS author: another author’s draft is unreadable over REST
 PASS author: draft headline never rendered
 PASS author: story-card block cannot surface another author’s draft
 PASS author: placement info of a draft refused
+PASS Author role has no delete_published_posts
+PASS author: trashing own published story refused
+PASS author: deleting own published story refused
+PASS author: unpublishing own story refused (would allow delete-as-draft)
+PASS author: can still edit and update own published story
+PASS author: a once-published story stays undeletable after it is taken down
+PASS author: may still delete own never-published draft
+PASS editor: may take a published story down
+PASS editor: may trash a once-published story
 PASS public page shows the confidential source description
 PASS public page never shows its link, publisher or note
 PASS public REST: confidential link/publisher/note removed
@@ -92,6 +101,25 @@ PASS author: title stored without markup
 PASS author: forged profile form cannot set role or editors-only fields
 PASS editor: cannot write another user’s account over REST (no edit_user)
 PASS administrator: Featured Reporting keeps only the person’s own published stories
+PASS anonymous: Reporter profiles screen not available
+PASS anonymous: forged reporter-profile save refused
+PASS subscriber: Reporter profiles screen not available
+PASS subscriber: forged reporter-profile save refused
+PASS contributor: Reporter profiles screen not available
+PASS contributor: forged reporter-profile save refused
+PASS author: Reporter profiles screen not available
+PASS author: forged reporter-profile save refused
+PASS editor: reporter list shows reporters (not administrators)
+PASS editor: edit form offers only About, order and Featured Reporting
+PASS editor: save works (303 back to the screen)
+PASS editor: About listing and order stored
+PASS editor: Featured Reporting keeps only that reporter’s own published stories
+PASS editor: role, email, password, editor and title untouched
+PASS editor: a nonce for one reporter can’t be replayed for another
+PASS editor: administrator accounts are out of reach
+PASS editor: subscribers (no byline) are out of reach
+PASS editor: still no general account editing over REST
+PASS administrator: can manage any reporter here too
 PASS subscriber: section settings over REST refused
 PASS subscriber: forged section form refused
 PASS contributor: section settings over REST refused
@@ -121,7 +149,7 @@ PASS server rule (local mirror of production config): /wp-config.php → 403/404
 PASS no X-Pingback header
 PASS application passwords unavailable
 PASS anonymous: /wp/v2/users refused
-PASS anonymous: /wp/v2/users/37 refused
+PASS anonymous: /wp/v2/users/53 refused
 PASS anonymous: /wp/v2/users?search=admin refused
 PASS author: user list with emails (context=edit) refused
 PASS administrator: theme/plugin file editor disabled
@@ -134,6 +162,12 @@ PASS no-JS contact form still sends (303 → ?tdd_cf=sent) with security headers
 PASS send failure: generic message, no internals
 PASS message bodies are never logged (subject excerpt only)
 PASS newsletter: 6th+ request from one client within 10 min → 429
+PASS REST: same status code for new / already / pending
+PASS REST: byte-identical body for all three
+PASS REST: neutral wording, no provider details
+PASS REST: response time padded and alike (spread < 0.3 s)
+PASS no-JS: identical 303 redirect for all three
+PASS no-JS result page: old and new state URLs all show the same neutral text
 PASS no-JS newsletter form still works (303 back with state)
 PASS no-JS newsletter never redirects off-site (open redirect)
 PASS forged form token refused
@@ -158,4 +192,4 @@ PASS logged-in pages: private, no-store, never from the cache
 PASS authenticated REST responses: no-store
 PASS oEmbed card stays embeddable by other sites
 
-159 passed, 0 failed
+193 passed, 0 failed

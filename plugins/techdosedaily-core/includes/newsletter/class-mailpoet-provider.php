@@ -41,7 +41,13 @@ final class MailPoet_Provider implements Provider {
 				if ( $on_list && 'subscribed' === ( $existing['status'] ?? '' ) ) {
 					return new Result( Result::ALREADY );
 				}
-				$sub = $this->api()->subscribeToList( $existing['id'], $list );
+				try {
+					$sub = $this->api()->subscribeToList( $existing['id'], $list );
+				} catch ( \Throwable $e ) {
+					// Known address MailPoet won't re-add (e.g. unsubscribed, bounced): answer like any other
+					// known address so the public response never differs (Phase 8). Detail is logged only.
+					return new Result( Result::ALREADY, $e->getMessage() );
+				}
 				return new Result( 'unconfirmed' === ( $sub['status'] ?? '' ) ? Result::PENDING : Result::SUBSCRIBED );
 			}
 			$sub = $this->api()->addSubscriber( array( 'email' => $email ), array( $list ) );

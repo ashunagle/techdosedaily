@@ -44,6 +44,7 @@ $tdd_core_modules = array(
 	'admin/placements-admin', // Placement editor.
 	'admin/sections-admin',   // Section settings on the Sections screen.
 	'admin/users-admin',      // Author profile fields.
+	'admin/reporters-admin',  // Editors: About listing + Featured Reporting for reporters (no edit_users).
 	'admin/settings',         // Site settings + launch readiness.
 );
 foreach ( $tdd_core_modules as $tdd_core_module ) {

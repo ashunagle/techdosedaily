@@ -18,7 +18,7 @@ Uninstalling keeps all data (see `uninstall.php`).
 | `meta.php` | Every registered post, attachment and user field (table below) |
 | `editorial.php` | Breaking as a time-limited state, substantive-update logic, corrections, sources, reading time |
 | `placements.php` | Editorial placement table, API, REST (`/tdd/v1/placements`, `/placements/board`, `/placements/post/<id>`) and WP-CLI for scripting (`wp tdd placement …`) |
-| `admin/*` | Newsroom admin: story + page sidebar panels, Media Library fields, placement editor, section settings, profile fields, Site settings with launch readiness. Field reference: `ADMIN-FIELDS.md` |
+| `admin/*` | Newsroom admin: story + page sidebar panels, Media Library fields, placement editor, section settings, profile fields, Site settings with launch readiness. Field reference: `ADMIN-FIELDS.md` Reporter profiles screen (editors: About listing/order, Featured Reporting) in `admin/reporters-admin.php`. |
 | `popularity.php` | Anonymous hourly view buckets (`/tdd/v1/view`) behind Most Read; configurable windows (home 24h, section 7d, author 30d); bots, previews and logged-in editorial users excluded; no IPs, cookies or user IDs stored |
 | `security.php` | Signed time token, honeypot, hashed-IP throttling, `tdd_core_is_spam` filter; site-wide ceilings (`tdd_core_global_limits`) |
 | `hardening.php` | Phase 8: XML-RPC and application passwords off, anonymous `/wp/v2/users` off, generic login errors, security headers, upload types (images + PDF), image-metadata stripping, raw HTML for administrators only, file editor off, Featured Reporting ownership. Filters listed in the file header; decisions in `SECURITY.md` |

@@ -12,7 +12,7 @@ add_action(
 	'admin_enqueue_scripts',
 	static function ( string $hook ) {
 		$screen = get_current_screen();
-		$forms  = in_array( $hook, array( 'profile.php', 'user-edit.php', 'tech-dose-daily_page_tdd-settings' ), true )
+		$forms  = in_array( $hook, array( 'profile.php', 'user-edit.php', 'tech-dose-daily_page_tdd-settings', 'tech-dose-daily_page_tdd-reporters' ), true )
 			|| ( $screen && 'category' === $screen->taxonomy );
 		if ( ! $forms ) {
 			return;

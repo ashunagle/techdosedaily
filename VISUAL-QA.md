@@ -196,7 +196,7 @@ Fixture: `tests/fixtures/phase4-pages.php` (local only; approved design copy mar
 | "A look inside" | **Known intentional difference** | Built from today's real Daily Tech Brief placement (needs 3+ stories, otherwise hidden), tagged "Preview · today’s stories from the Daily Tech Brief". No invented intro, "Why it matters", "Try this", view-in-browser or unsubscribe links. |
 | Recent issues / View archive / Latest issue | **Known intentional difference** | Omitted: there is no issue archive in V1. |
 | Delivery (desktop beside the issue; mobile "Delivery and questions") | **Pass** | Same rows, approved placement per width. Closing sign-up shown on desktop only (as approved). |
-| Form states: invalid, already subscribed, pending (double opt-in), no-JS | **Pass** | Same Core endpoint and JS as the newsletter panel; pending panel "Check your inbox" focused. |
+| Form states: invalid, already subscribed, pending (double opt-in), no-JS | **Pass** (Phase 8: already-subscribed now shows the same neutral "Check your inbox" panel as a new sign-up — approved anti-enumeration change, SECURITY.md finding 21) | Same Core endpoint and JS as the newsletter panel; pending panel "Check your inbox" focused. |
 
 ### 4E 404 (`404.html`) — references: 404-Desktop-1440, 404-Mobile-390
 

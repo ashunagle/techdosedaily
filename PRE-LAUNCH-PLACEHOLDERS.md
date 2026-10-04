@@ -97,6 +97,6 @@ Every piece of illustrative or provisional material from the design phase and th
 - [ ] **MailPoet double opt-in on**; SPF/DKIM/DMARC for the sender domain; SMTP credentials outside Git.
 - [ ] **Backups** per SECURITY.md §8 (daily DB + uploads, 30/12 retention, off-site, encrypted) and a restore test to staging before launch.
 - [ ] Re-run `tests/security/security_test.py` and `xss_test.py` against staging before real content exists; securityheaders.com and SSL Labs grade A.
-- [ ] Decide the accepted risks in SECURITY.md §6 (newsletter "already subscribed" state; authors deleting their own published stories).
+- [x] Accepted-risk decisions made (Phase 8 follow-up): neutral newsletter answer; Authors can't delete or unpublish published stories; editors manage reporters' About/Featured Reporting on Tech Dose Daily → Reporter profiles.
 - [ ] Still open: Google Rich Results Test, final Site Icon, Yoast SEO data optimisation, production cache verification.
 

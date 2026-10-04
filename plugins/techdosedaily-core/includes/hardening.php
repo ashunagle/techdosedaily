@@ -106,6 +106,93 @@ add_filter(
 	3
 );
 
+/* ---------- The published record: editors and administrators remove it, not authors ---------- */
+
+/**
+ * Phase 8 (approved): Authors may not delete their own published stories. The role loses
+ * `delete_published_posts` (stored in the roles option, so it is changed once, versioned), and —
+ * because "unpublish, then delete the draft" would get round that — any story that has ever been
+ * published (`_tdd_first_published`) can only be deleted or trashed by someone who can delete
+ * others' stories (editors, administrators). Authors still delete their own never-published drafts.
+ */
+const TDD_CORE_ROLES_VERSION = '1';
+add_action(
+	'init',
+	static function () {
+		if ( TDD_CORE_ROLES_VERSION === get_option( 'tdd_core_roles_version' ) ) {
+			return;
+		}
+		$author = get_role( 'author' );
+		if ( $author ) {
+			$author->remove_cap( 'delete_published_posts' );
+		}
+		update_option( 'tdd_core_roles_version', TDD_CORE_ROLES_VERSION, true );
+	},
+	1
+);
+/** Plugin deactivation restores WordPress's default Author role (and re-applies on reactivation). */
+register_deactivation_hook(
+	TDD_CORE_FILE,
+	static function () {
+		$author = get_role( 'author' );
+		if ( $author ) {
+			$author->add_cap( 'delete_published_posts' );
+		}
+		delete_option( 'tdd_core_roles_version' );
+	}
+);
+
+/** True for a story that has been published at some point (its public record exists). */
+function tdd_core_was_published( int $post_id ): bool {
+	return 'post' === get_post_type( $post_id ) && ( 'publish' === get_post_status( $post_id ) || '' !== (string) get_post_meta( $post_id, '_tdd_first_published', true ) );
+}
+
+add_filter(
+	'map_meta_cap',
+	static function ( array $caps, string $cap, int $user_id, array $args ) {
+		if ( 'delete_post' === $cap && ! empty( $args[0] ) && tdd_core_was_published( (int) $args[0] ) && ! user_can( $user_id, 'delete_others_posts' ) ) {
+			return array( 'do_not_allow' );
+		}
+		return $caps;
+	},
+	10,
+	4
+);
+
+/**
+ * Taking a live story down (back to draft/pending/private) is also removal of the published record:
+ * editors and administrators only. Filter `tdd_core_authors_can_unpublish` to allow it.
+ */
+function tdd_core_may_unpublish(): bool {
+	return current_user_can( 'delete_others_posts' ) || (bool) apply_filters( 'tdd_core_authors_can_unpublish', false );
+}
+add_filter(
+	'rest_pre_insert_post',
+	static function ( $prepared, WP_REST_Request $request ) {
+		if ( is_wp_error( $prepared ) || empty( $prepared->ID ) || ! isset( $prepared->post_status ) ) {
+			return $prepared;
+		}
+		if ( 'publish' === get_post_status( $prepared->ID ) && 'publish' !== $prepared->post_status && 'future' !== $prepared->post_status && ! tdd_core_may_unpublish() ) {
+			return new WP_Error( 'tdd_unpublish_locked', __( 'Only an editor can take a published story down. Ask your editor, or publish an update instead.', 'techdosedaily-core' ), array( 'status' => 403 ) );
+		}
+		return $prepared;
+	},
+	9,
+	2
+);
+add_filter(
+	'wp_insert_post_data',
+	static function ( array $data, array $postarr ) {
+		$id = (int) ( $postarr['ID'] ?? 0 );
+		if ( $id && 'post' === ( $data['post_type'] ?? '' ) && 'publish' === get_post_status( $id ) && ! in_array( $data['post_status'], array( 'publish', 'future' ), true ) && is_user_logged_in() && ! tdd_core_may_unpublish() ) {
+			$data['post_status'] = 'publish'; // Classic/quick edit: keep it live.
+		}
+		return $data;
+	},
+	10,
+	2
+);
+
 /* ---------- File editing in wp-admin ---------- */
 
 add_filter(

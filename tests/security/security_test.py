@@ -199,6 +199,34 @@ update_post_meta({pub}, 'tdd_sources', array(
     pp = C['author'].rest('GET', f'/tdd/v1/placements/post/{draft}')
     check('author: placement info of a draft refused', pp.status_code in (401, 403), pp.status_code)
 
+    print('== The published record: authors can’t delete or unpublish it; editors can')
+    caps = wp('cap list author').split()
+    check('Author role has no delete_published_posts', 'delete_published_posts' not in caps and 'delete_posts' in caps, caps)
+    au = C['author']
+    x = au.rest('DELETE', f'/wp/v2/posts/{own}')
+    check('author: trashing own published story refused', x.status_code in (401, 403) and wp(f'post get {own} --field=post_status') == 'publish', x.status_code)
+    x = au.rest('DELETE', f'/wp/v2/posts/{own}?force=true')
+    check('author: deleting own published story refused', x.status_code in (401, 403) and wp(f'post get {own} --field=post_status') == 'publish', x.status_code)
+    x = au.rest('POST', f'/wp/v2/posts/{own}', json={'status': 'draft'})
+    check('author: unpublishing own story refused (would allow delete-as-draft)', x.status_code == 403 and wp(f'post get {own} --field=post_status') == 'publish', (x.status_code, x.text[:120]))
+    x = au.rest('POST', f'/wp/v2/posts/{own}', json={'title': 'Security fixture own story (edited)'})
+    check('author: can still edit and update own published story', x.status_code == 200, x.status_code)
+    wpeval(f"wp_update_post(array('ID' => {own}, 'post_status' => 'draft'));")  # simulate a story taken down by an editor
+    x = au.rest('DELETE', f'/wp/v2/posts/{own}')
+    check('author: a once-published story stays undeletable after it is taken down', x.status_code in (401, 403) and wp(f'post get {own} --field=post_status') == 'draft', x.status_code)
+    wpeval(f"wp_update_post(array('ID' => {own}, 'post_status' => 'publish'));")
+    d = au.rest('POST', '/wp/v2/posts', json={'title': 'Author scratch draft', 'status': 'draft'})
+    did = d.json().get('id')
+    x = au.rest('DELETE', f'/wp/v2/posts/{did}')
+    check('author: may still delete own never-published draft', x.status_code == 200, x.status_code)
+    created_posts.append(did)
+    tmp = int(wp(f"post create --post_type=post --post_status=publish --post_author={users['author']} --post_title='Security fixture removable' --porcelain"))
+    created_posts.append(tmp)
+    x = C['editor'].rest('POST', f'/wp/v2/posts/{tmp}', json={'status': 'draft'})
+    check('editor: may take a published story down', x.status_code == 200 and wp(f'post get {tmp} --field=post_status') == 'draft', x.status_code)
+    x = C['editor'].rest('DELETE', f'/wp/v2/posts/{tmp}')
+    check('editor: may trash a once-published story', x.status_code == 200 and wp(f'post get {tmp} --field=post_status') == 'trash', x.status_code)
+
     print('== Confidential source details stay internal')
     page = C['anonymous'].get(pub_url, headers={'X-Cache-Bypass': '1'}).text
     check('public page shows the confidential source description', 'A person familiar with the plan' in page)
@@ -237,6 +265,42 @@ update_post_meta({pub}, 'tdd_sources', array(
     check('editor: cannot write another user’s account over REST (no edit_user)', x.status_code in (401, 403), x.status_code)
     x = C['administrator'].rest('POST', f'/wp/v2/users/{users["author"]}', json={'meta': {'tdd_featured_posts': [pub, own]}})
     check('administrator: Featured Reporting keeps only the person’s own published stories', json.loads(wp(f'user meta get {users["author"]} tdd_featured_posts --format=json') or '[]') == [own], wp(f'user meta get {users["author"]} tdd_featured_posts --format=json'))
+
+    print('== Reporter profiles screen: editors manage only About listing/order and Featured Reporting')
+    wp(f'user meta update {users["author"]} tdd_featured_posts "[]" --format=json')
+    other_draft = draft  # author2's draft; pub is author2's published story; own is author's published story
+    for r in ('anonymous', 'subscriber', 'contributor', 'author'):
+        pg = C[r].get('/wp-admin/admin.php?page=tdd-reporters')
+        check(f'{r}: Reporter profiles screen not available', 'Save reporter profile' not in pg.text and 'All reporters' not in pg.text and 'About-page listing and Featured' not in pg.text, pg.status_code)
+        x = C[r].post('/wp-admin/admin-post.php', data={'action': 'tdd_reporter_profile', 'user_id': users['author'], 'tdd_reporter_nonce': 'forged', 'tdd_show_on_about': '1'}, allow_redirects=False)
+        check(f'{r}: forged reporter-profile save refused', wp(f'user meta get {users["author"]} tdd_show_on_about') in ('', '0'), x.status_code)
+    ed = C['editor']
+    lst = ed.get('/wp-admin/admin.php?page=tdd-reporters').text
+    check('editor: reporter list shows reporters (not administrators)', 'tdd-sec-author' in lst and 'tdd-sec-administrator' not in lst)
+    page = ed.get(f'/wp-admin/admin.php?page=tdd-reporters&user={users["author"]}').text
+    rn = re.search(r'name="tdd_reporter_nonce" value="([^"]+)"', page).group(1)
+    check('editor: edit form offers only About, order and Featured Reporting', not re.search(r'name="(email|role|pass1|user_login|display_name|tdd_editor_user|tdd_title)"', page))
+    before_email = wp(f'user get {users["author"]} --field=user_email')
+    x = ed.post('/wp-admin/admin-post.php', data={'action': 'tdd_reporter_profile', 'user_id': users['author'], 'tdd_reporter_nonce': rn, 'tdd_show_on_about': '1', 'tdd_about_order': '7',
+                                                   'tdd_featured_posts_present': '1', 'tdd_featured_posts[]': [own, pub, other_draft, 999999],
+                                                   'role': 'administrator', 'email': 'hijack@example.net', 'user_email': 'hijack@example.net', 'pass1': 'x', 'tdd_editor_user': users['editor'], 'tdd_title': 'Hijacked'}, allow_redirects=False)
+    check('editor: save works (303 back to the screen)', x.status_code in (302, 303) and 'updated=1' in x.headers.get('Location', ''), (x.status_code, x.headers.get('Location')))
+    check('editor: About listing and order stored', wp(f'user meta get {users["author"]} tdd_show_on_about') == '1' and wp(f'user meta get {users["author"]} tdd_about_order') == '7')
+    check('editor: Featured Reporting keeps only that reporter’s own published stories', json.loads(wp(f'user meta get {users["author"]} tdd_featured_posts --format=json') or '[]') == [own], wp(f'user meta get {users["author"]} tdd_featured_posts --format=json'))
+    check('editor: role, email, password, editor and title untouched', wp(f'user get {users["author"]} --field=roles') == 'author' and wp(f'user get {users["author"]} --field=user_email') == before_email and wp(f'user meta get {users["author"]} tdd_editor_user') in ('', '0') and wp(f'user meta get {users["author"]} tdd_title') != 'Hijacked')
+    x = ed.post('/wp-admin/admin-post.php', data={'action': 'tdd_reporter_profile', 'user_id': users['author2'], 'tdd_reporter_nonce': rn, 'tdd_show_on_about': '1'}, allow_redirects=False)
+    check('editor: a nonce for one reporter can’t be replayed for another', wp(f'user meta get {users["author2"]} tdd_show_on_about') in ('', '0'), x.status_code)
+    pa = ed.get(f'/wp-admin/admin.php?page=tdd-reporters&user={users["administrator"]}')
+    x = ed.post('/wp-admin/admin-post.php', data={'action': 'tdd_reporter_profile', 'user_id': users['administrator'], 'tdd_reporter_nonce': 'forged', 'tdd_show_on_about': '1'}, allow_redirects=False)
+    check('editor: administrator accounts are out of reach', 'Save reporter profile' not in pa.text and wp(f'user meta get {users["administrator"]} tdd_show_on_about') in ('', '0'), (pa.status_code, x.status_code))
+    pa = ed.get(f'/wp-admin/admin.php?page=tdd-reporters&user={users["subscriber"]}')
+    check('editor: subscribers (no byline) are out of reach', 'Save reporter profile' not in pa.text, pa.status_code)
+    x = ed.rest('POST', f'/wp/v2/users/{users["author"]}', json={'meta': {'tdd_show_on_about': False}})
+    check('editor: still no general account editing over REST', x.status_code in (401, 403) and wp(f'user meta get {users["author"]} tdd_show_on_about') == '1', x.status_code)
+    adm = C['administrator']
+    page = adm.get(f'/wp-admin/admin.php?page=tdd-reporters&user={users["editor"]}').text
+    check('administrator: can manage any reporter here too', 'Save reporter profile' in page)
+    wp(f'user meta update {users["author"]} tdd_show_on_about ""'); wp(f'user meta update {users["author"]} tdd_featured_posts "[]" --format=json')
 
     print('== Sections: manage_categories only')
     for r in ('subscriber', 'contributor', 'author'):
@@ -339,6 +403,28 @@ update_post_meta({pub}, 'tdd_sources', array(
         x = C['anonymous'].rest('POST', '/tdd/v1/subscribe', json={'email': f'rate{i}@example.org', 'tdd_token': token, 'tdd_hp': ''})
         codes.append(x.status_code)
     check('newsletter: 6th+ request from one client within 10 min → 429', codes[:5].count(429) == 0 and codes[5] == 429 and codes[6] == 429, codes)
+    print('== Newsletter: no subscriber enumeration (identical answer for new / already / pending)')
+    NEUTRAL = 'If this address can be subscribed, check your inbox for the next step.'
+    answers = {}
+    for label, email in (('new', 'brand-new-reader@example.org'), ('already subscribed', 'already@example.com'), ('single opt-in', 'instant@example.com')):
+        reset_throttles()
+        t0 = time.time()
+        x = C['anonymous'].rest('POST', '/tdd/v1/subscribe', json={'email': email, 'tdd_token': token, 'tdd_hp': ''})
+        answers[label] = (x.status_code, x.text, round(time.time() - t0, 2))
+    bodies = {a[1] for a in answers.values()}
+    check('REST: same status code for new / already / pending', len({a[0] for a in answers.values()}) == 1 and answers['new'][0] == 200, answers)
+    check('REST: byte-identical body for all three', len(bodies) == 1, bodies)
+    check('REST: neutral wording, no provider details', NEUTRAL in answers['new'][1] and not re.search(r'already|subscribed|mailpoet|provider', answers['new'][1].lower().replace('be subscribed', '')), answers['new'][1])
+    times = [a[2] for a in answers.values()]
+    check('REST: response time padded and alike (spread < 0.3 s)', min(times) >= 1.1 and max(times) - min(times) < 0.3, times)
+    locs = {}
+    for label, email in (('new', 'brand-new-reader@example.org'), ('already', 'already@example.com'), ('instant', 'instant@example.com')):
+        reset_throttles()
+        x = C['anonymous'].post('/wp-admin/admin-post.php', data={'action': 'tdd_subscribe', 'email': email, 'tdd_token': token, 'tdd_hp': ''}, headers={'Referer': BASE + '/newsletter/'}, allow_redirects=False)
+        locs[label] = (x.status_code, x.headers.get('Location'))
+    check('no-JS: identical 303 redirect for all three', len(set(locs.values())) == 1 and locs['new'][0] == 303, locs)
+    pages = {C['anonymous'].get(f'/newsletter/?tdd_nl={st}', headers={'X-Cache-Bypass': '1'}).text.count(NEUTRAL) for st in ('pending', 'already', 'subscribed')}
+    check('no-JS result page: old and new state URLs all show the same neutral text', pages == {1}, pages)
     reset_throttles()
     x = C['anonymous'].post('/wp-admin/admin-post.php', data={'action': 'tdd_subscribe', 'email': 'nojs@example.org', 'tdd_token': token, 'tdd_hp': ''}, headers={'Referer': BASE + '/newsletter/'}, allow_redirects=False)
     check('no-JS newsletter form still works (303 back with state)', x.status_code == 303 and 'tdd_nl=' in x.headers.get('Location', '') and x.headers['Location'].startswith(BASE), (x.status_code, x.headers.get('Location')))

@@ -70,6 +70,9 @@ Server shell / WP-CLI / deploy (git archive) ── trusted operators only
 | 18 | Malformed rows in array settings and meta could cause PHP warnings | Low | Type checks and length caps in every array sanitiser | Core `meta.php`, `pages.php`, `settings.php` |
 | 19 | Validator test tools used unpinned (`*`) npm versions | Low | Pinned exactly. Build tools are locked by `package-lock.json`; `npm audit`: 0 vulnerabilities. | `tests/seo/package.json` |
 | 20 | Launch readiness did not cover security | — | New checks: HTTPS, error display, open registration, an account called "admin", server cron, image-metadata engine | Core `admin/settings.php` |
+| 21 | The newsletter told readers whether an address was already on the list (subscriber enumeration) | Medium | **Approved follow-up.** New, already-subscribed, awaiting-confirmation and provider-refused known addresses all get one answer: state `pending`, title "Check your inbox", message *"If this address can be subscribed, check your inbox for the next step."*, HTTP 200, the same no-JS redirect (`?tdd_nl=pending`). Responses are padded to ≥ 1.2 s (filter: `tdd_core_newsletter_min_seconds`) so timing doesn't tell either. The real outcome stays internal (`tdd_core_newsletter_result`); provider details are logged only. Invalid email, unavailable and error stay distinct (they reveal nothing about the list). | Core `newsletter/newsletter.php`, `class-mailpoet-provider.php` |
+| 22 | Authors could delete (or unpublish, then delete) their own published stories, taking the corrections with them | Medium | **Approved follow-up.** The Author role loses `delete_published_posts` (versioned role change; deactivating Core restores the WordPress default). A story that has ever been published can be trashed or deleted only by someone who can delete others' stories (editors, administrators), so "unpublish, then delete the draft" doesn't work either. Taking a live story down is also editor-only (REST answers 403 with an explanation; classic/quick edit keeps it live). Filter: `tdd_core_authors_can_unpublish`. Authors still delete their own never-published drafts. | Core `hardening.php` |
+| 23 | Editors could set About listing and Featured Reporting only on their own profile (Phase 5 workflow lost to WordPress's `edit_users` rule) | — | **Approved follow-up.** New **Tech Dose Daily → Reporter profiles** screen (`edit_others_posts`). It lists people with a byline (administrators only for administrators) and saves exactly three fields: About listing, About order (0–99) and Featured Reporting (that reporter's own published stories, max 3, in order). Per-reporter nonce; `admin-post` handler ignores every other posted field. Editors still have no `edit_users` and no REST account access. | Core `admin/reporters-admin.php` |
 
 Reviewed with no change needed:
 
@@ -110,10 +113,11 @@ Reviewed with no change needed:
 |---|---|---|---|---|---|---|
 | Read drafts / others' unpublished stories | — | — | — | — | ✅ | ✅ |
 | Publish | — | — | — (pending) | own | all | all |
+| Take a published story down / delete it | — | — | — | — (**changed**; own never-published drafts only) | ✅ | ✅ |
 | Add a correction / change one | — | — | — | own story / — | ✅ / — | ✅ / ✅ |
 | Place stories, change sections | — | — | — | — | ✅ | ✅ |
 | Own public profile fields | — | (no public profile) | ✅ | ✅ | ✅ | ✅ |
-| About listing, Featured Reporting | — | — | — | — | own profile | everyone |
+| About listing, Featured Reporting | — | — | — | — | every reporter (Reporter profiles screen; **restored**) | everyone |
 | Reporter's editor, site settings, users | — | — | — | — | — | ✅ |
 | Upload | — | — | — | images/PDF | images/PDF | images/PDF |
 | Raw HTML / scripts | — | — | — | — | — (**changed**) | ✅ |
@@ -131,22 +135,22 @@ Reviewed with no change needed:
 | RSS feeds | **Kept** | — |
 | REST posts/pages/media | **Kept**: public content only. Confidential source details are redacted, and drafts need authentication. | — |
 
-## 6. Accepted risks (for review)
+## 6. Accepted risks
 
-1. **The newsletter "already subscribed" state can reveal whether an address is on the list.** It is an approved form state. It is limited to 5 checks per 10 minutes per client and 200 per hour site-wide. Alternative if you prefer: show the same "check your inbox" message for both cases. That is a copy and design change, so I have not made it.
+1. ~~Newsletter subscriber enumeration~~ — **resolved** (finding 21).
 2. **Cross-site newsletter sign-ups.** A third-party page can submit our form (the token is public by design so cached pages work). Mitigation: MailPoet **double opt-in must stay on** (staging check), plus the throttles.
 3. **No application-level login rate limiting.** Login brute force is left to the host's WAF and LiteSpeed's login protection, plus 2FA for administrators and editors (staging check). A plugin is only added if the host can't provide this (PLUGIN-DECISIONS).
 4. **The CSP does not restrict scripts.** WordPress prints inline data scripts (speculation rules, JSON-LD, the search class), and a strict `script-src` needs nonces throughout core. The current CSP blocks framing, `<base>` and `<object>` injection, and off-site form posts. XSS is prevented by escaping and by removing raw HTML from non-administrators.
 5. **Throttles key on `REMOTE_ADDR`.** Behind a CDN or proxy every visitor shares one address, so the real client IP must be mapped through `tdd_core_client_ip` (staging check). Throttles use transients, so counts are approximate under concurrency. An object cache makes them cheaper.
-6. **Authors can delete their own published stories** (WordPress default), and corrections go with the story. Administrators can restore from Trash or backups. Removing `delete_published_posts` from Authors is a newsroom policy decision, so I have not changed it.
-7. **Editors can only manage About and Featured Reporting on their own profile.** WordPress does not let editors edit other users, and this was the existing Phase 5 behaviour, so I left it. Administrators manage these for others.
+6. ~~Authors deleting their own published stories~~ — **resolved** (finding 22).
+7. ~~Editors managing other reporters' About listing and Featured Reporting~~ — **resolved** (finding 23).
 8. **Editors lose raw HTML** (finding 1). Custom HTML blocks from editors are filtered: no `<script>`, `<iframe>` or event handlers. Embeds should use embed blocks, or an administrator can add them.
 
 ## 7. Test results
 
 All suites were run against the local nginx + PHP-FPM site with the page cache on (Phase 7 harness) and Yoast SEO 28.6 active.
 
-### 7.1 Role-by-role forged requests: `tests/security/security_test.py` — **159 / 159**
+### 7.1 Role-by-role forged requests: `tests/security/security_test.py` — **193 / 193**
 
 The suite creates throwaway accounts for subscriber, contributor, author, a second author, editor and administrator (random passwords, deleted at the end), plus fixture stories. Every check sends the raw request directly: REST with and without `X-WP-Nonce`, `options.php`, `profile.php`, `edit-tags.php`, `admin-post.php`, the contact page POST, `xmlrpc.php`, and media uploads. Groups:
 
@@ -158,9 +162,12 @@ The suite creates throwaway accounts for subscriber, contributor, author, a seco
 | Story ownership | Others' stories can't be edited below editor. A contributor can't publish. Drafts are unreadable over REST and `?p=`, and can't be surfaced through a story-card block. Field validation holds ("Edited by", section, javascript:/data: links). An editor's `<script>`/`onerror` is stripped on save; an admin keeps raw HTML. |
 | Confidential sources | Page and public REST show the description only. The editor (context=edit) sees everything. Lower roles can't use context=edit. |
 | Profiles | No self-promotion to administrator. Other accounts can't be edited. Editor-only fields can't be self-set over REST or a forged profile form. Social `javascript:` links are dropped. The photo must be an image. Featured Reporting keeps only the person's own stories. |
+| Published record | The Author role has no `delete_published_posts`. An author can't trash, delete or unpublish their own published story, nor delete it after an editor took it down. Authors can still edit it and delete their own never-published drafts. Editors can take a story down and trash it. |
+| Reporter profiles screen | Anonymous, subscriber, contributor and author can't open it or post to it (forged nonce). The editor sees reporters but not administrators. The form offers only About, order and Featured Reporting. A save with smuggled `role`, `email`, password, editor and title fields changes only the three fields. Featured Reporting drops another author's story, a draft and an unknown ID. A nonce for one reporter can't be replayed for another. Administrator and subscriber accounts are out of reach. Editors still have no REST account access. Administrators can manage everyone. |
 | Sections | Below editor, REST and forged forms are refused. Desk members must have editing rights. `javascript:` links are dropped. |
 | Uploads | `.html`, `.svg`, `.php`, `.php.jpg`, `.docx` and `.js` are refused. A contributor gets 403. A JPEG upload loses GPS, camera and artist data, and REST `image_meta` is empty. PDF still works. |
 | Exposure | XML-RPC returns 403 (PHP level and server rule), with no `X-Pingback`. Application passwords are off. Anonymous `/wp/v2/users` returns 401 with no emails or avatars. An author's `context=edit` user list is refused. The file editor is off. Login messages are identical. Server rules block `uploads/*.php`, dotfiles, `readme.html` and `wp-config.php`. |
+| Newsletter enumeration | New, already-subscribed and single-opt-in addresses get the same status (200) and a byte-identical body with the neutral wording and no provider words. Response times are padded (≥ 1.1 s, spread < 0.3 s; measured 1.24–1.26 s). The no-JS 303 redirect is identical, and old `?tdd_nl=already` / `subscribed` URLs show the same neutral text. |
 | Public forms | GET on POST routes returns 404. Contact REST needs the page nonce. **No-JS contact (303 → `?tdd_cf=sent`) and no-JS newsletter (303 back, same host) still work.** Delivery failure gives a generic message. Message bodies are never logged. The 6th newsletter request returns 429. The site-wide ceiling holds. Forged tokens and filled honeypots are refused. Malformed JSON returns a clean 400. View counting holds: one per reader, non-integer IDs return 400, drafts are never counted. |
 | SQL-shaped URLs | Search filters, `author`, `paged` and `p` with SQL fragments cause no DB errors or internals. |
 | Headers and caching | Headers are present on 6 templates, on login, and on cache HITs. Logged-in responses are private, no-store and BYPASS. Authenticated REST responses are no-store. oEmbed cards stay frameable. |
@@ -184,7 +191,7 @@ None of it is rendered live on these screens:
 
 The same run proves that a story containing the body, page and contact-page blocks renders (200) instead of looping.
 
-### 7.3 Full regression after Phase 8
+### 7.3 Full regression after Phase 8 (re-run after the approved follow-ups 21–23)
 
 | Suite | Result |
 |---|---|
@@ -195,7 +202,7 @@ The same run proves that a story containing the body, page and contact-page bloc
 | Cache correctness (`tests/perf/cache_test.py`: Breaking expiry, scheduled placements, **scheduled publishing**, purges, forms never cached, logged-in bypass, Most Read exclusions) | 35 / 35 |
 | Front-end markup (`tests/perf/markup_test.py`) | 75 / 75 |
 | Public pages: 19 URLs × 8 widths | unchanged (only the known gallery-page H1 and 404 notes) |
-| Admin and forms: story panels 15, page panel 11, admin forms 11, roles 8, admin UI 12, contact 28, newsletter 12, server-side rules 16 | all pass |
+| Admin and forms: story panels 15, page panel 11, admin forms 11, roles 8, admin UI 12, contact 28, newsletter UI 12 (incl. identical panel for an already-subscribed address, no-JS PRG), server-side rules 16 | all pass |
 
 ## 8. Production configuration (hosting/staging checks)
 
