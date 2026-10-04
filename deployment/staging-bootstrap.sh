@@ -27,13 +27,28 @@ say "Release integrity"
 ( cd "$REL" && sha256sum -c SHA256SUMS )
 
 say "Plugins: only the approved set (PLUGIN-DECISIONS.md)"
-wp plugin install wordpress-seo litespeed-cache two-factor --activate
-wp plugin install mailpoet            # Activated and configured in its own wizard (double opt-in ON).
-wp plugin install "$REL"/techdosedaily-core-*.zip --force --activate
+# Idempotent: install only what is missing, then activate.
+for p in wordpress-seo litespeed-cache two-factor; do
+  wp plugin is-installed "$p" || wp plugin install "$p"
+  wp plugin is-active "$p" || wp plugin activate "$p"
+done
+wp plugin is-installed mailpoet || wp plugin install mailpoet   # Activated + configured in its own wizard (double opt-in ON).
+CORE_ZIP=$(ls "$REL"/techdosedaily-core-[0-9]*.zip)
+THEME_ZIP=$(ls "$REL"/techdosedaily-[0-9]*.zip)
+wp plugin install "$CORE_ZIP" --force --activate
 wp plugin delete hello akismet 2>/dev/null || true
+# Anything outside the approved set goes — including host add-ons copied into staging (Hostinger AI,
+# Easy Onboarding, Reach, Tools). Core already disables XML-RPC and application passwords; staging is
+# protected by hPanel directory password, not by a maintenance-mode plugin.
+APPROVED=" techdosedaily-core wordpress-seo litespeed-cache two-factor mailpoet "
+for p in $(wp plugin list --status=active,inactive --field=name); do
+  case "$APPROVED" in *" $p "*) ;; *) echo "removing unapproved plugin: $p"; wp plugin deactivate "$p" 2>/dev/null || true; wp plugin delete "$p" ;; esac
+done
+echo "must-use plugins / drop-ins (review; host-managed ones are noted in LAUNCH-GATES.md):"
+wp plugin list --status=must-use,dropin --fields=name,status 2>/dev/null || true
 
 say "Theme"
-wp theme install "$REL"/techdosedaily-*.zip --force --activate
+wp theme install "$THEME_ZIP" --force --activate
 # Keep exactly one default theme as a recovery fallback; remove the rest.
 for t in $(wp theme list --status=inactive --field=name); do
   case "$t" in twentytwentyfive) ;; *) wp theme delete "$t" ;; esac

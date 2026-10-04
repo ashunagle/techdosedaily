@@ -4,7 +4,21 @@ The site stays closed to the public — staging password-protected and noindex, 
 until **every gate below passes**. Sources: `SECURITY.md` §8, `PERFORMANCE.md` §2/§6, `SEO-SCHEMA.md` §7,
 `PRE-LAUNCH-PLACEHOLDERS.md`. Automated gates are checked by `tests/staging/gates.py` (IDs in brackets).
 
-Status: **staging not yet created** · release candidate **0.9.0** (`dist/` zips + `SHA256SUMS`).
+Status: **staging deployed and configured; gate run pending** (see `HANDOVER-STAGING.md`) · release candidate **0.9.0** (`dist/` zips + `SHA256SUMS`).
+
+Progress log (2026-10-04)
+- Live `techdosedaily.com` (Hostinger default install) closed while staging is prepared: Hostinger maintenance mode on, *Discourage search engines* on, XML-RPC and application passwords off, Force HTTPS on.
+- A1 staging `staging.techdosedaily.com` created (folder `public_html/staging`, own database); directory protection: **pending (owner sets the password)**.
+- A2 PHP 8.3, Imagick active, `expose_php` off, `display_errors` off, `log_errors` on, session cookies Secure/HttpOnly + strict mode.
+- A3 SSH active (port 65002); key login **pending** (owner adds a public key).
+- A5 server cron `* * * * * /usr/bin/php ~/domains/techdosedaily.com/public_html/staging/wp-cron.php` saved; `DISABLE_WP_CRON` pending (A6).
+- A8 daily backups on; manual pre-deploy backup started 2026-10-04.
+- Staging copied Hostinger add-on plugins (AI, Easy Onboarding, Reach, Tools): not approved, removed by `staging-bootstrap.sh`.
+- A1 directory protection on. A3 SSH key login works. A6 `staging-config.sh` applied (staging env, new salts, log outside web root, wp-config 600). A7 root + uploads `.htaccess` written.
+- B1–B2 `staging-bootstrap.sh` completed (SHA-256 OK, approved plugins only, Core + theme 0.9.0, settings, permalinks, Home/Latest).
+- C1 LiteSpeed per §3.4 (`staging-plugins.sh`); object cache on (Memcached). C3 MailPoet active, double opt-in on; **sender still a Gmail address — must become a site mailbox (C4)**.
+- D1 `admin` replaced by personal administrator `tdd-ash-7k2`; D2 Two Factor setup to confirm.
+- Next: run `gates.py --stage staging` on the server (`/opt/alt/python311/bin/python3`).
 
 ## How a gate run works
 
