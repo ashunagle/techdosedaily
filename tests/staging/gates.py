@@ -92,6 +92,12 @@ for path in [p for p in ('/', '/wp-login.php', story, '/no-such-page-gate/') if 
     ok = h.get('X-Content-Type-Options') == 'nosniff' and 'frame-ancestors' in h.get('Content-Security-Policy', '') and h.get('X-Frame-Options') == 'SAMEORIGIN' and h.get('Referrer-Policy') and h.get('Permissions-Policy')
     gate('S1', f'headers on {path.replace(BASE, "")} (incl. cached copy)', bool(ok), {k: v for k, v in h.items() if k.lower() in ('x-content-type-options', 'content-security-policy', 'x-frame-options', 'referrer-policy', 'permissions-policy')})
 
+# The host replaces Core's CSP at server level; .htaccess sends the merged policy (deployment/htaccess-root-additions.txt).
+adm = get('/wp-admin/', allow_redirects=False).headers.get('Content-Security-Policy', '')
+gate('S2', 'wp-admin keeps the host CSP (no form-action/frame-ancestors from the public policy)', 'form-action' not in adm, adm, level='INFO')
+emb = story and get(story.rstrip('/') + '/embed/', allow_redirects=False).headers.get('Content-Security-Policy', '')
+gate('S3', 'oEmbed card can be framed (no frame-ancestors)', story is None or 'frame-ancestors' not in emb, emb if story else 'no story to test', level='FAIL' if story else 'INFO')
+
 print('== Exposure (SECURITY.md §5, §8 server rules)')
 gate('X1', 'XML-RPC refused (403)', get('/xmlrpc.php').status_code == 403)
 x = get('/wp-json/wp/v2/users')
