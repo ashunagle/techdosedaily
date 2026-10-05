@@ -11,7 +11,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'TDD_VERSION', '0.9.1' );
+define( 'TDD_VERSION', '0.9.2' );
 define( 'TDD_DIR', get_template_directory() );
 define( 'TDD_URI', get_template_directory_uri() );
 

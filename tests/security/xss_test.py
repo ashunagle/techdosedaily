@@ -10,6 +10,14 @@ import json, os, re, secrets, subprocess, sys, tempfile, urllib.parse
 
 import requests
 
+# Staging sits behind hPanel directory protection: every session (and requests.get/post) sends it.
+if os.environ.get('TDD_BASIC_AUTH'):
+    _auth, _init = tuple(os.environ['TDD_BASIC_AUTH'].split(':', 1)), requests.Session.__init__
+    def _session_init(self, *a, **k):
+        _init(self, *a, **k)
+        self.auth = _auth
+    requests.Session.__init__ = _session_init
+
 BASE = os.environ.get('BASE', 'http://127.0.0.1:8090')
 WP = os.environ.get('WP', 'cd /home/claude/wp && php wp-cli.phar --allow-root --path=site')
 P = 'TDDX"\'><img src=x onerror=alert(1)><script>alert(2)</script><svg onload=alert(4)>'

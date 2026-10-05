@@ -1,7 +1,7 @@
 {
   "name": "techdosedaily-theme",
   "private": true,
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "TechDoseDaily block theme \u2014 build tools and QA. Design source of truth: ../01-Design-System and ../03-Approved.",
   "type": "module",
   "engines": {

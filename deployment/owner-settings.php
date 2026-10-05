@@ -42,13 +42,13 @@ foreach ( $lines as $slug => $line ) {
 	echo "one-liner: {$t->name}\n";
 }
 
-$list_name = 'TechDoseDaily Newsletter';
+$list_name = 'Tech Dose Daily Newsletter';
 try {
 	$api   = \MailPoet\API\API::MP( 'v1' );
 	$lists = $api->getLists();
 	$list  = null;
 	foreach ( $lists as $l ) {
-		if ( in_array( $l['name'], array( 'Newsletter mailing list', $list_name ), true ) ) {
+		if ( in_array( $l['name'], array( 'Newsletter mailing list', 'TechDoseDaily Newsletter', $list_name ), true ) ) {
 			$list = $l;
 			break;
 		}

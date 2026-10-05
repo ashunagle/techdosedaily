@@ -11,6 +11,14 @@ Run: python3 tests/security/security_test.py
 import io, json, os, re, secrets, subprocess, sys, time
 
 import requests
+
+# Staging sits behind hPanel directory protection: every session (and requests.get/post) sends it.
+if os.environ.get('TDD_BASIC_AUTH'):
+    _auth, _init = tuple(os.environ['TDD_BASIC_AUTH'].split(':', 1)), requests.Session.__init__
+    def _session_init(self, *a, **k):
+        _init(self, *a, **k)
+        self.auth = _auth
+    requests.Session.__init__ = _session_init
 from PIL import Image
 
 BASE = os.environ.get('BASE', 'http://127.0.0.1:8090')
