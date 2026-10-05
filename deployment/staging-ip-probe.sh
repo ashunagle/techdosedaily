@@ -37,12 +37,14 @@ cleanup() {
   echo "probe removed: $([ -e "$MUF" ] && echo NO || echo yes) · option: $(wp option get tdd_ip_probe >/dev/null 2>&1 && echo PRESENT || echo deleted) · mu-plugins: $(ls "$SITE/wp-content/mu-plugins" | tr '\n' ' ')"
 }
 trap cleanup EXIT
+trap 'exit 1' HUP INT TERM   # a dropped SSH session still runs cleanup
 
 TOKEN=$(head -c 16 /dev/urandom | od -An -tx1 | tr -d ' \n')
 say "Install temporary probe"
 cat > "$MUF" <<PHP
 <?php
-// TEMPORARY gate C5 probe (deployment/staging-ip-probe.sh) — removed when the script ends.
+// TEMPORARY gate C5 probe (deployment/staging-ip-probe.sh) — removed when the script ends; deletes itself after 15 minutes.
+if ( time() - (int) @filemtime( __FILE__ ) > 900 ) { @unlink( __FILE__ ); return; }
 if ( isset( \$_GET['tdd_ip_probe'] ) && hash_equals( '$TOKEN', (string) \$_GET['tdd_ip_probe'] ) ) {
 	add_action( 'plugins_loaded', static function () {
 		\$h = array();
@@ -66,12 +68,14 @@ echo "installed $(basename "$MUF") ($(sha256sum "$MUF" | cut -c1-16)…)"
 say "Probe from the server"
 URL="https://$HOST/?tdd_ip_probe=$TOKEN"
 echo "via CDN:        HTTP $(curl -s -o /dev/null -w '%{http_code}' --config "$CF" "$URL&label=server-cdn")"
+echo "via CDN, IPv4:  HTTP $(curl -s -4 -o /dev/null -w '%{http_code}' --config "$CF" "$URL&label=server-cdn-v4")"
 echo "direct origin:  HTTP $(curl -s -o /dev/null -w '%{http_code}' --config "$CF" -k --resolve "$HOST:443:$ORIGIN" "$URL&label=server-origin")"   # -k: our own origin IP
+rm -f "$CF"; echo "temporary login file deleted"
 
 say "Probe from your browser"
 echo "Open this address in the browser where you are signed in to staging (it shows a blank page):"
 echo "  $URL&label=browser"
-read -rp "Press Enter after the page has loaded > " _
+read -t 600 -rp "Press Enter after the page has loaded (continues by itself after 10 minutes) > " _ || echo
 
 say "Result (addresses masked)"
 wp eval '
@@ -90,6 +94,9 @@ foreach ( array( "server-cdn", "browser" ) as $l ) {
 	if ( empty( $all[ $l ]["HTTP_X_FORWARDED_FOR"] ) ) { continue; }
 	$first = trim( explode( ",", $all[ $l ]["HTTP_X_FORWARDED_FOR"] )[0] );
 	echo "[$l] first X-Forwarded-For equals REMOTE_ADDR: ", $first === $ra[ $l ] ? "yes" : "no", "\n";
+}
+if ( isset( $ra["server-cdn-v4"] ) ) {
+	echo "server via CDN over IPv4: REMOTE_ADDR equals this server IPv4: ", $ra["server-cdn-v4"] === "'"$ORIGIN"'" ? "YES — the CDN passes the real client address" : "no — PHP sees a CDN address", "\n";
 }
 if ( isset( $ra["server-cdn"], $ra["server-origin"] ) ) {
 	echo "server via CDN vs direct to origin, same REMOTE_ADDR: ", $ra["server-cdn"] === $ra["server-origin"] ? "yes (the CDN hands PHP the real client address)" : "no", "\n";
