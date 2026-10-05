@@ -31,6 +31,11 @@ $users = get_users( array( 'search' => '*-sample', 'search_columns' => array( 'u
 foreach ( $users as $u ) {
 	wp_delete_user( (int) $u->ID ); // Their posts were all samples (deleted above).
 }
+$mp_ids = array_map( 'intval', (array) $wpdb->get_col( "SELECT id FROM {$wpdb->prefix}mailpoet_subscribers WHERE email LIKE '%-sample@example.com'" ) ); // phpcs:ignore WordPress.DB
+if ( $mp_ids && class_exists( '\MailPoet\DI\ContainerWrapper' ) ) {
+	\MailPoet\DI\ContainerWrapper::getInstance()->get( \MailPoet\Subscribers\SubscribersRepository::class )->bulkDelete( $mp_ids );
+}
+echo 'MailPoet sample subscribers deleted: ', count( $mp_ids ), "\n";
 echo 'sample users deleted: ', implode( ', ', wp_list_pluck( $users, 'user_login' ) ) ?: 'none', "\n";
 
 $keep   = array_map( 'intval', (array) get_option( 'tdd_sample_preexisting_topics', array() ) );

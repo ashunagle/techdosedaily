@@ -19,8 +19,13 @@ BASE=https://staging.techdosedaily.com
 MU="$SITE/wp-content/mu-plugins"
 HARNESS="mu-capture-mail.php mu-fake-newsletter-provider.php"
 PYLIB="$HERE/.pylib-security"
-mkdir -p "$HERE/out"; LOG="$HERE/out/security-$(date -u +%Y%m%d-%H%M%SZ).log"
-exec > >(tee -a "$LOG") 2>&1
+mkdir -p "$HERE/out"
+if [ -z "${TDD_SEC_LOG:-}" ]; then   # re-run through tee (no /dev/fd for process substitution on this host)
+  export TDD_SEC_LOG="$HERE/out/security-$(date -u +%Y%m%d-%H%M%SZ).log"
+  bash "$0" "$@" 2>&1 | tee -a "$TDD_SEC_LOG"
+  exit "${PIPESTATUS[0]}"
+fi
+LOG=$TDD_SEC_LOG
 cd "$SITE" || exit 1
 say() { printf '\n== %s\n' "$*"; }
 
@@ -54,12 +59,17 @@ cleanup() {
   for u in $(wp user list --field=user_login | grep -E '^tdd-(sec|xss)-' || true); do wp user delete "$u" --yes --reassign="$ADMIN_ID"; done
   wp eval 'foreach ( get_posts( array( "post_type" => "any", "post_status" => "any", "numberposts" => -1, "fields" => "ids", "meta_key" => "_tdd_fixture", "meta_value" => "phase8" ) ) as $id ) { wp_delete_post( $id, true ); }
     global $wpdb; $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE \"\\_transient%tdd\\_t%\" OR option_name LIKE \"\\_transient\\_timeout%tdd\\_t%\"" );
+    $ids = array_map( "intval", (array) $wpdb->get_col( "SELECT id FROM {$wpdb->prefix}mailpoet_subscribers WHERE email LIKE \"%@example.invalid\"" ) );
+    if ( $ids ) { \MailPoet\DI\ContainerWrapper::getInstance()->get( \MailPoet\Subscribers\SubscribersRepository::class )->bulkDelete( $ids ); }
+    echo "MailPoet test subscribers deleted: ", count( $ids ), "\n";
     do_action( "litespeed_purge_all" ); echo "suite fixtures, throttles and cache cleared\n";'
   say "Leftover check"
   wp plugin list --status=must-use,dropin,inactive --fields=name,status --format=csv
   echo "test users: $(wp user list --field=user_login | grep -cE '^tdd-(sec|xss|cache)-' || true)"
   wp eval 'global $wpdb; echo "phase8 fixtures: ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = \"_tdd_fixture\" AND meta_value = \"phase8\"" ), "\n";
-    echo "MailPoet subscribers at test domains: ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}mailpoet_subscribers WHERE email LIKE \"%@example.invalid\" OR email LIKE \"%@example.com\"" ), "\n";'
+    echo "MailPoet subscribers @example.invalid (suites; must be 0): ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}mailpoet_subscribers WHERE email LIKE \"%@example.invalid\"" ), "\n";
+    echo "MailPoet subscribers -sample@example.com (sample authors, until samples are removed): ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}mailpoet_subscribers WHERE email LIKE \"%-sample@example.com\"" ), "\n";
+    echo "MailPoet sending queues (must be 0): ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}mailpoet_sending_queues" ), "\n";'
   echo "mail log: $([ -e "$SITE/wp-content/tdd-mail-test.log" ] && echo PRESENT || echo absent)"
   echo "harness: $(ls "$MU" | grep -cE '^mu-' || true) mu-* files"
 }
@@ -73,7 +83,7 @@ say "Install harness"
 mkdir -p "$MU"
 for f in $HARNESS; do cp "$HERE/fixtures/$f" "$MU/$f"; sha256sum "$MU/$f"; done
 
-export BASE TDD_ADMIN_ID="$ADMIN_ID" WP="wp --path=$SITE"
+export BASE TDD_ADMIN_ID="$ADMIN_ID" WP="wp --path=$SITE" TDD_BLOCKS_DIR="$SITE/wp-content/themes/techdosedaily/blocks"
 say "security_test.py"; $PY "$HERE/security/security_test.py"; SEC=$?
 say "xss_test.py";      $PY "$HERE/security/xss_test.py";      XSS=$?
 echo "security exit=$SEC xss exit=$XSS"

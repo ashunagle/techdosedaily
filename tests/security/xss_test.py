@@ -34,7 +34,9 @@ def check(name, cond, detail=''):
 
 
 def wp(cmd):
-    return subprocess.run(f'{WP} {cmd}', shell=True, capture_output=True, text=True).stdout.strip()
+    out = subprocess.run(f'{WP} {cmd}', shell=True, capture_output=True, text=True).stdout
+    # LiteSpeed Cache prints a purge notice on every write (staging/production); it is not command output.
+    return '\n'.join(l for l in out.splitlines() if not l.startswith('Success: Purged')).strip()
 
 
 def wpeval(php):
@@ -54,7 +56,7 @@ def raw_hits(html):
 
 def blocks_markup():
     """Every tdd/* block with every attribute filled with the payload (URLs get javascript:)."""
-    root = os.path.join(os.path.dirname(__file__), '../../theme/techdosedaily/blocks')
+    root = os.environ.get('TDD_BLOCKS_DIR') or os.path.join(os.path.dirname(__file__), '../../theme/techdosedaily/blocks')
     out = []
     row = {k: P for k in ('title', 'text', 'label', 'value', 'q', 'a', 'term', 'def', 'name', 'amount', 'date', 'round', 'lead', 'investors', 'body', 'note', 'kind', 'stage', 'company', 'desc')}
     row['url'] = U
