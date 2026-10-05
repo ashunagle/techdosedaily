@@ -55,7 +55,7 @@ if ( isset( \$_GET['tdd_ip_probe'] ) && hash_equals( '$TOKEN', (string) \$_GET['
 		}
 		\$h['tdd_core_client_ip()'] = function_exists( 'tdd_core_client_ip' ) ? tdd_core_client_ip() : '(Core inactive)';
 		\$all = (array) get_option( 'tdd_ip_probe', array() );
-		\$all[ preg_replace( '/[^a-z-]/', '', (string) ( \$_GET['label'] ?? 'x' ) ) ] = \$h;
+		\$all[ preg_replace( '/[^a-z0-9-]/', '', (string) ( \$_GET['label'] ?? 'x' ) ) ] = \$h;
 		update_option( 'tdd_ip_probe', \$all, false );
 		nocache_headers();
 		status_header( 204 );
@@ -70,16 +70,22 @@ URL="https://$HOST/?tdd_ip_probe=$TOKEN"
 echo "via CDN:        HTTP $(curl -s -o /dev/null -w '%{http_code}' --config "$CF" "$URL&label=server-cdn")"
 echo "via CDN, IPv4:  HTTP $(curl -s -4 -o /dev/null -w '%{http_code}' --config "$CF" "$URL&label=server-cdn-v4")"
 echo "direct origin:  HTTP $(curl -s -o /dev/null -w '%{http_code}' --config "$CF" -k --resolve "$HOST:443:$ORIGIN" "$URL&label=server-origin")"   # -k: our own origin IP
+FAKE=203.0.113.9   # TEST-NET-3 documentation address: can a client choose the address PHP sees?
+echo "forged XFF, via CDN:       HTTP $(curl -s -o /dev/null -w '%{http_code}' --config "$CF" -H "X-Forwarded-For: $FAKE" -H "X-Real-IP: $FAKE" "$URL&label=forged-cdn")"
+echo "forged XFF, direct origin: HTTP $(curl -s -o /dev/null -w '%{http_code}' --config "$CF" -k --resolve "$HOST:443:$ORIGIN" -H "X-Forwarded-For: $FAKE" -H "X-Real-IP: $FAKE" "$URL&label=forged-origin")"
 rm -f "$CF"; echo "temporary login file deleted"
 
 say "Probe from your browser"
 echo "Open this address in the browser where you are signed in to staging (it shows a blank page):"
 echo "  $URL&label=browser"
-read -t 600 -rp "Press Enter after the page has loaded (continues by itself after 10 minutes) > " _ || echo
+read -t 600 -rp "Press Enter after the page has loaded, or Enter now to skip (continues by itself after 10 minutes) > " _ || echo
 
 say "Result (addresses masked)"
 wp eval '
-$mask = static function ( $s ) { return preg_replace_callback( "/\b(\d{1,3})\.(\d{1,3})\.\d{1,3}\.\d{1,3}\b/", static fn( $m ) => "$m[1].$m[2].x.x", (string) $s ); };
+$mask = static function ( $s ) {
+	$s = preg_replace_callback( "/\b(\d{1,3})\.(\d{1,3})\.\d{1,3}\.\d{1,3}\b/", static fn( $m ) => "$m[1].$m[2].x.x", (string) $s );
+	return preg_replace_callback( "/\b([0-9a-f]{1,4}):([0-9a-f]{1,4}):[0-9a-f:]{2,}/i", static fn( $m ) => "$m[1]:$m[2]:x:x", $s ); // IPv6: first two groups only
+};
 $all  = (array) get_option( "tdd_ip_probe", array() );
 if ( ! $all ) { echo "No probe request reached PHP.\n"; return; }
 foreach ( $all as $label => $h ) {
@@ -97,6 +103,9 @@ foreach ( array( "server-cdn", "browser" ) as $l ) {
 }
 if ( isset( $ra["server-cdn-v4"] ) ) {
 	echo "server via CDN over IPv4: REMOTE_ADDR equals this server IPv4: ", $ra["server-cdn-v4"] === "'"$ORIGIN"'" ? "YES — the CDN passes the real client address" : "no — PHP sees a CDN address", "\n";
+}
+foreach ( array( "forged-cdn" => "through the CDN", "forged-origin" => "straight to the origin" ) as $l => $how ) {
+	if ( isset( $ra[ $l ] ) ) { echo "forged X-Forwarded-For $how: ", "203.0.113.9" === $ra[ $l ] ? "ACCEPTED — a client can choose its address (rate limits can be bypassed)" : "ignored — PHP still sees the real sender", "\n"; }
 }
 if ( isset( $ra["server-cdn"], $ra["server-origin"] ) ) {
 	echo "server via CDN vs direct to origin, same REMOTE_ADDR: ", $ra["server-cdn"] === $ra["server-origin"] ? "yes (the CDN hands PHP the real client address)" : "no", "\n";
