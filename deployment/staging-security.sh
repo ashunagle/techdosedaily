@@ -63,7 +63,9 @@ cleanup() {
   rm -f "$FLIP"
   for u in $(wp user list --field=user_login | grep -E '^tdd-(sec|xss)-' || true); do wp user delete "$u" --yes --reassign="$ADMIN_ID"; done
   wp eval 'foreach ( get_posts( array( "post_type" => "any", "post_status" => "any", "numberposts" => -1, "fields" => "ids", "meta_key" => "_tdd_fixture", "meta_value" => "phase8" ) ) as $id ) { wp_delete_post( $id, true ); }
-    global $wpdb; $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE \"\\_transient%tdd\\_t%\" OR option_name LIKE \"\\_transient\\_timeout%tdd\\_t%\"" );
+    global $wpdb;
+    foreach ( $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_title LIKE \"%TDDX%\" OR post_excerpt LIKE \"%TDDX%\" OR post_content LIKE \"%TDDX%\"" ) as $id ) { wp_delete_post( (int) $id, true ); echo "deleted untagged XSS post #$id\n"; }
+    $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE \"\\_transient%tdd\\_t%\" OR option_name LIKE \"\\_transient\\_timeout%tdd\\_t%\"" );
     $ids = array_map( "intval", (array) $wpdb->get_col( "SELECT id FROM {$wpdb->prefix}mailpoet_subscribers WHERE email LIKE \"%@example.invalid\"" ) );
     if ( $ids ) { \MailPoet\DI\ContainerWrapper::getInstance()->get( \MailPoet\Subscribers\SubscribersRepository::class )->bulkDelete( $ids ); }
     echo "MailPoet test subscribers deleted: ", count( $ids ), "\n";
@@ -74,6 +76,7 @@ cleanup() {
   wp eval 'global $wpdb; echo "phase8 fixtures: ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = \"_tdd_fixture\" AND meta_value = \"phase8\"" ), "\n";
     echo "MailPoet subscribers @example.invalid (suites; must be 0): ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}mailpoet_subscribers WHERE email LIKE \"%@example.invalid\"" ), "\n";
     echo "MailPoet subscribers -sample@example.com (sample authors, until samples are removed): ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}mailpoet_subscribers WHERE email LIKE \"%-sample@example.com\"" ), "\n";
+    echo "XSS marker TDDX in posts/meta/terms/options (must be 0): ", (int) $wpdb->get_var( "SELECT (SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_title LIKE \"%TDDX%\" OR post_excerpt LIKE \"%TDDX%\" OR post_content LIKE \"%TDDX%\") + (SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_value LIKE \"%TDDX%\") + (SELECT COUNT(*) FROM {$wpdb->usermeta} WHERE meta_value LIKE \"%TDDX%\") + (SELECT COUNT(*) FROM {$wpdb->termmeta} WHERE meta_value LIKE \"%TDDX%\") + (SELECT COUNT(*) FROM {$wpdb->terms} WHERE name LIKE \"%TDDX%\") + (SELECT COUNT(*) FROM {$wpdb->options} WHERE option_value LIKE \"%TDDX%\")" ), "\n";
     echo "MailPoet sending queues (must be 0): ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}mailpoet_sending_queues" ), "\n";'
   echo "published pages (expect only home, latest): $(wp post list --post_type=page --post_status=publish --field=post_name | tr '\n' ' ')"
   echo "mail log: $([ -e "$SITE/wp-content/tdd-mail-test.log" ] && echo PRESENT || echo absent)"
@@ -95,8 +98,8 @@ for slug in contact newsletter; do
   if [ -n "$id" ]; then wp post update "$id" --post_status=publish >/dev/null 2>&1 && echo "$id" >> "$FLIP" && echo "published empty draft /$slug/ (#$id)"; fi
 done
 if [ -z "$(wp post list --post_type=page --name=about --post_status=any --field=ID)" ]; then
-  id=$(wp post create --post_type=page --post_status=publish --post_name=about --post_title=About --page_template=page-about --porcelain 2>/dev/null | grep -oE '^[0-9]+' | head -1)
-  wp post meta set "$id" _tdd_fixture phase8 >/dev/null 2>&1 && echo "temporary empty /about/ (#$id, deleted with the suite fixtures)"
+  id=$(wp post create --post_type=page --post_status=publish --post_name=about --post_title=About --page_template=page-about --post_content='<!-- wp:tdd/team /-->' --porcelain 2>/dev/null | grep -oE '^[0-9]+' | head -1)
+  wp post meta set "$id" _tdd_fixture phase8 >/dev/null 2>&1 && echo "temporary /about/ with only the team block (#$id, deleted with the suite fixtures)"
 fi
 
 export BASE TDD_ADMIN_ID="$ADMIN_ID" WP="wp --path=$SITE" TDD_BLOCKS_DIR="$SITE/wp-content/themes/techdosedaily/blocks"

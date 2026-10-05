@@ -57,6 +57,8 @@ def leaks(text):
 
 def reset_throttles():
     wpeval("global $wpdb; $wpdb->query(\"DELETE FROM {$wpdb->options} WHERE option_name LIKE '\\_transient%tdd\\_t%' OR option_name LIKE '\\_transient\\_timeout%tdd\\_t%'\");")
+    # With a persistent object cache (Memcached on Hostinger) transients never reach wp_options.
+    wpeval('if (wp_using_ext_object_cache()) { wp_cache_supports("flush_group") ? wp_cache_flush_group("transient") : wp_cache_flush(); }')
 
 
 class Client:
@@ -331,11 +333,13 @@ update_post_meta({pub}, 'tdd_sources', array(
         check(f'{r}: section settings over REST refused', x.status_code in (401, 403) and 'Defaced' not in wp(f'term meta get {ai} tdd_desk_note'), x.status_code)
         x = C[r].post('/wp-admin/edit-tags.php', data={'action': 'editedtag', 'tag_ID': ai, 'taxonomy': 'category', 'name': 'AI', 'tdd_section_nonce': 'forged', 'tdd_desk_note': 'Defaced'})
         check(f'{r}: forged section form refused', 'Defaced' not in wp(f'term meta get {ai} tdd_desk_note'), x.status_code)
+    # Keep the section's real desk settings (staging may hold real or sample values) and put them back exactly.
+    desk_before = wpeval(f'echo wp_json_encode(array("members" => get_term_meta({ai}, "tdd_desk_members", true), "url" => get_term_meta({ai}, "tdd_desk_url", true)));')
     x = C['editor'].rest('POST', f'/wp/v2/categories/{ai}', json={'meta': {'tdd_desk_members': [users['subscriber'], users['editor']], 'tdd_desk_url': 'javascript:alert(1)'}})
     m = x.json().get('meta', {})
     check('editor: desk members must have editing rights (subscriber dropped)', m.get('tdd_desk_members') == [users['editor']], m.get('tdd_desk_members'))
     check('editor: javascript: desk link stored empty', m.get('tdd_desk_url') == '', m.get('tdd_desk_url'))
-    C['editor'].rest('POST', f'/wp/v2/categories/{ai}', json={'meta': {'tdd_desk_members': [], 'tdd_desk_url': ''}})
+    wpeval(f'$v = json_decode({json.dumps(desk_before)}, true); foreach (array("members" => "tdd_desk_members", "url" => "tdd_desk_url") as $f => $k) {{ ($v[$f] === "" || $v[$f] === array()) ? delete_term_meta({ai}, $k) : update_term_meta({ai}, $k, $v[$f]); }}')
 
     print('== Uploads: images + PDF only; metadata removed')
     def jpeg_with_gps():
@@ -486,9 +490,10 @@ update_post_meta({pub}, 'tdd_sources', array(
         ok_ = hd.get('X-Content-Type-Options') == 'nosniff' and 'frame-ancestors' in hd.get('Content-Security-Policy', '') and hd.get('Referrer-Policy') and hd.get('X-Frame-Options') == 'SAMEORIGIN'
         check(f'headers on {path}', ok_, dict((k, v) for k, v in hd.items() if k.lower().startswith(('x-', 'content-security', 'referrer', 'permissions'))))
     C['anonymous'].get('/'); x = C['anonymous'].get('/')
-    check('headers also on page-cache HITs', x.headers.get('X-Page-Cache') == 'HIT' and x.headers.get('X-Content-Type-Options') == 'nosniff', x.headers.get('X-Page-Cache'))
+    hit = lambda h: h.get('X-Page-Cache') == 'HIT' or 'hit' in h.get('X-LiteSpeed-Cache', '').lower()  # nginx harness / LiteSpeed
+    check('headers also on page-cache HITs', hit(x.headers) and x.headers.get('X-Content-Type-Options') == 'nosniff', (x.headers.get('X-Page-Cache'), x.headers.get('X-LiteSpeed-Cache')))
     x = C['editor'].get('/')
-    check('logged-in pages: private, no-store, never from the cache', 'no-store' in x.headers.get('Cache-Control', '') and x.headers.get('X-Page-Cache') == 'BYPASS', (x.headers.get('Cache-Control'), x.headers.get('X-Page-Cache')))
+    check('logged-in pages: private, no-store, never from the cache', 'no-store' in x.headers.get('Cache-Control', '') and x.headers.get('X-Page-Cache') in ('BYPASS', None) and not hit(x.headers), (x.headers.get('Cache-Control'), x.headers.get('X-Page-Cache'), x.headers.get('X-LiteSpeed-Cache')))
     x = C['editor'].rest('GET', f'/wp/v2/posts/{pub}?context=edit')
     check('authenticated REST responses: no-store', 'no-store' in x.headers.get('Cache-Control', '') or 'private' in x.headers.get('Cache-Control', ''), x.headers.get('Cache-Control'))
     x = C['anonymous'].get(pub_url.rstrip('/') + '/embed/', headers={'X-Cache-Bypass': '1'})
