@@ -218,6 +218,8 @@ if WP:
     gate('R1', 'cron is running (no events > 15 min overdue)', cron == '0', cron)
     mp = wpeval("""try { if ( class_exists( '\\MailPoet\\Settings\\SettingsController' ) ) { echo \\MailPoet\\Settings\\SettingsController::getInstance()->get( 'signup_confirmation.enabled' ) ? 'on' : 'off'; } else { echo 'absent'; } } catch ( \\Throwable $e ) { echo 'unknown'; }""")
     gate('M1', 'MailPoet double opt-in on', mp == 'on', mp, level='FAIL' if STAGE == 'production' else 'TODO')
+    mpa = wpeval(r"""echo class_exists( '\MailPoet\Settings\SettingsController' ) ? ( \MailPoet\Settings\SettingsController::getInstance()->get( 'analytics.enabled' ) ? 'on' : 'off' ) : 'absent';""")
+    gate('M2', 'MailPoet anonymous usage-data sharing off', mpa in ('off', 'absent'), mpa)
     yo = wpeval("""$t = (array) get_option( 'wpseo_titles' ); $ok = ! empty( $t['disable-date'] ) && ! empty( $t['disable-attachment'] ) && empty( $t['breadcrumbs-enable'] ) && ! empty( $t['noindex-tax-post_tag'] ) && 'Page not found · %%sitename%%' === ( $t['title-404-wpseo'] ?? '' ); $idx = class_exists( 'WPSEO_Options' ) ? (int) WPSEO_Options::get( 'indexables_indexing_completed' ) : 0; echo ( $ok ? 'settings-ok' : 'settings-differ' ), ' indexables=', $idx;""")
     gate('Y1', 'Yoast settings as SEO-SCHEMA.md §7', 'settings-ok' in yo, yo)
     gate('Y2', 'Yoast SEO data optimisation completed', 'indexables=1' in yo, yo, level='FAIL' if STAGE == 'production' else 'TODO')

@@ -61,6 +61,8 @@ try {
 		}
 		update_option( 'tdd_newsletter_mailpoet_list', (int) $list['id'] );
 		\MailPoet\Settings\SettingsController::getInstance()->set( 'signup_confirmation.enabled', true );
+		// Owner decision 2026-10-05: no anonymous usage data to MailPoet (Mixpanel/Tracks).
+		\MailPoet\Settings\SettingsController::getInstance()->set( 'analytics.enabled', false );
 		echo "newsletter list: #{$list['id']} $list_name (double opt-in on)\n";
 	}
 } catch ( \Throwable $e ) {

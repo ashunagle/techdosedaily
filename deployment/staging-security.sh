@@ -19,6 +19,7 @@ BASE=https://staging.techdosedaily.com
 MU="$SITE/wp-content/mu-plugins"
 HARNESS="mu-capture-mail.php mu-fake-newsletter-provider.php"
 PYLIB="$HERE/.pylib-security"
+FLIP="$HERE/out/.pages-published-for-run"   # draft pages published for the run, set back to draft in cleanup
 mkdir -p "$HERE/out"
 if [ -z "${TDD_SEC_LOG:-}" ]; then   # re-run through tee (no /dev/fd for process substitution on this host)
   export TDD_SEC_LOG="$HERE/out/security-$(date -u +%Y%m%d-%H%M%SZ).log"
@@ -56,6 +57,10 @@ cleanup() {
   for f in $HARNESS; do rm -f "$MU/$f"; done
   rm -f "$SITE/wp-content/tdd-mail-test.log"
   rm -rf "$PYLIB" "$HERE/security/__pycache__"
+  if [ -s "$FLIP" ]; then
+    while read -r id; do wp post update "$id" --post_status=draft >/dev/null 2>&1 && echo "back to draft: page #$id"; done < "$FLIP"
+  fi
+  rm -f "$FLIP"
   for u in $(wp user list --field=user_login | grep -E '^tdd-(sec|xss)-' || true); do wp user delete "$u" --yes --reassign="$ADMIN_ID"; done
   wp eval 'foreach ( get_posts( array( "post_type" => "any", "post_status" => "any", "numberposts" => -1, "fields" => "ids", "meta_key" => "_tdd_fixture", "meta_value" => "phase8" ) ) as $id ) { wp_delete_post( $id, true ); }
     global $wpdb; $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE \"\\_transient%tdd\\_t%\" OR option_name LIKE \"\\_transient\\_timeout%tdd\\_t%\"" );
@@ -70,6 +75,7 @@ cleanup() {
     echo "MailPoet subscribers @example.invalid (suites; must be 0): ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}mailpoet_subscribers WHERE email LIKE \"%@example.invalid\"" ), "\n";
     echo "MailPoet subscribers -sample@example.com (sample authors, until samples are removed): ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}mailpoet_subscribers WHERE email LIKE \"%-sample@example.com\"" ), "\n";
     echo "MailPoet sending queues (must be 0): ", (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}mailpoet_sending_queues" ), "\n";'
+  echo "published pages (expect only home, latest): $(wp post list --post_type=page --post_status=publish --field=post_name | tr '\n' ' ')"
   echo "mail log: $([ -e "$SITE/wp-content/tdd-mail-test.log" ] && echo PRESENT || echo absent)"
   echo "harness: $(ls "$MU" | grep -cE '^mu-' || true) mu-* files"
 }
@@ -82,6 +88,16 @@ $PY -c 'import PIL; print("Pillow", PIL.__version__)'
 say "Install harness"
 mkdir -p "$MU"
 for f in $HARNESS; do cp "$HERE/fixtures/$f" "$MU/$f"; sha256sum "$MU/$f"; done
+
+say "Pages the suites test (published for this run only; still behind Basic Auth and noindex; no wording added)"
+for slug in contact newsletter; do
+  id=$(wp post list --post_type=page --name="$slug" --post_status=draft --field=ID)
+  if [ -n "$id" ]; then wp post update "$id" --post_status=publish >/dev/null 2>&1 && echo "$id" >> "$FLIP" && echo "published empty draft /$slug/ (#$id)"; fi
+done
+if [ -z "$(wp post list --post_type=page --name=about --post_status=any --field=ID)" ]; then
+  id=$(wp post create --post_type=page --post_status=publish --post_name=about --post_title=About --page_template=page-about --porcelain 2>/dev/null | grep -oE '^[0-9]+' | head -1)
+  wp post meta set "$id" _tdd_fixture phase8 >/dev/null 2>&1 && echo "temporary empty /about/ (#$id, deleted with the suite fixtures)"
+fi
 
 export BASE TDD_ADMIN_ID="$ADMIN_ID" WP="wp --path=$SITE" TDD_BLOCKS_DIR="$SITE/wp-content/themes/techdosedaily/blocks"
 say "security_test.py"; $PY "$HERE/security/security_test.py"; SEC=$?

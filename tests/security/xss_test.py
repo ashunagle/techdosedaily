@@ -35,8 +35,9 @@ def check(name, cond, detail=''):
 
 def wp(cmd):
     out = subprocess.run(f'{WP} {cmd}', shell=True, capture_output=True, text=True).stdout
-    # LiteSpeed Cache prints a purge notice on every write (staging/production); it is not command output.
-    return '\n'.join(l for l in out.splitlines() if not l.startswith('Success: Purged')).strip()
+    # LiteSpeed Cache prints a purge notice on every write (staging/production), sometimes on the same line
+    # as the real output (after an echo without a newline); it is not command output.
+    return re.sub(r'Success: Purged all caches successfully\.\n?', '', out).strip()
 
 
 def wpeval(php):
