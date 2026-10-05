@@ -41,6 +41,8 @@ Progress log (2026-10-05)
   - Site Icon: owner's 512×512 mark (attachment 20).
   - **[Sample] review dataset loaded on staging only** (`deployment/staging-samples.sh load`: phase2-content, phase3-article, phase3-sections, phase3-home, phase6-seo — 51 stories, sample authors, images, placements, view counts; not menus, gallery or page copy). Noindex + out of sitemaps (Core `_tdd_fixture`). Gates D1/U3/E2 are TODO on staging and **FAIL on production** until `staging-samples.sh remove`.
   - Y2: Yoast reindex with content — completed (104 indexables). Re-run after real content replaces the samples.
+- Gate run `tests/staging/out/gates-staging-20261005-035624Z.md`: **57 pass · 8 to do · 0 fail**. S1 passes on home, login, an article and 404 (merged CSP); S3 embed frameable; I7 one H1; I8 og:url = root; I9 no MailPoet URLs in sitemaps; Y2, Y3 pass. TODO: H3 HSTS (production only), E2/D1/U3 sample dataset, U2 `mira-sample` editor without 2FA (sample user), C3 `/contact/` and `/newsletter/` (drafts → 404), D2 (Privacy Policy, policy pages, sample data).
+- S2: the wp-admin exception never matched on LiteSpeed (SetEnvIf does not fire for wp-admin requests here), so wp-admin has carried the merged policy all along. The no-op rule is removed; wp-admin uses the same policy (`form-action 'self'`, `frame-ancestors 'self'`). **Owner: click through wp-admin (MailPoet, Yoast, LiteSpeed, Two Factor, media upload) and report any blocked form or console CSP error.**
 
 ## How a gate run works
 

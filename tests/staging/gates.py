@@ -94,7 +94,7 @@ for path in [p for p in ('/', '/wp-login.php', story, '/no-such-page-gate/') if 
 
 # The host replaces Core's CSP at server level; .htaccess sends the merged policy (deployment/htaccess-root-additions.txt).
 adm = get('/wp-admin/', allow_redirects=False).headers.get('Content-Security-Policy', '')
-gate('S2', 'wp-admin keeps the host CSP (no form-action/frame-ancestors from the public policy)', 'form-action' not in adm, adm, level='INFO')
+gate('S2', 'wp-admin carries the merged CSP (frame-ancestors, form-action)', "frame-ancestors 'self'" in adm and "form-action 'self'" in adm, adm, level='INFO')
 emb = story and get(story.rstrip('/') + '/embed/', allow_redirects=False).headers.get('Content-Security-Policy', '')
 gate('S3', 'oEmbed card can be framed (no frame-ancestors)', story is None or 'frame-ancestors' not in emb, emb if story else 'no story to test', level='FAIL' if story else 'INFO')
 

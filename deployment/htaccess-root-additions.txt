@@ -11,9 +11,9 @@ RedirectMatch 403 ^/\.(?!well-known/).*
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
   # Hostinger sends "Content-Security-Policy: upgrade-insecure-requests" from the server, which replaces
-  # Core's CSP (hardening.php). Send the merged policy here instead. wp-admin keeps the host default
-  # (Core never set a CSP there); oEmbed /embed/ cards drop frame-ancestors because they are meant to be framed.
-  SetEnvIf Request_URI "/wp-admin" TDD_CSP_SKIP
+  # Core's CSP (hardening.php). Send the merged policy here instead; it also covers wp-admin (LiteSpeed does not
+  # match SetEnvIf on wp-admin requests here, so an exception there never took effect — gate S2 records it).
+  # oEmbed /embed/ cards drop frame-ancestors because they are meant to be framed.
   SetEnvIf Request_URI "/embed/?$" TDD_CSP_SKIP TDD_EMBED
   Header always set Content-Security-Policy "upgrade-insecure-requests; frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'" env=!TDD_CSP_SKIP
   Header always set Content-Security-Policy "upgrade-insecure-requests; base-uri 'self'; object-src 'none'; form-action 'self'" env=TDD_EMBED
