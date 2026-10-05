@@ -67,7 +67,8 @@ function tdd_home_hero(): string {
 	$lead = tdd_home_resolve( 'homepage_lead', 1 );
 	$rail = tdd_home_resolve( 'homepage_secondary', 4 );
 	if ( ! $lead ) {
-		return '';
+		// The lead headline is the page's H1; without one, keep a single (non-visual) H1 for the page.
+		return '<h1 class="screen-reader-text">' . esc_html( get_bloginfo( 'name' ) ) . '</h1>';
 	}
 	$feature = tdd_story_card( $lead[0], 'feature', array( 'heading' => 'h1', 'eager' => true, 'size' => 'tdd-16x9-1200', 'sizes' => '(max-width: 767px) 100vw, 840px' ) );
 	$feature = str_replace( 'class="tdd-story tdd-story--feature m-lead"', 'class="hp-hero__main tdd-story tdd-story--feature m-lead"', $feature );

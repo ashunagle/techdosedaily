@@ -76,7 +76,8 @@ else:
     gate('H2', 'valid TLS certificate', False, e)
     sys.exit(1)
 hsts = home.headers.get('Strict-Transport-Security', '')
-gate('H3', 'HSTS max-age ≥ 1 year', 'max-age=31536000' in hsts or STAGE == 'staging', hsts or 'absent', level='FAIL' if STAGE == 'production' else 'INFO')
+# Core sends HSTS on production only, so on staging this stays TODO until the production run.
+gate('H3', 'HSTS max-age ≥ 1 year', 'max-age=31536000' in hsts, hsts or 'absent', level='FAIL' if STAGE == 'production' else 'TODO')
 
 print('== Security headers (SECURITY.md finding 12)')
 story = None
@@ -130,6 +131,13 @@ gate('I4', 'exactly one canonical, https, on this host', (len(canon) == 1 and ca
 ld = re.findall(r'<script type="application/ld\+json"[^>]*class="([^"]+)"', home.text)
 gate('I5', 'exactly one JSON-LD graph (single schema owner)', len(ld) == 1, ld)
 gate('I6', 'title and Open Graph present', '<title>' in home.text and 'og:title' in home.text)
+h1s = re.findall(r'<h1[\s>]', home.text)
+gate('I7', 'home has exactly one H1', len(h1s) == 1, len(h1s))
+og_url = re.findall(r'<meta property="og:url" content="([^"]+)"', home.text)
+gate('I8', 'home og:url is the site root (not the front page slug)', og_url == [BASE + '/'], og_url)
+subs = re.findall(r'<loc>([^<]+)</loc>', sm.text) if sm.status_code == 200 else []
+mp = [u for u in [BASE + '/sitemap_index.xml'] + subs if 'mailpoet' in (sm.text if u.endswith('sitemap_index.xml') else get(u).text)]
+gate('I9', 'no MailPoet endpoints (subscriptions, captcha) in the sitemaps', not mp, mp)
 
 print('== Caching and compression (PERFORMANCE.md)')
 get('/'); x = get('/')

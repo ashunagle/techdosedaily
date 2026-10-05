@@ -3,7 +3,7 @@
  * Plugin Name:       TechDoseDaily Core
  * Plugin URI:        https://techdosedaily.com/
  * Description:       Publication data model for Tech Dose Daily — sections, story formats, topics, editorial metadata, placements, newsletter adapter, forms and structured data. Theme-independent: switching themes never loses this data.
- * Version:           0.9.0
+ * Version:           0.9.1
  * Requires at least: 6.6
  * Requires PHP:      8.1
  * Author:            Tech Dose Daily
@@ -15,7 +15,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'TDD_CORE_VERSION', '0.9.0' );
+define( 'TDD_CORE_VERSION', '0.9.1' );
 define( 'TDD_CORE_FILE', __FILE__ );
 define( 'TDD_CORE_DIR', __DIR__ );
 

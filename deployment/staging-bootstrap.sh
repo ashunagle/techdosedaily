@@ -2,7 +2,7 @@
 # TechDoseDaily — clean staging bootstrap (run over SSH in the staging WordPress root).
 #
 #   cd ~/domains/<staging-domain>/public_html          # the STAGING site's root (check twice)
-#   bash staging-bootstrap.sh /path/to/release-dir      # dir with the two 0.9.0 zips + SHA256SUMS
+#   bash staging-bootstrap.sh /path/to/release-dir      # dir with the two release zips + SHA256SUMS
 #
 # Installs only what PLUGIN-DECISIONS allows, applies the documented settings (SEO-SCHEMA.md §7,
 # PERFORMANCE.md, SECURITY.md §8), removes WordPress demo content, and NEVER creates sample stories,

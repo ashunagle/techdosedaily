@@ -122,6 +122,9 @@ function tdd_core_noindex_reason(): string {
 			return 'thin-topic';
 		}
 	}
+	if ( is_singular( 'mailpoet_page' ) ) {
+		return 'newsletter-endpoint'; // MailPoet's subscription-management and captcha pages.
+	}
 	if ( is_singular() && tdd_core_is_fixture( (int) get_queried_object_id() ) ) {
 		return 'fixture';
 	}
@@ -225,7 +228,7 @@ add_filter(
 add_filter(
 	'wp_sitemaps_post_types',
 	static function ( array $types ): array {
-		unset( $types['attachment'] );
+		unset( $types['attachment'], $types['mailpoet_page'] );
 		return $types;
 	}
 );
@@ -234,7 +237,9 @@ add_filter(
 add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', static fn( $ids ) => array_merge( (array) $ids, tdd_core_fixture_ids() ) );
 add_filter( 'wpseo_exclude_from_sitemap_by_term_ids', static fn( $ids ) => array_merge( (array) $ids, tdd_core_thin_topic_ids() ) );
 add_filter( 'wpseo_sitemap_exclude_taxonomy', static fn( $exclude, $taxonomy ) => in_array( $taxonomy, array( 'post_tag', 'post_format' ), true ) ? true : $exclude, 10, 2 );
-add_filter( 'wpseo_sitemap_exclude_post_type', static fn( $exclude, $type ) => 'attachment' === $type ? true : $exclude, 10, 2 );
+add_filter( 'wpseo_sitemap_exclude_post_type', static fn( $exclude, $type ) => in_array( $type, array( 'attachment', 'mailpoet_page' ), true ) ? true : $exclude, 10, 2 );
+// Yoast builds indexables only when WP_ENVIRONMENT_TYPE is production; staging must match production output.
+add_filter( 'Yoast\WP\SEO\should_index_indexables', static fn( $should ) => $should || 'staging' === wp_get_environment_type() );
 
 /* ---------- 4. Yoast output aligned with publication data ---------- */
 

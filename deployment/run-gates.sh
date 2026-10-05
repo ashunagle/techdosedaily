@@ -10,6 +10,6 @@ for try in 1 2 3; do
   echo "Login rejected (HTTP ${code:-error}). Username is the one set in hPanel Password Protect Directories; check the password."
   [ $try = 3 ] && { unset TDD_BASIC_AUTH; exit 1; }
 done
-WP="wp --path=$PWD" BASE=https://staging.techdosedaily.com $PY ~/release-0.9.0/gates.py --stage staging
+WP="wp --path=$PWD" BASE=https://staging.techdosedaily.com $PY "$(dirname "$(readlink -f "$0")")/gates.py" --stage staging
 echo "exit=$?"
 unset TDD_BASIC_AUTH
