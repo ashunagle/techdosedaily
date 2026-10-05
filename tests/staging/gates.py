@@ -31,6 +31,9 @@ S = requests.Session()
 S.headers.update({'X-TDD-Perf-Test': '1', 'User-Agent': 'TDD-launch-gates/1.0 (+lighthouse-style lab check)'})
 if AUTH:
     S.auth = AUTH
+# A rejected directory login turns every HTTP gate into a check of the 401 page; stop instead of reporting that.
+if S.get(BASE + '/', timeout=30, allow_redirects=False).status_code == 401:
+    sys.exit('HTTP 401 on / — directory login missing or rejected (TDD_BASIC_AUTH=user:pass). No report written.')
 ROWS = []
 APPROVED_PLUGINS = {'techdosedaily-core', 'wordpress-seo', 'litespeed-cache', 'two-factor', 'mailpoet'}
 
@@ -121,7 +124,9 @@ else:
 sm = get('/sitemap_index.xml')
 gate('I3', 'XML sitemap index served', sm.status_code == 200 and '<sitemapindex' in sm.text, sm.status_code, level='FAIL' if STAGE == 'production' else 'INFO')
 canon = re.findall(r'<link rel="canonical" href="([^"]+)"', home.text)
-gate('I4', 'exactly one canonical, https, on this host', len(canon) == 1 and canon[0].startswith(BASE), canon)
+# Yoast prints no canonical on noindex pages, so a locked staging home has none.
+staging_noindex = STAGE == 'staging' and bool(robots_meta and 'noindex' in robots_meta.group(1))
+gate('I4', 'exactly one canonical, https, on this host', (len(canon) == 1 and canon[0].startswith(BASE)) or (staging_noindex and not canon), canon or ('none (noindex staging)' if staging_noindex else []))
 ld = re.findall(r'<script type="application/ld\+json"[^>]*class="([^"]+)"', home.text)
 gate('I5', 'exactly one JSON-LD graph (single schema owner)', len(ld) == 1, ld)
 gate('I6', 'title and Open Graph present', '<title>' in home.text and 'og:title' in home.text)
@@ -134,6 +139,9 @@ gate('C2', 'Core cache header present (X-TDD-Cache ttl)', 'ttl=' in x.headers.ge
 for p in ('/contact/', '/newsletter/?tdd_nl=pending'):
     get(p); y = get(p)
     yl = y.headers.get('x-litespeed-cache', '')
+    if y.status_code == 404:
+        gate('C3', f'{p} never served from cache, no-store', False, '404 — page not created yet', level='FAIL' if STAGE == 'production' else 'TODO')
+        continue
     gate('C3', f'{p} never served from cache, no-store', 'hit' not in yl.lower() and 'no-store' in y.headers.get('Cache-Control', ''), (yl, y.headers.get('Cache-Control')))
 css = re.search(r'href=["\']([^"\']+/themes/techdosedaily/assets/css/[a-z-]+\.min\.css[^"\']*)', home.text)
 if css:
@@ -169,11 +177,17 @@ if WP:
     gate('P3', 'no plugin updates pending', all(p.get('update') in ('none', '', None) for p in regular), [p['name'] for p in regular if p.get('update') not in ('none', '', None)])
     harness = [p['name'] for p in plugins if p['status'] in ('must-use', 'dropin') and (p['name'].startswith('mu-') or p['name'] == 'db.php')]
     gate('P6', 'no local test harness / drop-ins left on the server (mu-capture-mail, fake newsletter, …)', not harness, harness)
+    stray = wpeval("""echo implode( ',', array_map( 'basename', array_merge( (array) glob( ABSPATH . 'create_autologin_*.php' ), (array) glob( ABSPATH . 'default.php' ) ) ) );""")
+    gate('P7', 'no host leftovers in the web root (hPanel autologin script, default page)', stray == '', stray)
     gate('P4', 'WordPress core up to date', 'Success' in wp('core check-update') or wp('core check-update --format=count') in ('', '0'), wp('core check-update --format=csv')[:200])
     theme = wp('theme list --status=active --field=name')
     gate('P5', 'TechDoseDaily theme active', theme == 'techdosedaily', theme)
-    users = json.loads(wp('user list --fields=ID,user_login,roles --format=json') or '[]')
-    gate('U1', 'no account named "admin" and no sample/test accounts', not [u for u in users if u['user_login'] == 'admin' or u['user_login'].endswith('-sample') or u['user_login'].startswith('tdd-')], [u['user_login'] for u in users if u['user_login'] == 'admin' or 'sample' in u['user_login'] or u['user_login'].startswith('tdd-')])
+    users = json.loads(wp('user list --fields=ID,user_login,user_email,roles --format=json') or '[]')
+    # Test suites create tdd-sec-*, tdd-xss-*, tdd-cache-* accounts at @example.invalid; real logins may also start with tdd-.
+    bad_users = [u['user_login'] for u in users if u['user_login'] == 'admin' or 'sample' in u['user_login']
+                 or u['user_login'].startswith(('tdd-sec-', 'tdd-xss-', 'tdd-cache-'))
+                 or u.get('user_email', '').endswith(('@example.invalid', '@example.com', '@example.org', '@example.net'))]
+    gate('U1', 'no account named "admin" and no sample/test accounts', not bad_users, bad_users)
     no2fa = wpeval("""$out = array(); foreach ( get_users( array( 'role__in' => array( 'administrator', 'editor' ) ) ) as $u ) { $p = get_user_meta( $u->ID, '_two_factor_enabled_providers', true ); if ( empty( $p ) ) { $out[] = $u->user_login; } } echo implode( ',', $out );""")
     gate('U2', 'every administrator and editor has 2FA enabled (Two Factor)', no2fa == '', no2fa, level='FAIL' if STAGE == 'production' else 'TODO')
     fx = wpeval("""global $wpdb; echo (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = '_tdd_fixture'" );""")

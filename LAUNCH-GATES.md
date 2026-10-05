@@ -20,6 +20,13 @@ Progress log (2026-10-04)
 - D1 `admin` replaced by personal administrator `tdd-ash-7k2`; D2 Two Factor setup to confirm.
 - Next: run `gates.py --stage staging` on the server (`/opt/alt/python311/bin/python3`).
 
+Progress log (2026-10-05)
+- First gate run (`~/release-0.9.0/run-gates.sh`): directory login rejected → every HTTP gate checked the 401 page. Report discarded; `gates.py` now stops on a 401 and the wrapper verifies the login first (3 tries).
+- Gate fixes: U1 flagged every `tdd-` login (the real admin is `tdd-ash-7k2`) — now only the suites' `tdd-sec-/tdd-xss-/tdd-cache-` accounts and `@example.*` emails. I4 passes on a noindex staging home with no canonical (Yoast omits it on noindex; production still needs exactly one). C3 reports a missing page (404) as TODO on staging, FAIL on production. New **P7**: no hPanel leftovers in the web root.
+- Staging fixes (backup `~/backups/tdd-staging-20261005-032614-gatefix`): deleted hPanel `create_autologin_*.php` (one-time login script left in the web root) and Hostinger `default.php`; removed Hostinger's `mod_expires` section from the `# BEGIN WordPress` block — it capped CSS/JS at 1 month over LiteSpeed's 1 year (C4). `staging-config.sh` now strips it on every run.
+- Gate run `tests/staging/out/gates-staging-20261005-032724Z.md`: **50 pass · 5 to do · 3 fail**. U2 (2FA) pass. TODO: C3 `/contact/` and `/newsletter/` (pages not created), D2, Y2, Y3.
+- **Open — S1 (3 fails):** Hostinger's server sends `Content-Security-Policy: upgrade-insecure-requests` (origin LiteSpeed and CDN, also on the live site and on 401s), which replaces Core's CSP (`frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'`). `X-Frame-Options: SAMEORIGIN` still arrives, so clickjacking stays blocked; base-uri/object-src/form-action are lost. Owner to decide: set the full CSP in `.htaccess` (skipping `/embed/`) or ask Hostinger support. Not waived.
+
 ## How a gate run works
 
 ```sh

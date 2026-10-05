@@ -63,7 +63,9 @@ in `wp-config-additions.php`.
 
 ## 4. Next steps, in order
 
-1. **Run the launch-gate checker on the server** (was about to start):
+1. **Done 2026-10-05** — 50 pass · 5 to do · 3 fail (S1 CSP, owner decision pending); see `LAUNCH-GATES.md`
+   progress log. Re-run any time with `ssh -t … "bash ~/release-0.9.0/run-gates.sh"` (prompts for the directory
+   login, verifies it, then runs the gates). Original instructions:
    ```
    cd ~/domains/techdosedaily.com/public_html/staging
    PY=/opt/alt/python311/bin/python3

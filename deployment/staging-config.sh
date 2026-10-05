@@ -78,6 +78,9 @@ EOF
 touch .htaccess
 # Drop any previous TechDoseDaily block, keep everything else (hPanel password protection, LiteSpeed, WordPress).
 REST=$(awk '/^# BEGIN TechDoseDaily/{skip=1} !skip{print} /^# END TechDoseDaily/{skip=0}' .htaccess)
+# Hostinger puts a mod_expires section in the WordPress block (CSS/JS 1 month). Being last, it overrides
+# LiteSpeed's one-year browser cache (PERFORMANCE.md, gate C4) — drop it from that block only.
+REST=$(printf '%s\n' "$REST" | awk '/^# BEGIN WordPress/{wp=1} /^# END WordPress/{wp=0} wp && /<IfModule mod_expires\.c>/{skip=1} !skip{print} skip && /<\/IfModule>/{skip=0}')
 if ! printf '%s\n' "$REST" | grep -q '^# BEGIN WordPress'; then
   echo "WordPress rewrite block missing — adding the standard one (wp-cli cannot write it on this host)."
   REST=$(printf '%s\n\n%s\n' "$REST" "$WPBLOCK")
