@@ -43,6 +43,7 @@ Progress log (2026-10-05)
   - Y2: Yoast reindex with content — completed (104 indexables). Re-run after real content replaces the samples.
 - Gate run `tests/staging/out/gates-staging-20261005-035624Z.md`: **57 pass · 8 to do · 0 fail**. S1 passes on home, login, an article and 404 (merged CSP); S3 embed frameable; I7 one H1; I8 og:url = root; I9 no MailPoet URLs in sitemaps; Y2, Y3 pass. TODO: H3 HSTS (production only), E2/D1/U3 sample dataset, U2 `mira-sample` editor without 2FA (sample user), C3 `/contact/` and `/newsletter/` (drafts → 404), D2 (Privacy Policy, policy pages, sample data).
 - S2: the wp-admin exception never matched on LiteSpeed (SetEnvIf does not fire for wp-admin requests here), so wp-admin has carried the merged policy all along. The no-op rule is removed; wp-admin uses the same policy (`form-action 'self'`, `frame-ancestors 'self'`). **Owner: click through wp-admin (MailPoet, Yoast, LiteSpeed, Two Factor, media upload) and report any blocked form or console CSP error.**
+- Mailboxes confirmed in hPanel (owner screenshot 2026-10-05): `contact@techdosedaily.com` (active, 8 forwarders) and `newsletter@techdosedaily.com` (active). Plan: Starter Business Email **free trial**, expires 2027-05-16 — renew before then or contact/newsletter mail stops. C4 still needs SMTP for MailPoet and a real test message per contact route.
 
 ## How a gate run works
 
