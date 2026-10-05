@@ -1,6 +1,6 @@
 <?php
 /**
- * LOCAL TEST FIXTURE ONLY — never run on staging or production.
+ * LOCAL TEST FIXTURE — local, or staging via deployment/staging-samples.sh (owner decision 2026-10-05). Never production.
  * Turns the sample AI lead story into the full illustrative article used by the approved
  * ArticleDesktop / ArticleMobile designs (same fictional content, people and figures), so the
  * single template can be compared with the frozen references. Everything is marked [Sample].

@@ -1,6 +1,6 @@
 <?php
 /**
- * LOCAL TEST FIXTURE ONLY — never run on staging or production.
+ * LOCAL TEST FIXTURE — local, or staging via deployment/staging-samples.sh (owner decision 2026-10-05). Never production.
  * Two extra [Sample] stories for the Phase 6 schema tests:
  *   - a Sponsored story with a sample sponsor (AdvertiserContentArticle + sponsor);
  *   - a bare News story: no editor, image, topics, corrections or update (omission rules).

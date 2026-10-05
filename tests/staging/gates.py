@@ -118,7 +118,7 @@ for p in ("/?s=%27%22", "/?p=1%27", "/?author=1%27", "/no-such-page-%3Cscript%3E
     x = get(p)
     gate('E1', f'{p} shows no internals', not [l for l in LEAKS if l in x.text], [l for l in LEAKS if l in x.text])
 blob = home.text + get('/sitemap_index.xml').text
-gate('E2', 'no sample/fixture content visible ([Sample], example.com, -sample)', not re.search(r'\[Sample\]|example\.(com|org|net)|-sample', blob), re.findall(r'.{30}(?:\[Sample\]|example\.(?:com|org|net)|-sample).{10}', blob)[:3])
+gate('E2', 'no sample/fixture content visible ([Sample], example.com, -sample)', not re.search(r'\[Sample\]|example\.(com|org|net)|-sample', blob), re.findall(r'.{30}(?:\[Sample\]|example\.(?:com|org|net)|-sample).{10}', blob)[:3], level='FAIL' if STAGE == 'production' else 'TODO')  # staging may carry the [Sample] review dataset (staging-samples.sh)
 
 print('== Indexing (SEO)')
 robots_meta = re.search(r"<meta name=['\"]robots['\"] content=['\"]([^'\"]+)", home.text)
@@ -198,14 +198,16 @@ if WP:
     gate('P5', 'TechDoseDaily theme active', theme == 'techdosedaily', theme)
     users = json.loads(wp('user list --fields=ID,user_login,user_email,roles --format=json') or '[]')
     # Test suites create tdd-sec-*, tdd-xss-*, tdd-cache-* accounts at @example.invalid; real logins may also start with tdd-.
-    bad_users = [u['user_login'] for u in users if u['user_login'] == 'admin' or 'sample' in u['user_login']
-                 or u['user_login'].startswith(('tdd-sec-', 'tdd-xss-', 'tdd-cache-'))
-                 or u.get('user_email', '').endswith(('@example.invalid', '@example.com', '@example.org', '@example.net'))]
-    gate('U1', 'no account named "admin" and no sample/test accounts', not bad_users, bad_users)
+    sample_users = [u['user_login'] for u in users if u['user_login'].endswith('-sample')]
+    bad_users = [u['user_login'] for u in users if u['user_login'] not in sample_users and (u['user_login'] == 'admin'
+                 or 'sample' in u['user_login'] or u['user_login'].startswith(('tdd-sec-', 'tdd-xss-', 'tdd-cache-'))
+                 or u.get('user_email', '').endswith(('@example.invalid', '@example.com', '@example.org', '@example.net')))]
+    gate('U1', 'no account named "admin" and no test-suite accounts', not bad_users, bad_users)
+    gate('U3', 'no [Sample] authors (staging-samples.sh remove)', not sample_users, sample_users, level='FAIL' if STAGE == 'production' else 'TODO')
     no2fa = wpeval("""$out = array(); foreach ( get_users( array( 'role__in' => array( 'administrator', 'editor' ) ) ) as $u ) { $p = get_user_meta( $u->ID, '_two_factor_enabled_providers', true ); if ( empty( $p ) ) { $out[] = $u->user_login; } } echo implode( ',', $out );""")
     gate('U2', 'every administrator and editor has 2FA enabled (Two Factor)', no2fa == '', no2fa, level='FAIL' if STAGE == 'production' else 'TODO')
     fx = wpeval("""global $wpdb; echo (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = '_tdd_fixture'" );""")
-    gate('D1', 'no test fixtures', fx == '0', fx)
+    gate('D1', 'no test fixtures', fx == '0', fx, level='FAIL' if STAGE == 'production' else 'TODO')
     todo = wpeval("""if ( function_exists( 'tdd_core_launch_checks' ) ) { foreach ( tdd_core_launch_checks() as $c ) { if ( 'todo' === $c[0] ) { echo $c[1], '; '; } } }""")
     gate('D2', 'Site settings → Launch readiness: nothing left to do', todo == '', todo, level='FAIL' if STAGE == 'production' else 'TODO')
     probe = wpeval("""$u = wp_upload_dir(); $f = $u['basedir'] . '/tdd-gate-probe.php'; file_put_contents( $f, '<?php echo "EXECUTED";' ); echo $u['baseurl'] . '/tdd-gate-probe.php';""")

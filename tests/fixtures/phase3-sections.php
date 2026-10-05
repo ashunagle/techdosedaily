@@ -1,6 +1,6 @@
 <?php
 /**
- * LOCAL TEST FIXTURE ONLY — never run on staging or production.
+ * LOCAL TEST FIXTURE — local, or staging via deployment/staging-samples.sh (owner decision 2026-10-05). Never production.
  * Fills the AI section with the illustrative stories, people and settings used by the approved
  * CategoryDesktop / CategoryMobile designs (fictional, marked [Sample]) so the section template can
  * be compared with the frozen references: pinned top stories, a two-day feed with pagination,

@@ -1,6 +1,6 @@
 <?php
 /**
- * LOCAL TEST FIXTURE ONLY — never run on staging or production.
+ * LOCAL TEST FIXTURE — local, or staging via deployment/staging-samples.sh (owner decision 2026-10-05). Never production.
  * Seeds illustrative stories (the same sample headlines used in the approved designs, all
  * marked "[Sample]" in the excerpt), images, topics, placements and synthetic view counts
  * so Phase 2 components can be rendered and compared with the design system.

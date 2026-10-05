@@ -33,6 +33,14 @@ Progress log (2026-10-05)
   - H3 (HSTS) was PASS with "absent" on staging → now TODO on staging, FAIL on production (Core sends HSTS on production only).
   - **S1 CSP:** merged policy sent from `.htaccess` (`upgrade-insecure-requests` + Core's `frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'`); `/embed/` gets it without `frame-ancestors`; wp-admin should keep the host default — gates S2/S3 check this on the authenticated run (unauthenticated 401 responses show the public policy on wp-admin too).
   - C3/C4 MailPoet sender + reply-to = `newsletter@techdosedaily.com` (was a Gmail address). DNS: SPF `include:_spf.mail.hostinger.com ~all`, DKIM `hostingermail-a` (Hostinger mail), DMARC `p=none`. MailPoet still sends with **PHP mail** — switch to SMTP through the newsletter mailbox (owner enters the mailbox password in MailPoet → Settings → Send With) and verify SPF/DKIM/DMARC pass on a real test message.
+- Owner decisions (2026-10-05) applied on staging with `deployment/owner-settings.php` (backup `~/backups/tdd-staging-20261005-035205-owner-settings`):
+  - Contact: all five routes → `contact@techdosedaily.com` (receiving only; routes kept separate). Contact sender stays WordPress default until a separately authenticated SMTP mailbox exists. Tips are not described as secure (the Contact page states no secure channel exists).
+  - Section one-liners set for all nine sections (owner wording).
+  - Newsletter: MailPoet list #3 renamed **TechDoseDaily Newsletter** (name shows in the confirmation email / manage-subscription page), selected in Site settings; double opt-in on.
+  - Empty **draft** pages with final slugs/templates: privacy-policy (selected in Settings → Privacy), contact, newsletter, editorial-standards, corrections-policy, source-policy, ai-use-policy, terms (“Terms of Use”), advertise. No wording written.
+  - Site Icon: owner's 512×512 mark (attachment 20).
+  - **[Sample] review dataset loaded on staging only** (`deployment/staging-samples.sh load`: phase2-content, phase3-article, phase3-sections, phase3-home, phase6-seo — 51 stories, sample authors, images, placements, view counts; not menus, gallery or page copy). Noindex + out of sitemaps (Core `_tdd_fixture`). Gates D1/U3/E2 are TODO on staging and **FAIL on production** until `staging-samples.sh remove`.
+  - Y2: Yoast reindex with content — completed (104 indexables). Re-run after real content replaces the samples.
 
 ## How a gate run works
 

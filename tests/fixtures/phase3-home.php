@@ -1,6 +1,6 @@
 <?php
 /**
- * LOCAL TEST FIXTURE ONLY — never run on staging or production.
+ * LOCAL TEST FIXTURE — local, or staging via deployment/staging-samples.sh (owner decision 2026-10-05). Never production.
  * Adds the illustrative Cybersecurity / Developer / Startups / Big Tech / Tech stories used by the
  * approved homepage section row and Editor's Picks (fictional, marked [Sample]).
  * Run after phase3-sections.php: wp eval-file tests/fixtures/phase3-home.php --user=admin
