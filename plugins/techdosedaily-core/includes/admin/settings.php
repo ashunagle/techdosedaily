@@ -95,6 +95,22 @@ add_action(
 				},
 			)
 		);
+		register_setting(
+			TDD_CORE_SETTINGS,
+			'tdd_core_view_ceilings',
+			array(
+				'type'              => 'array',
+				'default'           => array(),
+				'sanitize_callback' => static function ( $v ) {
+					$out = array();
+					foreach ( array( 'story' => 1000, 'site' => 5000 ) as $k => $d ) {
+						$n         = absint( $v[ $k ] ?? $d );
+						$out[ $k ] = min( 1000000, max( 1, $n ?: $d ) );
+					}
+					return $out;
+				},
+			)
+		);
 		register_setting( TDD_CORE_SETTINGS, 'tdd_core_schema_owner', array( 'type' => 'string', 'default' => 'yoast', 'sanitize_callback' => static fn( $v ) => 'core' === $v ? 'core' : 'yoast' ) );
 		register_setting( TDD_CORE_SETTINGS, 'tdd_breaking_hours', array( 'type' => 'integer', 'default' => TDD_CORE_BREAKING_HOURS, 'sanitize_callback' => static fn( $v ) => min( 72, max( 1, absint( $v ) ?: TDD_CORE_BREAKING_HOURS ) ) ) );
 	}
@@ -231,6 +247,7 @@ function tdd_core_settings_page(): void {
 	$notes   = (array) get_option( 'tdd_contact_notes', array() );
 	$exp     = (array) get_option( 'tdd_contact_expectations', array() );
 	$win     = function_exists( 'tdd_core_most_read_windows' ) ? tdd_core_most_read_windows() : array( 'home' => 24, 'section' => 168, 'author' => 720 );
+	$ceil    = function_exists( 'tdd_core_view_ceilings' ) ? tdd_core_view_ceilings() : array( 'story' => 1000, 'site' => 5000 );
 	$labels  = array( 'correction' => __( 'Corrections — standards desk', 'techdosedaily-core' ) );
 	?>
 	<div class="wrap tdd-form-section">
@@ -348,6 +365,14 @@ function tdd_core_settings_page(): void {
 						<p><label for="tdd-w-<?php echo esc_attr( $k ); ?>"><?php echo esc_html( $l ); ?></label> <input type="number" min="1" max="2160" class="small-text" id="tdd-w-<?php echo esc_attr( $k ); ?>" name="tdd_core_most_read_windows[<?php echo esc_attr( $k ); ?>]" value="<?php echo esc_attr( (string) (int) $win[ $k ] ); ?>"> <?php esc_html_e( 'hours', 'techdosedaily-core' ); ?></p>
 					<?php endforeach; ?>
 					<p class="description"><?php esc_html_e( 'Counted anonymously; the module hides itself until there is enough real data.', 'techdosedaily-core' ); ?></p></fieldset></td>
+				</tr>
+				<tr>
+					<th scope="row"><?php esc_html_e( 'Most Read counting limits', 'techdosedaily-core' ); ?></th>
+					<td><fieldset><legend class="screen-reader-text"><?php esc_html_e( 'Most Read counting limits', 'techdosedaily-core' ); ?></legend>
+					<?php foreach ( array( 'story' => __( 'Per story', 'techdosedaily-core' ), 'site' => __( 'Whole site', 'techdosedaily-core' ) ) as $k => $l ) : ?>
+						<p><label for="tdd-vc-<?php echo esc_attr( $k ); ?>"><?php echo esc_html( $l ); ?></label> <input type="number" min="1" max="1000000" class="small-text" id="tdd-vc-<?php echo esc_attr( $k ); ?>" name="tdd_core_view_ceilings[<?php echo esc_attr( $k ); ?>]" value="<?php echo esc_attr( (string) (int) $ceil[ $k ] ); ?>"> <?php esc_html_e( 'views per hour', 'techdosedaily-core' ); ?></p>
+					<?php endforeach; ?>
+					<p class="description"><?php esc_html_e( 'Views above these limits are not counted, so scripted traffic cannot push a story up the ranking. Pages are never affected.', 'techdosedaily-core' ); ?></p></fieldset></td>
 				</tr>
 			</table>
 

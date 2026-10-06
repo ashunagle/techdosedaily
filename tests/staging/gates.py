@@ -193,6 +193,31 @@ if WP:
     gate('P6', 'no local test harness / drop-ins left on the server (mu-capture-mail, fake newsletter, …)', not harness, harness)
     stray = wpeval("""echo implode( ',', array_map( 'basename', array_merge( (array) glob( ABSPATH . 'create_autologin_*.php' ), (array) glob( ABSPATH . 'default.php' ) ) ) );""")
     gate('P7', 'no host leftovers in the web root (hPanel autologin script, default page)', stray == '', stray)
+    # P8: MU-plugin inventory by exact filename + approved checksum (mu-plugins-approved.json next to this file).
+    approved = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'mu-plugins-approved.json'), encoding='utf-8'))
+    found = json.loads(wpeval(r"""$o = array(); foreach ( (array) glob( WPMU_PLUGIN_DIR . '/*' ) as $f ) { $o[ basename( $f ) ] = is_dir( $f ) ? 'directory' : hash_file( 'sha256', $f ); } echo wp_json_encode( $o );""") or '{}')
+    for name, sha in sorted(found.items()):
+        ok = name in approved and not name.startswith('_') and sha in approved[name].get('sha256', [])
+        why = (approved[name]['provenance'] if ok else
+               (f'checksum {sha[:16]}… not approved (was {", ".join(s[:16] + "…" for s in approved[name]["sha256"])}) — review the change' if name in approved else
+                f'not in the inventory (sha256 {sha}) — review the file, then record it in tests/staging/mu-plugins-approved.json or remove it'))
+        gate('P8', f'MU-plugin {name}: known file, approved checksum', ok, why)
+    if not found:
+        gate('P8', 'MU-plugins: none present', True)
+    # P9: WordPress's own updater is in charge (owner decision 2026-10-06: Hostinger native auto-updates).
+    up = json.loads(wpeval(r"""require_once ABSPATH . 'wp-admin/includes/class-wp-automatic-updater.php';
+        $o = array( 'disabled' => ( new WP_Automatic_Updater() )->is_disabled(), 'core' => defined( 'WP_AUTO_UPDATE_CORE' ) ? WP_AUTO_UPDATE_CORE : null, 'minor' => (bool) apply_filters( 'allow_minor_auto_core_updates', true ) );
+        $on = (array) get_option( 'auto_update_plugins', array() );
+        foreach ( array( 'wordpress-seo/wp-seo.php', 'litespeed-cache/litespeed-cache.php', 'mailpoet/mailpoet.php', 'techdosedaily-core/techdosedaily-core.php' ) as $p ) {
+            $o['plugins'][ dirname( $p ) ] = (bool) apply_filters( 'auto_update_plugin', in_array( $p, $on, true ), (object) array( 'plugin' => $p, 'slug' => dirname( $p ) ) );
+        }
+        $o['theme'] = (bool) apply_filters( 'auto_update_theme', in_array( 'techdosedaily', (array) get_option( 'auto_update_themes', array() ), true ), (object) array( 'theme' => 'techdosedaily' ) );
+        echo wp_json_encode( $o );""") or '{}')
+    gate('P9', 'WordPress native updater active (not disabled by a host MU-plugin)', up.get('disabled') is False, up.get('disabled'))
+    gate('P9', 'core minor/security releases install automatically', up.get('minor') and up.get('core') in ('minor', True), (up.get('core'), up.get('minor')))
+    third = {k: v for k, v in up.get('plugins', {}).items() if k != 'techdosedaily-core'}
+    gate('P9', 'Yoast, LiteSpeed Cache and MailPoet auto-update (WordPress-managed)', bool(third) and all(third.values()), third)
+    gate('P9', 'Core plugin and theme are NOT auto-updated (Git deployment only)', up.get('plugins', {}).get('techdosedaily-core') is False and up.get('theme') is False, (up.get('plugins', {}).get('techdosedaily-core'), up.get('theme')))
     gate('P4', 'WordPress core up to date', 'Success' in wp('core check-update') or wp('core check-update --format=count') in ('', '0'), wp('core check-update --format=csv')[:200])
     theme = wp('theme list --status=active --field=name')
     gate('P5', 'TechDoseDaily theme active', theme == 'techdosedaily', theme)

@@ -14,6 +14,14 @@
  *  - repeated refreshes: one count per reader (hashed IP + post, salted) per 30 minutes,
  *    plus a per-IP request throttle.
  *
+ * Counting ceilings per UTC hour (option tdd_core_view_ceilings, filter of the same name):
+ *   story 1000 views per story · site 5000 views across all stories. They bound what scripted traffic
+ *   can do to the ranking even when it rotates (or forges) client addresses. Each ceiling is enforced by
+ *   one atomic SQL statement, so concurrent beacons cannot overshoot it. Views over a ceiling are
+ *   discarded silently (the beacon still answers 204; pages are never affected); a warning is logged at
+ *   most once per ceiling type per hour and `tdd_core_view_ceiling_reached` fires for monitoring.
+ *   The site-wide counter is the post_id 0 row of each hourly bucket (Most Read joins real posts only).
+ *
  * Windows are configurable (option tdd_core_most_read_windows, hours):
  *   home 24 · section 168 (7 days) · author 720 (30 days).
  * Most Read only renders when real data exists (min. views filterable); never faked.
@@ -73,6 +81,46 @@ function tdd_core_most_read_window( string $context ): int {
 	return (int) ( $w[ $context ] ?? $w['home'] );
 }
 
+/** Counting ceilings per UTC hour: [ story => views per story, site => views across all stories ]. */
+function tdd_core_view_ceilings(): array {
+	$defaults = array( 'story' => 1000, 'site' => 5000 );
+	$saved    = (array) get_option( 'tdd_core_view_ceilings', array() );
+	$out      = array();
+	foreach ( $defaults as $k => $v ) {
+		$out[ $k ] = isset( $saved[ $k ] ) ? (int) $saved[ $k ] : $v;
+	}
+	$out = (array) apply_filters( 'tdd_core_view_ceilings', $out );
+	foreach ( $defaults as $k => $v ) {
+		$out[ $k ] = max( 1, min( 1000000, (int) ( $out[ $k ] ?? $v ) ) );
+	}
+	return $out;
+}
+
+/** The hourly bucket a view is counted in (UTC). Filterable for tests of the hour boundary. */
+function tdd_core_view_bucket(): string {
+	return (string) apply_filters( 'tdd_core_view_bucket', gmdate( 'Y-m-d H:00:00' ) );
+}
+
+/** A ceiling discarded a view: tell monitoring every time, the log at most once per type per hour. */
+function tdd_core_view_ceiling_reached( string $kind, int $post_id, string $bucket, int $ceiling ): void {
+	do_action( 'tdd_core_view_ceiling_reached', $kind, $post_id, $bucket, $ceiling );
+	$key = 'tdd_vcw_' . $kind . '_' . md5( $bucket );
+	if ( get_transient( $key ) ) {
+		return;
+	}
+	set_transient( $key, 1, HOUR_IN_SECONDS );
+	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- operational warning, rate-limited above.
+	error_log(
+		sprintf(
+			'TechDoseDaily Core: %1$s view-count ceiling (%2$d per hour) reached for %3$s in the %4$s UTC bucket. Further views are not counted until the next hour; pages are unaffected.',
+			'site' === $kind ? 'site-wide' : 'per-story',
+			$ceiling,
+			'site' === $kind ? 'all stories' : 'story #' . $post_id,
+			$bucket
+		)
+	);
+}
+
 /** Should this request be counted at all? (bots, editorial users). */
 function tdd_core_view_countable(): bool {
 	$ua = isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '';
@@ -106,12 +154,30 @@ function tdd_core_record_view( int $post_id ): bool {
 	}
 	set_transient( $seen, 1, 30 * MINUTE_IN_SECONDS );
 	$table  = tdd_core_views_table();
-	$bucket = gmdate( 'Y-m-d H:00:00' );
-	// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
-	$updated = $wpdb->query( $wpdb->prepare( "UPDATE {$table} SET views = views + 1 WHERE post_id = %d AND bucket = %s", $post_id, $bucket ) );
-	if ( ! $updated ) {
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$wpdb->insert( $table, array( 'post_id' => $post_id, 'bucket' => $bucket, 'views' => 1 ), array( '%d', '%s', '%d' ) );
+	$bucket = tdd_core_view_bucket();
+	$ceil   = tdd_core_view_ceilings();
+	// One statement per counter: the row only grows while below its ceiling, so concurrent beacons can
+	// never push it past. Affected rows: 1 inserted, 2 incremented, 0 already at the ceiling.
+	$count = "INSERT INTO {$table} (post_id, bucket, views) VALUES (%d, %s, 1) ON DUPLICATE KEY UPDATE views = IF(views < %d, views + 1, views)";
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery
+	$site = $wpdb->query( $wpdb->prepare( $count, 0, $bucket, $ceil['site'] ) );
+	if ( false === $site ) {
+		return false;
+	}
+	if ( 0 === $site ) {
+		tdd_core_view_ceiling_reached( 'site', 0, $bucket, $ceil['site'] );
+		return false;
+	}
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery
+	$story = $wpdb->query( $wpdb->prepare( $count, $post_id, $bucket, $ceil['story'] ) );
+	if ( ! $story ) {
+		// Not counted for the story, so not for the site either.
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		$wpdb->query( $wpdb->prepare( "UPDATE {$table} SET views = views - 1 WHERE post_id = 0 AND bucket = %s AND views > 0", $bucket ) );
+		if ( 0 === $story ) {
+			tdd_core_view_ceiling_reached( 'story', $post_id, $bucket, $ceil['story'] );
+		}
+		return false;
 	}
 	return true;
 }

@@ -1,0 +1,7 @@
+{
+  "_about": "Gate P8: every file in wp-content/mu-plugins must be listed here by exact filename with an approved SHA-256 and its provenance. Anything else (a new host file, a changed checksum, a leftover test harness) fails the gate until it is reviewed and recorded here. Add new checksums only after reading the file.",
+  "hostinger-preview-domain.php": {
+    "sha256": ["ccedfe9be0bce8e941274a519bfea4ca686a7cc0a1f0cedccdbb39384d8764f4"],
+    "provenance": "Hostinger Preview Domain 1.4.0 (host MU-plugin: serves the site on the temporary *.hostingersite.com domain). Present since the Hostinger install on 2026-10-04 on production and the staging copy. Reviewed 2026-10-06."
+  }
+}
