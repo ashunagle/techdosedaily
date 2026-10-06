@@ -108,14 +108,17 @@ try:
     check('configurable: defaults 1000/5000, option respected, filter wins, values kept ≥ 1', cfg == [{'story': 1000, 'site': 5000}, {'story': 7, 'site': 9}, {'story': 2, 'site': 1}], cfg)
 
     print('== B. Concurrency: 8 PHP processes × 10 rotating readers at once (story ceiling 5)')
+    start = __import__('time').time() + 6  # every process waits for this moment, then fires (WordPress boot takes ~1 s)
     def burst(n):
-        return int(wpeval(prelude(T3, 5, 1000) + f'$c = 0; for ($i = 1; $i <= 10; $i++) {{ $GLOBALS["tdd_ip"] = "203.0.113." . ({n} * 10 + $i); $c += (int) tdd_core_record_view({P3}); }} echo $c;') or 0)
+        return int(wpeval(prelude(T3, 5, 1000) + f'time_sleep_until({start}); $c = 0; for ($i = 1; $i <= 10; $i++) {{ $GLOBALS["tdd_ip"] = "203.0.113." . ({n} * 10 + $i); $c += (int) tdd_core_record_view({P3}); }} echo $c;') or 0)
     with ThreadPoolExecutor(8) as ex:
         counted = list(ex.map(burst, range(8)))
     check('concurrent beacons never overshoot: row exactly at the ceiling', row(P3, T3) == 5, (row(P3, T3), counted))
-    check('processes report 5 recorded in total', sum(counted) == 5, counted)
+    check('processes report 5 recorded in total (all 8 fired at the same moment)', sum(counted) == 5, counted)
     check('site row for that bucket matches', row(0, T3) == 5, row(0, T3))
 
+    if os.environ.get('TDD_INPROCESS_ONLY'):
+        raise SystemExit  # preflight: A and B only (no HTTP, no login needed); clean-up still runs
     print('== C. HTTP: forged rotating X-Forwarded-For straight to the origin (origin client-IP retest)')
     now = wpeval('echo gmdate("Y-m-d H:00:00");')
     wpeval('update_option("tdd_core_view_ceilings", array("story" => 3, "site" => 1000000));')
