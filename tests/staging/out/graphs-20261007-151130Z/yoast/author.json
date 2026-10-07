@@ -1,0 +1,97 @@
+[
+ {
+  "class": "",
+  "data": {
+   "@context": "https://schema.org",
+   "@graph": [
+    {
+     "@type": "ProfilePage",
+     "@id": "https://staging.techdosedaily.com/author/priya-sample/",
+     "url": "https://staging.techdosedaily.com/author/priya-sample/",
+     "name": "Priya Raman - Tech Dose Daily",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/#website"
+     },
+     "primaryImageOfPage": {
+      "@id": "https://staging.techdosedaily.com/author/priya-sample/#primaryimage"
+     },
+     "image": {
+      "@id": "https://staging.techdosedaily.com/author/priya-sample/#primaryimage"
+     },
+     "thumbnailUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/sec-browser-update.webp",
+     "breadcrumb": {
+      "@id": "https://staging.techdosedaily.com/author/priya-sample/#breadcrumb"
+     },
+     "inLanguage": "en-US",
+     "potentialAction": [
+      {
+       "@type": "ReadAction",
+       "target": [
+        "https://staging.techdosedaily.com/author/priya-sample/"
+       ]
+      }
+     ]
+    },
+    {
+     "@type": "ImageObject",
+     "inLanguage": "en-US",
+     "@id": "https://staging.techdosedaily.com/author/priya-sample/#primaryimage",
+     "url": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/sec-browser-update.webp",
+     "contentUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/sec-browser-update.webp",
+     "width": 1600,
+     "height": 900,
+     "caption": "Sample image: sec-browser-update",
+     "creditText": "TDD sample graphic"
+    },
+    {
+     "@type": "BreadcrumbList",
+     "@id": "https://staging.techdosedaily.com/author/priya-sample/#breadcrumb",
+     "itemListElement": [
+      {
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://staging.techdosedaily.com/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Archives for Priya Raman"
+      }
+     ]
+    },
+    {
+     "@type": "WebSite",
+     "@id": "https://staging.techdosedaily.com/#website",
+     "url": "https://staging.techdosedaily.com/",
+     "name": "Tech Dose Daily",
+     "description": "",
+     "potentialAction": [
+      {
+       "@type": "SearchAction",
+       "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://staging.techdosedaily.com/?s={search_term_string}"
+       },
+       "query-input": {
+        "@type": "PropertyValueSpecification",
+        "valueRequired": true,
+        "valueName": "search_term_string"
+       }
+      }
+     ],
+     "inLanguage": "en-US"
+    },
+    {
+     "@type": "Person",
+     "@id": "https://staging.techdosedaily.com/#/schema/person/af6121b7a9251fd357f9684935555a38",
+     "name": "Priya Raman",
+     "description": "Priya covers AI models, developer tools and the companies building them. She previously reported on enterprise software for six years. [Sample profile]",
+     "mainEntityOfPage": {
+      "@id": "https://staging.techdosedaily.com/author/priya-sample/"
+     }
+    }
+   ]
+  }
+ }
+]

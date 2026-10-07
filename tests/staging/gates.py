@@ -249,6 +249,8 @@ if WP:
     gate('Y1', 'Yoast settings as SEO-SCHEMA.md §7', 'settings-ok' in yo, yo)
     gate('Y2', 'Yoast SEO data optimisation completed', 'indexables=1' in yo, yo, level='FAIL' if STAGE == 'production' else 'TODO')
     gate('Y3', 'Site Icon set (also the Core publisher logo)', conf.get('site_icon', 0) > 0, conf.get('site_icon'), level='FAIL' if STAGE == 'production' else 'TODO')
+    rep = json.loads(wpeval(r"""echo wp_json_encode( class_exists( 'WPSEO_Options' ) ? array( 'type' => WPSEO_Options::get( 'company_or_person' ), 'name' => WPSEO_Options::get( 'company_name' ), 'logo' => (int) WPSEO_Options::get( 'company_logo_id' ), 'logo_ok' => wp_attachment_is_image( (int) WPSEO_Options::get( 'company_logo_id' ) ) ) : array() );""") or '{}')
+    gate('Y4', 'Yoast site representation: Organization with name and logo (gives every Article its publisher)', rep.get('type') == 'company' and bool(rep.get('name')) and bool(rep.get('logo_ok')), rep, level='FAIL' if STAGE == 'production' else 'TODO')
     ls = json.loads(wpeval("""global $wpdb; $o = array(); foreach ( $wpdb->get_results( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE 'litespeed.conf.%'" ) as $r ) { $o[ substr( $r->option_name, 15 ) ] = maybe_unserialize( $r->option_value ); } echo wp_json_encode( $o );""") or '{}')
     want = {'cache': True, 'cache-priv': False, 'cache-mobile': False, 'media-lazy': False, 'media-iframe_lazy': False, 'optm-css_min': False, 'optm-js_min': False, 'optm-css_comb': False, 'optm-js_comb': False, 'optm-ccss_gen': False, 'optm-ucss': False, 'guest': False, 'esi': False}
     bad = {k: ls.get(k) for k, v in want.items() if k in ls and bool(ls.get(k)) != v}

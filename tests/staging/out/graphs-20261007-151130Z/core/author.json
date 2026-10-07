@@ -1,0 +1,96 @@
+[
+ {
+  "class": "",
+  "data": {
+   "@context": "https://schema.org",
+   "@graph": [
+    {
+     "@type": "NewsMediaOrganization",
+     "@id": "https://staging.techdosedaily.com/#organization",
+     "name": "Tech Dose Daily",
+     "url": "https://staging.techdosedaily.com/",
+     "logo": {
+      "@type": "ImageObject",
+      "@id": "https://staging.techdosedaily.com/#logo",
+      "url": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/techdosedaily-site-icon.png",
+      "contentUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/techdosedaily-site-icon.png",
+      "width": 512,
+      "height": 512,
+      "caption": "Tech Dose Daily"
+     },
+     "image": {
+      "@id": "https://staging.techdosedaily.com/#logo"
+     },
+     "publishingPrinciples": "https://staging.techdosedaily.com/editorial-standards/",
+     "actionableFeedbackPolicy": "https://staging.techdosedaily.com/contact/"
+    },
+    {
+     "@type": "WebSite",
+     "@id": "https://staging.techdosedaily.com/#website",
+     "url": "https://staging.techdosedaily.com/",
+     "name": "Tech Dose Daily",
+     "publisher": {
+      "@id": "https://staging.techdosedaily.com/#organization"
+     },
+     "inLanguage": "en-US",
+     "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+       "@type": "EntryPoint",
+       "urlTemplate": "https://staging.techdosedaily.com/?s={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+     }
+    },
+    {
+     "@type": "ProfilePage",
+     "@id": "https://staging.techdosedaily.com/author/priya-sample/#webpage",
+     "url": "https://staging.techdosedaily.com/author/priya-sample/",
+     "name": "Priya Raman - Tech Dose Daily",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/#website"
+     },
+     "breadcrumb": {
+      "@id": "https://staging.techdosedaily.com/author/priya-sample/#breadcrumb"
+     },
+     "inLanguage": "en-US",
+     "mainEntity": {
+      "@id": "https://staging.techdosedaily.com/author/priya-sample/#person"
+     }
+    },
+    {
+     "@type": "BreadcrumbList",
+     "@id": "https://staging.techdosedaily.com/author/priya-sample/#breadcrumb",
+     "itemListElement": [
+      {
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://staging.techdosedaily.com/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Priya Raman",
+       "item": "https://staging.techdosedaily.com/author/priya-sample/"
+      }
+     ]
+    },
+    {
+     "@type": "Person",
+     "@id": "https://staging.techdosedaily.com/author/priya-sample/#person",
+     "name": "Priya Raman",
+     "url": "https://staging.techdosedaily.com/author/priya-sample/",
+     "jobTitle": "Senior AI Correspondent",
+     "sameAs": [
+      "https://www.example.com/sample-linkedin",
+      "https://www.example.com/sample-x"
+     ],
+     "worksFor": {
+      "@id": "https://staging.techdosedaily.com/#organization"
+     }
+    }
+   ]
+  }
+ }
+]

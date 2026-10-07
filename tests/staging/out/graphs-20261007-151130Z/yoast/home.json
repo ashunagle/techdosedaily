@@ -1,0 +1,66 @@
+[
+ {
+  "class": "",
+  "data": {
+   "@context": "https://schema.org",
+   "@graph": [
+    {
+     "@type": "WebPage",
+     "@id": "https://staging.techdosedaily.com/",
+     "url": "https://staging.techdosedaily.com/",
+     "name": "Home - Tech Dose Daily",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/#website"
+     },
+     "datePublished": "2026-10-04T18:39:12+00:00",
+     "dateModified": "2026-10-05T03:34:45+00:00",
+     "breadcrumb": {
+      "@id": "https://staging.techdosedaily.com/#breadcrumb"
+     },
+     "inLanguage": "en-US",
+     "potentialAction": [
+      {
+       "@type": "ReadAction",
+       "target": [
+        "https://staging.techdosedaily.com/"
+       ]
+      }
+     ]
+    },
+    {
+     "@type": "BreadcrumbList",
+     "@id": "https://staging.techdosedaily.com/#breadcrumb",
+     "itemListElement": [
+      {
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home"
+      }
+     ]
+    },
+    {
+     "@type": "WebSite",
+     "@id": "https://staging.techdosedaily.com/#website",
+     "url": "https://staging.techdosedaily.com/",
+     "name": "Tech Dose Daily",
+     "description": "",
+     "potentialAction": [
+      {
+       "@type": "SearchAction",
+       "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://staging.techdosedaily.com/?s={search_term_string}"
+       },
+       "query-input": {
+        "@type": "PropertyValueSpecification",
+        "valueRequired": true,
+        "valueName": "search_term_string"
+       }
+      }
+     ],
+     "inLanguage": "en-US"
+    }
+   ]
+  }
+ }
+]

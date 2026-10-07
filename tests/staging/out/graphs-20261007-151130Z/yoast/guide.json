@@ -1,0 +1,132 @@
+[
+ {
+  "class": "",
+  "data": {
+   "@context": "https://schema.org",
+   "@graph": [
+    {
+     "@type": "Article",
+     "@id": "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#article",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+     },
+     "author": {
+      "name": "Priya Raman",
+      "@id": "https://staging.techdosedaily.com/#/schema/person/af6121b7a9251fd357f9684935555a38"
+     },
+     "headline": "Run a local AI coding assistant without sending code off your machine",
+     "datePublished": "2026-10-04T21:12:45+00:00",
+     "mainEntityOfPage": {
+      "@id": "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+     },
+     "wordCount": 1700,
+     "image": {
+      "@id": "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#primaryimage"
+     },
+     "thumbnailUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/dev-terminal.webp",
+     "articleSection": [
+      "Guides"
+     ],
+     "inLanguage": "en-US",
+     "dateModified": "2026-10-04T21:12:45+00:00"
+    },
+    {
+     "@type": "WebPage",
+     "@id": "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/",
+     "url": "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/",
+     "name": "Run a local AI coding assistant without sending code off your machine - Tech Dose Daily",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/#website"
+     },
+     "primaryImageOfPage": {
+      "@id": "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#primaryimage"
+     },
+     "image": {
+      "@id": "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#primaryimage"
+     },
+     "thumbnailUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/dev-terminal.webp",
+     "datePublished": "2026-10-04T21:12:45+00:00",
+     "author": {
+      "@id": "https://staging.techdosedaily.com/#/schema/person/af6121b7a9251fd357f9684935555a38"
+     },
+     "breadcrumb": {
+      "@id": "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#breadcrumb"
+     },
+     "inLanguage": "en-US",
+     "potentialAction": [
+      {
+       "@type": "ReadAction",
+       "target": [
+        "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/"
+       ]
+      }
+     ],
+     "dateModified": "2026-10-04T21:12:45+00:00"
+    },
+    {
+     "@type": "ImageObject",
+     "inLanguage": "en-US",
+     "@id": "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#primaryimage",
+     "url": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/dev-terminal.webp",
+     "contentUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/dev-terminal.webp",
+     "width": 1600,
+     "height": 900,
+     "caption": "Sample image: dev-terminal",
+     "creditText": "TDD sample graphic"
+    },
+    {
+     "@type": "BreadcrumbList",
+     "@id": "https://staging.techdosedaily.com/guides/run-a-local-ai-coding-assistant-without-sending-code-off-your-machine/#breadcrumb",
+     "itemListElement": [
+      {
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://staging.techdosedaily.com/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Latest",
+       "item": "https://staging.techdosedaily.com/latest/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 3,
+       "name": "Run a local AI coding assistant without sending code off your machine"
+      }
+     ]
+    },
+    {
+     "@type": "WebSite",
+     "@id": "https://staging.techdosedaily.com/#website",
+     "url": "https://staging.techdosedaily.com/",
+     "name": "Tech Dose Daily",
+     "description": "",
+     "potentialAction": [
+      {
+       "@type": "SearchAction",
+       "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://staging.techdosedaily.com/?s={search_term_string}"
+       },
+       "query-input": {
+        "@type": "PropertyValueSpecification",
+        "valueRequired": true,
+        "valueName": "search_term_string"
+       }
+      }
+     ],
+     "inLanguage": "en-US"
+    },
+    {
+     "@type": "Person",
+     "@id": "https://staging.techdosedaily.com/#/schema/person/af6121b7a9251fd357f9684935555a38",
+     "name": "Priya Raman",
+     "description": "Priya covers AI models, developer tools and the companies building them. She previously reported on enterprise software for six years. [Sample profile]",
+     "url": "https://staging.techdosedaily.com/author/priya-sample/"
+    }
+   ]
+  }
+ }
+]

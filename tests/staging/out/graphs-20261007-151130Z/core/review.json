@@ -1,0 +1,148 @@
+[
+ {
+  "class": "",
+  "data": {
+   "@context": "https://schema.org",
+   "@graph": [
+    {
+     "@type": "NewsMediaOrganization",
+     "@id": "https://staging.techdosedaily.com/#organization",
+     "name": "Tech Dose Daily",
+     "url": "https://staging.techdosedaily.com/",
+     "logo": {
+      "@type": "ImageObject",
+      "@id": "https://staging.techdosedaily.com/#logo",
+      "url": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/techdosedaily-site-icon.png",
+      "contentUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/techdosedaily-site-icon.png",
+      "width": 512,
+      "height": 512,
+      "caption": "Tech Dose Daily"
+     },
+     "image": {
+      "@id": "https://staging.techdosedaily.com/#logo"
+     },
+     "publishingPrinciples": "https://staging.techdosedaily.com/editorial-standards/",
+     "actionableFeedbackPolicy": "https://staging.techdosedaily.com/contact/"
+    },
+    {
+     "@type": "WebSite",
+     "@id": "https://staging.techdosedaily.com/#website",
+     "url": "https://staging.techdosedaily.com/",
+     "name": "Tech Dose Daily",
+     "publisher": {
+      "@id": "https://staging.techdosedaily.com/#organization"
+     },
+     "inLanguage": "en-US",
+     "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+       "@type": "EntryPoint",
+       "urlTemplate": "https://staging.techdosedaily.com/?s={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+     }
+    },
+    {
+     "@type": "WebPage",
+     "@id": "https://staging.techdosedaily.com/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#webpage",
+     "url": "https://staging.techdosedaily.com/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/",
+     "name": "A week with a lightweight laptop built around an on-device AI chip - Tech Dose Daily",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/#website"
+     },
+     "breadcrumb": {
+      "@id": "https://staging.techdosedaily.com/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#breadcrumb"
+     },
+     "inLanguage": "en-US",
+     "primaryImageOfPage": {
+      "@id": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/device-laptop.webp#image"
+     },
+     "datePublished": "2026-10-04T21:42:45+05:30",
+     "dateModified": "2026-10-04T21:42:45+05:30"
+    },
+    {
+     "@type": "NewsArticle",
+     "@id": "https://staging.techdosedaily.com/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#article",
+     "headline": "A week with a lightweight laptop built around an on-device AI chip",
+     "description": "Battery life is the headline; the AI features are mostly promise.",
+     "url": "https://staging.techdosedaily.com/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/",
+     "mainEntityOfPage": {
+      "@id": "https://staging.techdosedaily.com/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#webpage"
+     },
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#webpage"
+     },
+     "datePublished": "2026-10-04T21:42:45+05:30",
+     "dateModified": "2026-10-04T21:42:45+05:30",
+     "author": {
+      "@id": "https://staging.techdosedaily.com/author/priya-sample/#person"
+     },
+     "publisher": {
+      "@id": "https://staging.techdosedaily.com/#organization"
+     },
+     "image": {
+      "@id": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/device-laptop.webp#image"
+     },
+     "articleSection": "Tech",
+     "genre": "Review",
+     "keywords": [
+      "Hardware"
+     ],
+     "wordCount": 488,
+     "timeRequired": "PT3M",
+     "isAccessibleForFree": true,
+     "inLanguage": "en-US"
+    },
+    {
+     "@type": "BreadcrumbList",
+     "@id": "https://staging.techdosedaily.com/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/#breadcrumb",
+     "itemListElement": [
+      {
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://staging.techdosedaily.com/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Tech",
+       "item": "https://staging.techdosedaily.com/tech/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 3,
+       "name": "A week with a lightweight laptop built around an on-device AI chip",
+       "item": "https://staging.techdosedaily.com/tech/a-week-with-a-lightweight-laptop-built-around-an-on-device-ai-chip/"
+      }
+     ]
+    },
+    {
+     "@type": "Person",
+     "@id": "https://staging.techdosedaily.com/author/priya-sample/#person",
+     "name": "Priya Raman",
+     "url": "https://staging.techdosedaily.com/author/priya-sample/",
+     "jobTitle": "Senior AI Correspondent",
+     "sameAs": [
+      "https://www.example.com/sample-linkedin",
+      "https://www.example.com/sample-x"
+     ],
+     "worksFor": {
+      "@id": "https://staging.techdosedaily.com/#organization"
+     }
+    },
+    {
+     "@type": "ImageObject",
+     "@id": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/device-laptop.webp#image",
+     "url": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/device-laptop.webp",
+     "contentUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/device-laptop.webp",
+     "width": 1600,
+     "height": 900,
+     "caption": "Sample image: device-laptop",
+     "creditText": "TDD sample graphic",
+     "inLanguage": "en-US"
+    }
+   ]
+  }
+ }
+]

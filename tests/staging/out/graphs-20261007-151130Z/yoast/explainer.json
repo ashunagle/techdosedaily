@@ -1,0 +1,131 @@
+[
+ {
+  "class": "",
+  "data": {
+   "@context": "https://schema.org",
+   "@graph": [
+    {
+     "@type": "Article",
+     "@id": "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#article",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+     },
+     "author": {
+      "name": "Daniel Okafor",
+      "@id": "https://staging.techdosedaily.com/#/schema/person/614115089a69fc07bba0350ecfb15ec7"
+     },
+     "headline": "Agents that use a computer are moving from demos to daily work",
+     "datePublished": "2026-10-05T00:52:47+00:00",
+     "mainEntityOfPage": {
+      "@id": "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+     },
+     "wordCount": 23,
+     "image": {
+      "@id": "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#primaryimage"
+     },
+     "thumbnailUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/sec-browser-update.webp",
+     "articleSection": [
+      "AI"
+     ],
+     "inLanguage": "en-US",
+     "dateModified": "2026-10-05T00:52:47+00:00"
+    },
+    {
+     "@type": "WebPage",
+     "@id": "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/",
+     "url": "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/",
+     "name": "Agents that use a computer are moving from demos to daily work - Tech Dose Daily",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/#website"
+     },
+     "primaryImageOfPage": {
+      "@id": "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#primaryimage"
+     },
+     "image": {
+      "@id": "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#primaryimage"
+     },
+     "thumbnailUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/sec-browser-update.webp",
+     "datePublished": "2026-10-05T00:52:47+00:00",
+     "author": {
+      "@id": "https://staging.techdosedaily.com/#/schema/person/614115089a69fc07bba0350ecfb15ec7"
+     },
+     "breadcrumb": {
+      "@id": "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#breadcrumb"
+     },
+     "inLanguage": "en-US",
+     "potentialAction": [
+      {
+       "@type": "ReadAction",
+       "target": [
+        "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/"
+       ]
+      }
+     ],
+     "dateModified": "2026-10-05T00:52:47+00:00"
+    },
+    {
+     "@type": "ImageObject",
+     "inLanguage": "en-US",
+     "@id": "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#primaryimage",
+     "url": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/sec-browser-update.webp",
+     "contentUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/sec-browser-update.webp",
+     "width": 1600,
+     "height": 900,
+     "caption": "Sample image: sec-browser-update",
+     "creditText": "TDD sample graphic"
+    },
+    {
+     "@type": "BreadcrumbList",
+     "@id": "https://staging.techdosedaily.com/ai/agents-that-use-a-computer-are-moving-from-demos-to-daily-work/#breadcrumb",
+     "itemListElement": [
+      {
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://staging.techdosedaily.com/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Latest",
+       "item": "https://staging.techdosedaily.com/latest/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 3,
+       "name": "Agents that use a computer are moving from demos to daily work"
+      }
+     ]
+    },
+    {
+     "@type": "WebSite",
+     "@id": "https://staging.techdosedaily.com/#website",
+     "url": "https://staging.techdosedaily.com/",
+     "name": "Tech Dose Daily",
+     "description": "",
+     "potentialAction": [
+      {
+       "@type": "SearchAction",
+       "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://staging.techdosedaily.com/?s={search_term_string}"
+       },
+       "query-input": {
+        "@type": "PropertyValueSpecification",
+        "valueRequired": true,
+        "valueName": "search_term_string"
+       }
+      }
+     ],
+     "inLanguage": "en-US"
+    },
+    {
+     "@type": "Person",
+     "@id": "https://staging.techdosedaily.com/#/schema/person/614115089a69fc07bba0350ecfb15ec7",
+     "name": "Daniel Okafor",
+     "url": "https://staging.techdosedaily.com/author/daniel-sample/"
+    }
+   ]
+  }
+ }
+]

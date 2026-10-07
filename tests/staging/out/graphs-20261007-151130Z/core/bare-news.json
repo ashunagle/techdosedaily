@@ -1,0 +1,123 @@
+[
+ {
+  "class": "",
+  "data": {
+   "@context": "https://schema.org",
+   "@graph": [
+    {
+     "@type": "NewsMediaOrganization",
+     "@id": "https://staging.techdosedaily.com/#organization",
+     "name": "Tech Dose Daily",
+     "url": "https://staging.techdosedaily.com/",
+     "logo": {
+      "@type": "ImageObject",
+      "@id": "https://staging.techdosedaily.com/#logo",
+      "url": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/techdosedaily-site-icon.png",
+      "contentUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/techdosedaily-site-icon.png",
+      "width": 512,
+      "height": 512,
+      "caption": "Tech Dose Daily"
+     },
+     "image": {
+      "@id": "https://staging.techdosedaily.com/#logo"
+     },
+     "publishingPrinciples": "https://staging.techdosedaily.com/editorial-standards/",
+     "actionableFeedbackPolicy": "https://staging.techdosedaily.com/contact/"
+    },
+    {
+     "@type": "WebSite",
+     "@id": "https://staging.techdosedaily.com/#website",
+     "url": "https://staging.techdosedaily.com/",
+     "name": "Tech Dose Daily",
+     "publisher": {
+      "@id": "https://staging.techdosedaily.com/#organization"
+     },
+     "inLanguage": "en-US",
+     "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+       "@type": "EntryPoint",
+       "urlTemplate": "https://staging.techdosedaily.com/?s={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+     }
+    },
+    {
+     "@type": "WebPage",
+     "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/#webpage",
+     "url": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/",
+     "name": "[Sample] A short news story with no image, editor or topics - Tech Dose Daily",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/#website"
+     },
+     "breadcrumb": {
+      "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/#breadcrumb"
+     },
+     "inLanguage": "en-US",
+     "datePublished": "2026-10-05T09:22:50+05:30",
+     "dateModified": "2026-10-05T09:22:50+05:30"
+    },
+    {
+     "@type": "NewsArticle",
+     "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/#article",
+     "headline": "[Sample] A short news story with no image, editor or topics",
+     "url": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/",
+     "mainEntityOfPage": {
+      "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/#webpage"
+     },
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/#webpage"
+     },
+     "datePublished": "2026-10-05T09:22:50+05:30",
+     "dateModified": "2026-10-05T09:22:50+05:30",
+     "author": {
+      "@id": "https://staging.techdosedaily.com/author/leah-sample/#person"
+     },
+     "publisher": {
+      "@id": "https://staging.techdosedaily.com/#organization"
+     },
+     "articleSection": "Software",
+     "genre": "News",
+     "wordCount": 11,
+     "timeRequired": "PT1M",
+     "isAccessibleForFree": true,
+     "inLanguage": "en-US"
+    },
+    {
+     "@type": "BreadcrumbList",
+     "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/#breadcrumb",
+     "itemListElement": [
+      {
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://staging.techdosedaily.com/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Software",
+       "item": "https://staging.techdosedaily.com/software/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 3,
+       "name": "[Sample] A short news story with no image, editor or topics",
+       "item": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+      }
+     ]
+    },
+    {
+     "@type": "Person",
+     "@id": "https://staging.techdosedaily.com/author/leah-sample/#person",
+     "name": "Leah Brennan",
+     "url": "https://staging.techdosedaily.com/author/leah-sample/",
+     "jobTitle": "Cloud & Infrastructure Reporter",
+     "worksFor": {
+      "@id": "https://staging.techdosedaily.com/#organization"
+     }
+    }
+   ]
+  }
+ }
+]

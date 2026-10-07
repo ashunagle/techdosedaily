@@ -1,0 +1,109 @@
+[
+ {
+  "class": "",
+  "data": {
+   "@context": "https://schema.org",
+   "@graph": [
+    {
+     "@type": "Article",
+     "@id": "https://staging.techdosedaily.com/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#article",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+     },
+     "author": {
+      "name": "Leah Brennan",
+      "@id": "https://staging.techdosedaily.com/#/schema/person/072af23a72538b5670bc8e35989edd8c"
+     },
+     "headline": "[Sample] Sponsored explainer: what a managed vector database does",
+     "datePublished": "2026-10-05T03:52:50+00:00",
+     "mainEntityOfPage": {
+      "@id": "https://staging.techdosedaily.com/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+     },
+     "wordCount": 20,
+     "articleSection": [
+      "Developer"
+     ],
+     "inLanguage": "en-US",
+     "dateModified": "2026-10-05T03:52:50+00:00"
+    },
+    {
+     "@type": "WebPage",
+     "@id": "https://staging.techdosedaily.com/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/",
+     "url": "https://staging.techdosedaily.com/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/",
+     "name": "[Sample] Sponsored explainer: what a managed vector database does - Tech Dose Daily",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/#website"
+     },
+     "datePublished": "2026-10-05T03:52:50+00:00",
+     "author": {
+      "@id": "https://staging.techdosedaily.com/#/schema/person/072af23a72538b5670bc8e35989edd8c"
+     },
+     "breadcrumb": {
+      "@id": "https://staging.techdosedaily.com/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#breadcrumb"
+     },
+     "inLanguage": "en-US",
+     "potentialAction": [
+      {
+       "@type": "ReadAction",
+       "target": [
+        "https://staging.techdosedaily.com/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/"
+       ]
+      }
+     ],
+     "dateModified": "2026-10-05T03:52:50+00:00"
+    },
+    {
+     "@type": "BreadcrumbList",
+     "@id": "https://staging.techdosedaily.com/developer/sample-sponsored-explainer-what-a-managed-vector-database-does/#breadcrumb",
+     "itemListElement": [
+      {
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://staging.techdosedaily.com/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Latest",
+       "item": "https://staging.techdosedaily.com/latest/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 3,
+       "name": "[Sample] Sponsored explainer: what a managed vector database does"
+      }
+     ]
+    },
+    {
+     "@type": "WebSite",
+     "@id": "https://staging.techdosedaily.com/#website",
+     "url": "https://staging.techdosedaily.com/",
+     "name": "Tech Dose Daily",
+     "description": "",
+     "potentialAction": [
+      {
+       "@type": "SearchAction",
+       "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://staging.techdosedaily.com/?s={search_term_string}"
+       },
+       "query-input": {
+        "@type": "PropertyValueSpecification",
+        "valueRequired": true,
+        "valueName": "search_term_string"
+       }
+      }
+     ],
+     "inLanguage": "en-US"
+    },
+    {
+     "@type": "Person",
+     "@id": "https://staging.techdosedaily.com/#/schema/person/072af23a72538b5670bc8e35989edd8c",
+     "name": "Leah Brennan",
+     "url": "https://staging.techdosedaily.com/author/leah-sample/"
+    }
+   ]
+  }
+ }
+]

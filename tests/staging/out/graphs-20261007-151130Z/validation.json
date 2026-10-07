@@ -1,0 +1,369 @@
+{
+ "core:analysis": [
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"acquireLicensePage\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "acquireLicensePage"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"creator\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "creator"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"copyrightNotice\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "copyrightNotice"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"license\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "license"
+   ]
+  }
+ ],
+ "core:author": [],
+ "core:bare-news": [],
+ "core:contact": [],
+ "core:explainer": [
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"acquireLicensePage\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "acquireLicensePage"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"creator\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "creator"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"copyrightNotice\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "copyrightNotice"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"license\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "license"
+   ]
+  }
+ ],
+ "core:guide": [
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"acquireLicensePage\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "acquireLicensePage"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"creator\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "creator"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"copyrightNotice\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "copyrightNotice"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"license\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "license"
+   ]
+  }
+ ],
+ "core:home": [],
+ "core:newsletter": [],
+ "core:policy": [],
+ "core:review": [
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"acquireLicensePage\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "acquireLicensePage"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"creator\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "creator"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"copyrightNotice\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "copyrightNotice"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"license\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "license"
+   ]
+  }
+ ],
+ "core:section-p2": [],
+ "core:section": [],
+ "core:sponsored": [],
+ "core:topic": [],
+ "yoast:analysis": [
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"acquireLicensePage\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "acquireLicensePage"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"creator\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "creator"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"copyrightNotice\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "copyrightNotice"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"license\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "license"
+   ]
+  }
+ ],
+ "yoast:author": [
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"acquireLicensePage\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "acquireLicensePage"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"creator\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "creator"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"copyrightNotice\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "copyrightNotice"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"license\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "license"
+   ]
+  }
+ ],
+ "yoast:bare-news": [],
+ "yoast:contact": [],
+ "yoast:explainer": [
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"acquireLicensePage\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "acquireLicensePage"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"creator\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "creator"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"copyrightNotice\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "copyrightNotice"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"license\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "license"
+   ]
+  }
+ ],
+ "yoast:guide": [
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"acquireLicensePage\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "acquireLicensePage"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"creator\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "creator"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"copyrightNotice\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "copyrightNotice"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"license\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "license"
+   ]
+  }
+ ],
+ "yoast:home": [
+  {
+   "severity": "WARNING",
+   "message": "At least two ListItems are required",
+   "path": "BreadcrumbList",
+   "fields": [
+    "itemListElement"
+   ]
+  }
+ ],
+ "yoast:newsletter": [],
+ "yoast:policy": [],
+ "yoast:review": [
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"acquireLicensePage\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "acquireLicensePage"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"creator\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "creator"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"copyrightNotice\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "copyrightNotice"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"license\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "license"
+   ]
+  }
+ ],
+ "yoast:section-p2": [],
+ "yoast:section": [],
+ "yoast:sponsored": [],
+ "yoast:topic": [
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"acquireLicensePage\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "acquireLicensePage"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"creator\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "creator"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"copyrightNotice\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "copyrightNotice"
+   ]
+  },
+  {
+   "severity": "WARNING",
+   "message": "Missing field \"license\" (optional)",
+   "path": "ImageObject",
+   "fields": [
+    "license"
+   ]
+  }
+ ]
+}

@@ -69,6 +69,20 @@ try {
 	echo '!! MailPoet: ', $e->getMessage(), "\n";
 }
 
+// Yoast site representation (SEO-SCHEMA.md §7): Organization "Tech Dose Daily" with the final icon as logo.
+// Yoast prints its Organization node — and every Article's `publisher` — only when name AND logo are set.
+$icon = (int) get_option( 'site_icon' );
+if ( class_exists( 'WPSEO_Options' ) && $icon && wp_attachment_is_image( $icon ) ) {
+	WPSEO_Options::set( 'company_or_person', 'company' );
+	WPSEO_Options::set( 'company_name', 'Tech Dose Daily' );
+	WPSEO_Options::set( 'company_logo_id', $icon );
+	WPSEO_Options::set( 'company_logo', wp_get_attachment_url( $icon ) );
+	WPSEO_Options::set( 'company_logo_meta', false ); // Yoast rebuilds it from the attachment.
+	echo "Yoast site representation: Organization \"Tech Dose Daily\", logo = Site Icon #$icon\n";
+} else {
+	echo "!! Yoast site representation not set: needs Yoast active and a Site Icon (Settings → General)\n";
+}
+
 $pages = array(
 	// slug => [ title, template ]
 	'privacy-policy'      => array( 'Privacy Policy', '' ),

@@ -1,0 +1,132 @@
+[
+ {
+  "class": "",
+  "data": {
+   "@context": "https://schema.org",
+   "@graph": [
+    {
+     "@type": "Article",
+     "@id": "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#article",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+     },
+     "author": {
+      "name": "Priya Raman",
+      "@id": "https://staging.techdosedaily.com/#/schema/person/af6121b7a9251fd357f9684935555a38"
+     },
+     "headline": "Major AI provider unveils a reasoning model built for long-running coding agents",
+     "datePublished": "2026-10-05T03:22:44+00:00",
+     "dateModified": "2026-10-05T03:34:46+00:00",
+     "mainEntityOfPage": {
+      "@id": "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+     },
+     "wordCount": 619,
+     "image": {
+      "@id": "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#primaryimage"
+     },
+     "thumbnailUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/ai-console.webp",
+     "articleSection": [
+      "AI"
+     ],
+     "inLanguage": "en-US"
+    },
+    {
+     "@type": "WebPage",
+     "@id": "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/",
+     "url": "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/",
+     "name": "Major AI provider unveils a reasoning model built for long-running coding agents - Tech Dose Daily",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/#website"
+     },
+     "primaryImageOfPage": {
+      "@id": "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#primaryimage"
+     },
+     "image": {
+      "@id": "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#primaryimage"
+     },
+     "thumbnailUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/ai-console.webp",
+     "datePublished": "2026-10-05T03:22:44+00:00",
+     "dateModified": "2026-10-05T03:34:46+00:00",
+     "author": {
+      "@id": "https://staging.techdosedaily.com/#/schema/person/af6121b7a9251fd357f9684935555a38"
+     },
+     "breadcrumb": {
+      "@id": "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#breadcrumb"
+     },
+     "inLanguage": "en-US",
+     "potentialAction": [
+      {
+       "@type": "ReadAction",
+       "target": [
+        "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/"
+       ]
+      }
+     ]
+    },
+    {
+     "@type": "ImageObject",
+     "inLanguage": "en-US",
+     "@id": "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#primaryimage",
+     "url": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/ai-console.webp",
+     "contentUrl": "https://staging.techdosedaily.com/wp-content/uploads/2026/10/ai-console.webp",
+     "width": 1600,
+     "height": 900,
+     "caption": "The developer console shows the model’s plan before it edits code. Each step can be paused or rolled back.",
+     "creditText": "Company screenshot via Tech Dose Daily"
+    },
+    {
+     "@type": "BreadcrumbList",
+     "@id": "https://staging.techdosedaily.com/ai/major-ai-provider-unveils-a-reasoning-model-built-for-long-running-coding-agents/#breadcrumb",
+     "itemListElement": [
+      {
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://staging.techdosedaily.com/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Latest",
+       "item": "https://staging.techdosedaily.com/latest/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 3,
+       "name": "Major AI provider unveils a reasoning model built for long-running coding agents"
+      }
+     ]
+    },
+    {
+     "@type": "WebSite",
+     "@id": "https://staging.techdosedaily.com/#website",
+     "url": "https://staging.techdosedaily.com/",
+     "name": "Tech Dose Daily",
+     "description": "",
+     "potentialAction": [
+      {
+       "@type": "SearchAction",
+       "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://staging.techdosedaily.com/?s={search_term_string}"
+       },
+       "query-input": {
+        "@type": "PropertyValueSpecification",
+        "valueRequired": true,
+        "valueName": "search_term_string"
+       }
+      }
+     ],
+     "inLanguage": "en-US"
+    },
+    {
+     "@type": "Person",
+     "@id": "https://staging.techdosedaily.com/#/schema/person/af6121b7a9251fd357f9684935555a38",
+     "name": "Priya Raman",
+     "description": "Priya covers AI models, developer tools and the companies building them. She previously reported on enterprise software for six years. [Sample profile]",
+     "url": "https://staging.techdosedaily.com/author/priya-sample/"
+    }
+   ]
+  }
+ }
+]

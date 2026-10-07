@@ -18,7 +18,7 @@ const check = async (html) => {
 const out = {};
 if (process.argv[2] === '--dir') {
   const dir = process.argv[3];
-  for (const owner of fs.readdirSync(dir)) {
+  for (const owner of fs.readdirSync(dir).filter((d) => fs.statSync(path.join(dir, d)).isDirectory())) {
     for (const file of fs.readdirSync(path.join(dir, owner)).filter((f) => f.endsWith('.json'))) {
       const blocks = JSON.parse(fs.readFileSync(path.join(dir, owner, file), 'utf8'));
       const html = '<html><head>' + blocks.map((b) => `<script type="application/ld+json">${JSON.stringify(b.data)}</script>`).join('') + '</head><body></body></html>';

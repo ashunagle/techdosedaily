@@ -1,0 +1,109 @@
+[
+ {
+  "class": "",
+  "data": {
+   "@context": "https://schema.org",
+   "@graph": [
+    {
+     "@type": "Article",
+     "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/#article",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+     },
+     "author": {
+      "name": "Leah Brennan",
+      "@id": "https://staging.techdosedaily.com/#/schema/person/072af23a72538b5670bc8e35989edd8c"
+     },
+     "headline": "[Sample] A short news story with no image, editor or topics",
+     "datePublished": "2026-10-05T03:52:50+00:00",
+     "mainEntityOfPage": {
+      "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+     },
+     "wordCount": 22,
+     "articleSection": [
+      "Software"
+     ],
+     "inLanguage": "en-US",
+     "dateModified": "2026-10-05T03:52:50+00:00"
+    },
+    {
+     "@type": "WebPage",
+     "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/",
+     "url": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/",
+     "name": "[Sample] A short news story with no image, editor or topics - Tech Dose Daily",
+     "isPartOf": {
+      "@id": "https://staging.techdosedaily.com/#website"
+     },
+     "datePublished": "2026-10-05T03:52:50+00:00",
+     "author": {
+      "@id": "https://staging.techdosedaily.com/#/schema/person/072af23a72538b5670bc8e35989edd8c"
+     },
+     "breadcrumb": {
+      "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/#breadcrumb"
+     },
+     "inLanguage": "en-US",
+     "potentialAction": [
+      {
+       "@type": "ReadAction",
+       "target": [
+        "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/"
+       ]
+      }
+     ],
+     "dateModified": "2026-10-05T03:52:50+00:00"
+    },
+    {
+     "@type": "BreadcrumbList",
+     "@id": "https://staging.techdosedaily.com/software/sample-a-short-news-story-with-no-image-editor-or-topics/#breadcrumb",
+     "itemListElement": [
+      {
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://staging.techdosedaily.com/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Latest",
+       "item": "https://staging.techdosedaily.com/latest/"
+      },
+      {
+       "@type": "ListItem",
+       "position": 3,
+       "name": "[Sample] A short news story with no image, editor or topics"
+      }
+     ]
+    },
+    {
+     "@type": "WebSite",
+     "@id": "https://staging.techdosedaily.com/#website",
+     "url": "https://staging.techdosedaily.com/",
+     "name": "Tech Dose Daily",
+     "description": "",
+     "potentialAction": [
+      {
+       "@type": "SearchAction",
+       "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://staging.techdosedaily.com/?s={search_term_string}"
+       },
+       "query-input": {
+        "@type": "PropertyValueSpecification",
+        "valueRequired": true,
+        "valueName": "search_term_string"
+       }
+      }
+     ],
+     "inLanguage": "en-US"
+    },
+    {
+     "@type": "Person",
+     "@id": "https://staging.techdosedaily.com/#/schema/person/072af23a72538b5670bc8e35989edd8c",
+     "name": "Leah Brennan",
+     "url": "https://staging.techdosedaily.com/author/leah-sample/"
+    }
+   ]
+  }
+ }
+]
