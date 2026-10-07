@@ -38,6 +38,28 @@ if AUTH and HOST:
     urllib.request.build_opener = _build_with_auth
     urllib.request.install_opener(_build_with_auth())
 
+    # LiteSpeed queues purges made from WP-CLI and delivers them with a loopback request to admin-ajax.php
+    # (works on production); staging's Basic Auth refuses that request, so cached pages would stay stale.
+    # After each WP-CLI command that may write, make that same request with the login so the purge arrives.
+    import re
+    import subprocess
+
+    _run = subprocess.run
+    _wp = os.environ.get('WP', '')
+    _read_only = re.compile(r'\s*(?:(?:post|term|user|option|plugin|theme|menu)\s+(?:get|list|is-active|url|exists|status)\b|config get\b|cron event list\b)')
+
+    def _run_with_purge_relay(*a, **k):
+        r = _run(*a, **k)
+        cmd = a[0] if a else k.get('args')
+        if isinstance(cmd, str) and _wp and cmd.startswith(_wp) and not _read_only.match(cmd[len(_wp):]):
+            try:
+                urllib.request.urlopen(urllib.request.Request(os.environ['BASE'].rstrip('/') + '/wp-admin/admin-ajax.php', headers={'X-TDD-Perf-Test': '1'}), timeout=20).read()
+            except Exception:  # admin-ajax answers 400 without an action; the purge header still goes out
+                pass
+        return r
+
+    subprocess.run = _run_with_purge_relay
+
     try:
         import requests
 

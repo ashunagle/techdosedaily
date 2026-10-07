@@ -50,7 +50,7 @@ def get(path, headers=None, opener=None, data=None, method=None):
 def cstate(h):
     """HIT / MISS / BYPASS across cache layers: the local nginx harness (X-Page-Cache), or on Hostinger the
     CDN in front (x-hcdn-cache-status) and LiteSpeed behind it (X-LiteSpeed-Cache)."""
-    if cstate(h):
+    if h.get('X-Page-Cache'):
         return h['X-Page-Cache']
     cdn, ls = h.get('x-hcdn-cache-status', h.get('X-Hcdn-Cache-Status', '')).lower(), h.get('X-LiteSpeed-Cache', h.get('x-litespeed-cache', '')).lower()
     if 'hit' in cdn or 'hit' in ls:

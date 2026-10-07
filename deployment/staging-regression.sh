@@ -25,7 +25,11 @@ if [ -z "${TDD_REG_LOG:-}" ]; then   # re-run through tee (no /dev/fd for proces
 fi
 cd "$SITE" || exit 1
 say() { printf '\n== %s\n' "$*"; }
-db() { export MYSQL_PWD="$(wp config get DB_PASSWORD)"; "$@" -h "$(wp config get DB_HOST)" -u "$(wp config get DB_USER)" "$(wp config get DB_NAME)"; local rc=$?; unset MYSQL_PWD; return $rc; }
+# Database credentials read once, never from a stdin that might carry a dump being restored.
+DB_H=$(wp config get DB_HOST </dev/null); DB_U=$(wp config get DB_USER </dev/null); DB_N=$(wp config get DB_NAME </dev/null)
+db() { MYSQL_PWD="$(wp config get DB_PASSWORD </dev/null)" "$@" -h "$DB_H" -u "$DB_U" "$DB_N"; }
+# LiteSpeed delivers purges made from WP-CLI with a loopback to admin-ajax.php, which Basic Auth refuses on staging.
+deliver_purge() { $PY -c 'import os,requests; u,p=os.environ["TDD_BASIC_AUTH"].split(":",1); requests.get("'$BASE'/wp-admin/admin-ajax.php",auth=(u,p),headers={"X-TDD-Perf-Test":"1"},timeout=30)' >/dev/null 2>&1; }
 
 say "Safety checks"
 case "$(wp option get home)" in *://staging.*) ;; *) echo "Not the staging site. Stopping."; exit 1 ;; esac
@@ -49,11 +53,12 @@ OWNER_BEFORE=$(wp option get tdd_core_schema_owner 2>/dev/null)
 FIX_BEFORE=$(wp eval 'global $wpdb; echo (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = \"_tdd_fixture\"");')
 
 restore() {
+  [ -n "${RESTORED:-}" ] && return; RESTORED=1   # exactly once (keeps the post-run dump as evidence)
   say "Restore staging"
   rm -f "$MU/mu-seo-audit.php"
   db mysqldump --single-transaction --no-tablespaces > "$BK/db-after-run.sql" && chmod 600 "$BK/db-after-run.sql" && echo "post-run dump kept: $BK/db-after-run.sql"
   if db mysql < "$BK/db.sql"; then echo "database restored from the pre-run snapshot"; else echo "!! DATABASE RESTORE FAILED — restore $BK/db.sql by hand"; fi
-  wp cache flush >/dev/null 2>&1; wp eval 'do_action( "litespeed_purge_all" );' >/dev/null 2>&1; echo "object cache flushed, page cache purged"
+  wp cache flush >/dev/null 2>&1; wp eval 'do_action( "litespeed_purge_all" );' >/dev/null 2>&1; deliver_purge; echo "object cache flushed, page cache purged"
   say "Leftover check"
   echo "mu-plugins: $(ls "$MU" | tr '\n' ' ')"
   echo "published pages (expect home, latest): $(wp post list --post_type=page --post_status=publish --field=post_name | tr '\n' ' ')"

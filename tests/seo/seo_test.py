@@ -110,10 +110,24 @@ def refs(obj, acc):
     return acc
 
 
+def defs(obj, acc):
+    """@ids defined anywhere in the graph: top-level nodes and nested node objects (e.g. the inline logo)."""
+    if isinstance(obj, dict):
+        if '@id' in obj and len(obj) > 1:
+            acc.append(obj['@id'])
+        for v in obj.values():
+            defs(v, acc)
+    elif isinstance(obj, list):
+        for v in obj:
+            defs(v, acc)
+    return acc
+
+
 def check_graph(name, g):
     ids = [n.get('@id') for n in g]
     ok(f'{name}: no duplicate @id', len(ids) == len(set(ids)), ids)
-    missing = [r for r in refs(g, []) if r not in ids]
+    defined = set(defs(g, []))
+    missing = [r for r in refs(g, []) if r not in defined]
     ok(f'{name}: every @id reference resolves inside the graph', not missing, missing)
     ok(f'{name}: no empty values', '""' not in json.dumps(g) and '[]' not in json.dumps(g) and 'null' not in json.dumps(g))
     for n in g:
@@ -133,6 +147,10 @@ STORIES = {
 
 YOAST = subprocess.run(WP + 'plugin is-active wordpress-seo', shell=True).returncode == 0
 print('Yoast SEO active:', YOAST)
+# Staging is noindex by requirement: robots/canonical checks then assert the staging behaviour
+# (noindex everywhere, no canonical link, graph URLs = permalinks); production runs the indexable checks.
+NOINDEX_SITE = wp('option get blog_public') == '0'
+print('Site noindex (staging):', NOINDEX_SITE)
 wp('option update tdd_core_schema_owner core')  # Core-graph checks below; owner modes are tested later.
 
 # ---------- Stories ----------
@@ -150,6 +168,9 @@ for name, (path, want) in STORIES.items():
     a = art[0]
     ok(f'{name}: type {want}', types(a) == want, types(a))
     canon = (h.links.get('canonical') or [''])[0]
+    if NOINDEX_SITE:  # Yoast prints no canonical on noindex pages: the graph must carry the story's permalink.
+        ok(f'{name}: no canonical link (noindex site)', not canon, canon)
+        canon = B + path
     ok(f'{name}: article url = canonical link', a['url'] == canon, (a['url'], canon))
     ok(f'{name}: mainEntityOfPage → WebPage', a['mainEntityOfPage']['@id'] == canon + '#webpage')
     for k in ('headline', 'datePublished', 'dateModified', 'author', 'publisher', 'articleSection', 'genre', 'isAccessibleForFree', 'wordCount', 'timeRequired'):
@@ -212,7 +233,7 @@ for name, path, code in (('search', '/?s=AI', 200), ('404', '/no-such-page-xyz/'
     h = parse(html)
     rob = ','.join(h.meta.get('robots', []))
     ok(f'{name}: HTTP {code}', st == code, st)
-    ok(f'{name}: noindex,follow', 'noindex' in rob and 'follow' in rob and 'nofollow' not in rob, rob)
+    ok(f'{name}: noindex' + ('' if NOINDEX_SITE else ',follow'), 'noindex' in rob and (NOINDEX_SITE or ('follow' in rob and 'nofollow' not in rob)), rob)
     ok(f'{name}: no JSON-LD', not h.scripts)
     if name == '404':
         ok('404: no canonical', 'canonical' not in h.links)
@@ -232,7 +253,10 @@ h = parse(html)
 ok('fixture story (audit off): noindex', 'noindex' in ','.join(h.meta.get('robots', [])))
 st, html, hd, _ = fetch(STORIES['guide'][0] + AUDIT)
 h = parse(html)
-ok('ordinary story (audit on): indexable', 'noindex' not in ','.join(h.meta.get('robots', [])), h.meta.get('robots'))
+if NOINDEX_SITE:
+    ok('ordinary story (audit on): noindex like the whole site (staging)', 'noindex' in ','.join(h.meta.get('robots', [])), h.meta.get('robots'))
+else:
+    ok('ordinary story (audit on): indexable', 'noindex' not in ','.join(h.meta.get('robots', [])), h.meta.get('robots'))
 
 # ---------- Redirects and canonical stability ----------
 st, _, hd, _ = fetch('/category/ai/', follow=False)
@@ -381,15 +405,24 @@ if YOAST:
     for pth, want in (('/ai/' + AUDIT, '/ai/'), ('/ai/page/2/' + AUDIT, '/ai/page/2/'), ('/topic/ai-agents/', '/topic/ai-agents/'), ('/author/priya-sample/', '/author/priya-sample/'), (G + AUDIT, G)):
         h = parse(fetch(pth)[1])
         c = (h.links.get('canonical') or [''])[0]
-        ok(f'Yoast canonical self-referencing: {want}', c == B + want, c)
+        if NOINDEX_SITE:
+            ok(f'Yoast: no canonical on a noindex site: {want}', not c, c)
+        else:
+            ok(f'Yoast canonical self-referencing: {want}', c == B + want, c)
     h = parse(fetch('/ai/page/2/' + AUDIT)[1])
-    ok('paginated archive: rel=prev → page 1', (h.links.get('prev') or [''])[0] == B + '/ai/', h.links.get('prev'))
+    if NOINDEX_SITE:
+        print('INFO paginated rel=prev not checked on a noindex site (Yoast omits it); the production run checks it')
+    else:
+        ok('paginated archive: rel=prev → page 1', (h.links.get('prev') or [''])[0] == B + '/ai/', h.links.get('prev'))
     for pth in ('/no-such-page-xyz/', '/?s=AI', '/topic/ai-policy/' + AUDIT):
         h = parse(fetch(pth)[1])
         ok(f'no canonical on noindex view {pth}', 'canonical' not in h.links, h.links.get('canonical'))
     # Robots
     for pth, want in (('/?s=AI', 'noindex'), ('/no-such-page-xyz/', 'noindex'), ('/topic/ai-policy/' + AUDIT, 'noindex'), ('/author/seo-empty-sample/', 'noindex'), (STORIES['guide'][0], 'noindex'), (G + AUDIT, 'index'), ('/ai/page/2/' + AUDIT, 'index')):
         r = ','.join(parse(fetch(pth)[1]).meta.get('robots', []))
+        if NOINDEX_SITE:
+            ok(f'Yoast robots noindex on {pth} (whole site noindex on staging)', r.startswith('noindex'), r)
+            continue
         good = r.startswith('noindex') and 'follow' in r and 'nofollow' not in r if want == 'noindex' else r.startswith('index') and 'follow' in r
         ok(f'Yoast robots {want},follow on {pth}', good, r)
     st, _, hd, _ = fetch('/2026/10/', follow=False)
@@ -399,7 +432,7 @@ if YOAST:
     h = parse(fetch(A + AUDIT)[1])
     g = graph_of(parse(fetch(A + AUDIT + '&x=1')[1]), 'yoast-schema-graph')
     ok('OG story: og:type article', m('og:type') == 'article')
-    ok('OG story: og:url = canonical', m('og:url') == (h.links.get('canonical') or [''])[0])
+    ok('OG story: og:url = canonical', m('og:url') == ((h.links.get('canonical') or [''])[0] or (B + A if NOINDEX_SITE else '')), m('og:url'))
     ok('OG story: og:title present', bool(m('og:title')))
     ok('OG story: og:image = hero image', m('og:image').endswith('.webp'), m('og:image'))
     wp('option update tdd_core_schema_owner core')
@@ -415,8 +448,11 @@ if YOAST:
     ok('twitter:card summary_large_image', m('twitter:card') == 'summary_large_image')
     ok('link preview reading time = story reading time', any('9 minute' in v for v in h.meta.get('twitter:data2', [])), h.meta.get('twitter:data2'))
     yg = graph_of(h, 'yoast-schema-graph')
-    yart = [n for n in yg if 'Article' in types(n)][0]
-    ok('Yoast schema dates = Core dates', dt(yart['datePublished']) == dt(core['datePublished']) and dt(yart['dateModified']) == dt(core['dateModified']), (yart['datePublished'], yart['dateModified']))
+    yart = ([n for n in (yg or []) if 'Article' in types(n) and 'datePublished' in n] or [{}])[0]
+    if yart and core:
+        ok('Yoast schema dates = Core dates', dt(yart['datePublished']) == dt(core['datePublished']) and dt(yart['dateModified']) == dt(core['dateModified']), (yart['datePublished'], yart['dateModified']))
+    else:
+        ok('Yoast schema dates = Core dates (Yoast Article with dates and Core graph both present)', False, ([types(n) for n in (yg or [])], bool(core)))
     ok('Yoast Person has no Gravatar', 'gravatar' not in json.dumps([n for n in yg if 'Person' in types(n)]))
     h = parse(fetch(STORIES['bare-news'][0] + AUDIT)[1])
     ok('OG story without hero: no og:image (no placeholder)', not h.meta.get('og:image'), h.meta.get('og:image'))
