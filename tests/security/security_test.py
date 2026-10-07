@@ -9,6 +9,7 @@ tests/fixtures/mu-capture-mail.php (contact mail capture) in mu-plugins.
 Run: python3 tests/security/security_test.py
 """
 import io, json, os, re, secrets, subprocess, sys, time
+from concurrent.futures import ThreadPoolExecutor
 
 import requests
 
@@ -87,6 +88,9 @@ class Client:
         return self.s.post(BASE + path, **kw)
 
 
+NL_TAG = f'{os.getpid()}{int(time.time())}'  # unique per run: per-address newsletter limits outlive a run
+NL_ADDRS = ['brand-new-reader@example.org', 'already@example.com', 'instant@example.com', 'nojs@example.org', 'x@example.org',
+            f'limit-{NL_TAG}@example.org', f'limit2-{NL_TAG}@example.org', f'race-{NL_TAG}@example.org']
 ADMIN_ID = os.environ.get('TDD_ADMIN_ID', '1')  # an administrator account on the target site (reassign target)
 
 # Preflight: never send real email or add real newsletter subscribers. The target must run the two
@@ -478,6 +482,31 @@ update_post_meta({pub}, 'tdd_sources', array(
     check('view endpoint: drafts are never counted', int(wpeval(f'global $wpdb; echo (int) $wpdb->get_var("SELECT COALESCE(SUM(views),0) FROM " . tdd_core_views_table() . " WHERE post_id={draft}");') or 0) == 0)
     reset_throttles()
 
+    print('== Newsletter: per-address limit (3 per 24 h, 15 min apart; hashed key; never visible)')
+    seq = wpeval(f'$e = "limit-{NL_TAG}@example.org"; $t = time(); $r = array(); foreach (array(0, 60, 900, 1800, 2700, 86401 + 900) as $d) {{ $r[] = tdd_core_newsletter_email_allowed($e, $t + $d) ? 1 : 0; }} echo implode(",", $r);')
+    check('per-address: first, cooldown (+1 min) refused, +15 min, +30 min, 4th within 24 h refused, next day allowed', seq == '1,0,1,1,0,1', seq)
+    keys = wpeval(f'$k = "tdd_core_newsletter_email_key"; echo (int) ($k("Limit.{NL_TAG}+news@GoogleMail.com") === $k("limit{NL_TAG}@gmail.com")), (int) ($k(" A+x@Example.org ") === $k("a@example.org")), (int) ($k("a@example.org") !== $k("b@example.org"));')
+    check('per-address key: case, +tags and Gmail dots/googlemail share one limit; other addresses do not', keys == '111', keys)
+    stored = wpeval(f'global $wpdb; echo (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {{$wpdb->options}} WHERE option_name LIKE %s OR option_value LIKE %s", "%{NL_TAG}%", "%{NL_TAG}%")), " ", count((array) get_option(tdd_core_newsletter_email_key("limit-{NL_TAG}@example.org")));')
+    check('per-address records hold no address (hashed key, timestamps only)', stored.split(' ')[0] == '0' and stored.split(' ')[1] != '0', stored)
+    start = time.time() + 6
+    with ThreadPoolExecutor(6) as ex:
+        race = list(ex.map(lambda _: wpeval(f'time_sleep_until({start}); echo tdd_core_newsletter_email_allowed("race-{NL_TAG}@example.org") ? 1 : 0;'), range(6)))
+    check('per-address: 6 simultaneous submissions of one address → exactly 1 goes through', sum(int(x or 0) for x in race) == 1, race)
+    reset_throttles()
+    addr, outs = f'limit2-{NL_TAG}@example.org', []
+    for _ in range(2):
+        t0 = time.time()
+        x = C['anonymous'].rest('POST', '/tdd/v1/subscribe', json={'email': addr, 'tdd_token': token, 'tdd_hp': ''})
+        outs.append((x.status_code, x.text, round(time.time() - t0, 2)))
+    check('REST: an attempt held back by the per-address limit gets the byte-identical answer', outs[0][0] == 200 and outs[0][:2] == outs[1][:2], outs)
+    check('REST: held-back attempt takes the same minimum time (≥ 1.1 s, spread < 0.3 s)', min(o[2] for o in outs) >= 1.1 and abs(outs[0][2] - outs[1][2]) < 0.3, [o[2] for o in outs])
+    n = wpeval(f'echo count((array) get_option(tdd_core_newsletter_email_key("{addr}")));')
+    check('the held-back attempt never reached the provider (1 attempt recorded)', n == '1', n)
+    x = C['anonymous'].post('/wp-admin/admin-post.php', data={'action': 'tdd_subscribe', 'email': addr, 'tdd_token': token, 'tdd_hp': ''}, headers={'Referer': BASE + '/newsletter/'}, allow_redirects=False)
+    check('no-JS: held-back attempt gets the identical 303 redirect', (x.status_code, x.headers.get('Location')) == locs['new'], ((x.status_code, x.headers.get('Location')), locs['new']))
+    reset_throttles()
+
     print('== SQL-shaped input on public pages')
     for path in ("/?s=%27%20OR%201%3D1--&section[]=ai%27--&format[]=x&date=week%27&sort=newest", "/?author=1%27", "/ai/?paged=1%27", "/?p=1%27%20UNION%20SELECT%201--"):
         x = C['anonymous'].get(path, headers={'X-Cache-Bypass': '1'})
@@ -508,6 +537,7 @@ finally:
     for r, uid in users.items():
         wp(f'user delete {uid} --yes --reassign={ADMIN_ID}')
     reset_throttles()
+    wpeval('foreach (' + json.dumps(NL_ADDRS) + ' as $a) { delete_option(tdd_core_newsletter_email_key($a)); }')  # per-address newsletter records
 
 out = os.path.join(os.path.dirname(__file__), 'out')
 os.makedirs(out, exist_ok=True)
