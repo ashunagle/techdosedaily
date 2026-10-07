@@ -1,0 +1,11 @@
+{
+  "name": "tdd-browser-tests",
+  "private": true,
+  "description": "Headless browser checks against staging with the locally installed Chrome (no browser download): responsive sweep and Lighthouse.",
+  "type": "module",
+  "dependencies": {
+    "chrome-launcher": "1.2.2",
+    "lighthouse": "13.5.0",
+    "playwright-core": "1.63.0"
+  }
+}
