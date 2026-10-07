@@ -1,7 +1,7 @@
 #!/bin/bash
 # TechDoseDaily — regression suites against STAGING, then put staging back exactly as it was.
 #
-#   bash ~/release-<v>/staging-regression.sh [markup] [seo] [cache]     # default: all three
+#   bash ~/release-<v>/staging-regression.sh [markup] [seo] [cache] [parity] [graphs]   # default: markup seo cache
 #
 # Before: safety checks (staging, noindex, directory protection), login check, database + files snapshot.
 # During: Contact / Newsletter / Editorial Standards drafts published (empty, still behind Basic Auth and
@@ -86,6 +86,15 @@ for s in "${SUITES[@]}"; do
             $PY "$HERE/seo/seo_test.py" || RC=1
             rm -f "$MU/mu-seo-audit.php" ;;
     cache)  say "cache_test.py (about 3 minutes: waits for real time boundaries)"; $PY "$HERE/perf/cache_test.py" || RC=1 ;;
+    parity) say "seo_parity.py pairs (fresh vs cached SEO output, both owners; harness mu-seo-audit.php)"
+            cp "$HERE/fixtures/mu-seo-audit.php" "$MU/" && sha256sum "$MU/mu-seo-audit.php"
+            $PY "$HERE/perf/seo_parity.py" pairs || RC=1
+            rm -f "$MU/mu-seo-audit.php" ;;
+    graphs) GDIR="$HERE/out/graphs-$(date -u +%Y%m%d-%H%M%SZ)"
+            say "save_graphs.py → $GDIR (JSON-LD of every SEO test URL, both owners; harness mu-seo-audit.php)"
+            cp "$HERE/fixtures/mu-seo-audit.php" "$MU/" && sha256sum "$MU/mu-seo-audit.php"
+            $PY "$HERE/seo/save_graphs.py" "$GDIR" || RC=1
+            rm -f "$MU/mu-seo-audit.php" ;;
     *)      echo "unknown suite: $s" ;;
   esac
 done

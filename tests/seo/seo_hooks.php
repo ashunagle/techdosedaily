@@ -28,7 +28,12 @@ $r = apply_filters( 'wpseo_robots_array', array( 'index' => 'index', 'follow' =>
 $ok( 'Yoast robots: thin topic → noindex, follow', 'noindex' === $r['index'] && 'follow' === $r['follow'], $r );
 $go( array( 'tdd_topic' => 'ai-agents' ) );
 $r = apply_filters( 'wpseo_robots_array', array( 'index' => 'index', 'follow' => 'follow' ) );
-$ok( 'Yoast robots: topic with enough stories untouched', 'index' === $r['index'], $r );
+if ( '0' === (string) get_option( 'blog_public' ) ) {
+	// Staging is noindex: Yoast itself marks every view noindex. What matters is that Core adds no reason.
+	$ok( 'Core adds no noindex reason to a topic with enough stories (site-wide noindex comes from Yoast on staging)', '' === tdd_core_noindex_reason(), tdd_core_noindex_reason() );
+} else {
+	$ok( 'Yoast robots: topic with enough stories untouched', 'index' === $r['index'], $r );
+}
 
 $ids = apply_filters( 'wpseo_exclude_from_sitemap_by_post_ids', array() );
 $ok( 'Yoast sitemap: fixture stories excluded', in_array( $story->ID, $ids, true ) );
