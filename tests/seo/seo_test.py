@@ -286,7 +286,8 @@ a2 = [n for n in graph_of(parse(html)) if n.get('@id', '').endswith('#article')]
 ok('typo save + post date edit: datePublished frozen, dateModified unchanged', a2['datePublished'] == pub and a2['dateModified'] == pub, (pub, a2['datePublished'], a2['dateModified']))
 
 # ---------- Attachments ----------
-st, _, hd, _ = fetch('/?attachment_id=187', follow=False)
+att_id = wp('post list --post_type=attachment --post_mime_type=image --field=ID --posts_per_page=1')  # any image on the site
+st, _, hd, _ = fetch(f'/?attachment_id={att_id}', follow=False)
 ok('attachment page redirects to the file (no thin page)', st in (301, 302) and '/wp-content/uploads/' in hd.get('Location', ''), (st, hd.get('Location')))
 
 # ---------- Owner switching ----------
