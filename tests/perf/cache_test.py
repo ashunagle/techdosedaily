@@ -7,6 +7,9 @@ Run:  python3 tests/perf/cache_test.py   (takes ~3 minutes: it waits for real ti
 """
 import json, os, re, secrets, subprocess, sys, time, urllib.request, http.cookiejar, urllib.parse
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+import staging_env  # noqa: E402,F401 — staging directory login when TDD_BASIC_AUTH is set
+
 BASE = os.environ.get('BASE', 'http://127.0.0.1:8090')
 WP = os.environ.get('WP', 'cd /home/claude/wp && php wp-cli.phar --allow-root --path=site')
 ok = fail = 0
@@ -44,6 +47,27 @@ def get(path, headers=None, opener=None, data=None, method=None):
         return e.code, dict(e.headers), e.read().decode('utf8', 'replace')
 
 
+def cstate(h):
+    """HIT / MISS / BYPASS across cache layers: the local nginx harness (X-Page-Cache), or on Hostinger the
+    CDN in front (x-hcdn-cache-status) and LiteSpeed behind it (X-LiteSpeed-Cache)."""
+    if cstate(h):
+        return h['X-Page-Cache']
+    cdn, ls = h.get('x-hcdn-cache-status', h.get('X-Hcdn-Cache-Status', '')).lower(), h.get('X-LiteSpeed-Cache', h.get('x-litespeed-cache', '')).lower()
+    if 'hit' in cdn or 'hit' in ls:
+        return 'HIT'
+    if 'no-cache' in h.get('X-LiteSpeed-Cache-Control', h.get('x-litespeed-cache-control', '')).lower() or 'private' in h.get('Cache-Control', ''):
+        return 'BYPASS'
+    return 'MISS'
+
+
+def layers(h):
+    return {k: v for k, v in h.items() if k.lower() in ('x-page-cache', 'x-hcdn-cache-status', 'x-litespeed-cache', 'x-litespeed-cache-control', 'cache-control', 'age')}
+
+
+ADMIN_ID = os.environ.get('TDD_ADMIN_ID', '1')
+THEME = os.environ.get('TDD_THEME_DIR') or os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../theme/techdosedaily')
+
+
 def ttl(h):
     m = re.search(r's-maxage=(\d+)', h.get('Cache-Control', ''))
     return int(m.group(1)) if m else 0
@@ -57,9 +81,11 @@ created = []
 try:
     print('== Baseline: anonymous pages are cached, uncached requests bypass')
     get('/'); s, h, b = get('/')
-    check('home second request is a cache HIT', h.get('X-Page-Cache') == 'HIT', h.get('X-Page-Cache'))
-    s, h, _ = get('/', {'X-Cache-Bypass': '1'})
-    check('X-Cache-Bypass request is not served from cache', h.get('X-Page-Cache') == 'BYPASS', h.get('X-Page-Cache'))
+    check('home second request is a cache HIT', cstate(h) == 'HIT', cstate(h))
+    print('    cache layers on the second request:', layers(h))
+    if 'X-Page-Cache' in h:  # the bypass header exists only in the local nginx harness
+        s, h, _ = get('/', {'X-Cache-Bypass': '1'})
+        check('X-Cache-Bypass request is not served from cache', cstate(h) == 'BYPASS', cstate(h))
     lead_before = re.search(r'hp-hero__main.*?<a href="([^"]+)"', b, re.S).group(1)
 
     print('== Publishing purges')
@@ -67,7 +93,7 @@ try:
     created.append(pid)
     wp(f'post meta set {pid} _tdd_fixture 1')
     s, h, b = get('/')
-    check('home is regenerated after publish (MISS)', h.get('X-Page-Cache') == 'MISS', h.get('X-Page-Cache'))
+    check('home is regenerated after publish (MISS)', cstate(h) == 'MISS', cstate(h))
     check('new story appears on the homepage immediately', 'Cache probe published story' in b)
 
     print('== Time-based state: Breaking expiry, scheduled placement, scheduled story (no purge needed)')
@@ -84,20 +110,20 @@ try:
     wp(f'post meta set {fut} _tdd_fixture 1')
     art = wp(f'post list --p={bid} --field=url --post_type=post').replace(BASE, '')
     get('/'); s, h, b = get('/')
-    check('home cached while breaking', h.get('X-Page-Cache') == 'HIT')
+    check('home cached while breaking', cstate(h) == 'HIT')
     check('home TTL capped at the Breaking end (≤45s)', 0 < ttl(h) <= 45, ttl(h))
     check('scheduled story not yet visible', 'Cache probe scheduled story' not in b, (wp(f'post get {fut} --fields=post_status,post_date_gmt'), re.findall(r'.{120}Cache probe scheduled story', b)[:1]))
     head = lambda html: html.split('<main')[1].split('tdd-art__body')[0]
     s, h, ab = get(art); s, h, ab = get(art)
-    check('article cached with TTL capped at the Breaking end', h.get('X-Page-Cache') == 'HIT' and 0 < ttl(h) <= 45, (h.get('X-Page-Cache'), ttl(h)))
+    check('article cached with TTL capped at the Breaking end', cstate(h) == 'HIT' and 0 < ttl(h) <= 45, (cstate(h), ttl(h)))
     check('Breaking label shown on the cached article', 'tdd-label--breaking' in head(ab))
 
     time.sleep(max(0, now + 47 - time.time()))
     s, h, b = get('/')
-    check('after Breaking ends: home regenerated (MISS, no purge involved)', h.get('X-Page-Cache') in ('MISS', 'EXPIRED'), h.get('X-Page-Cache'))
+    check('after Breaking ends: home regenerated (MISS, no purge involved)', cstate(h) in ('MISS', 'EXPIRED'), cstate(h))
     check('home TTL now capped at the scheduled story (≤45s)', 0 < ttl(h) <= 44, ttl(h))
     s, h, ab = get(art)
-    check('after Breaking ends: article regenerated (no purge involved)', h.get('X-Page-Cache') in ('MISS', 'EXPIRED'), h.get('X-Page-Cache'))
+    check('after Breaking ends: article regenerated (no purge involved)', cstate(h) in ('MISS', 'EXPIRED'), cstate(h))
     check('after Breaking ends: no Breaking label on the article', 'tdd-label--breaking' not in head(ab))
 
     time.sleep(max(0, now + 92 - time.time()))
@@ -110,9 +136,9 @@ try:
     time.sleep(max(0, pl_start + 2 - time.time()))
     s, h, b = get('/')
     lead = re.search(r'hp-hero__main.*?<a href="([^"]+)"', b, re.S).group(1)
-    check('placement start: lead switches without a purge', 'cache-probe-breaking' in lead, (lead, h.get('X-Page-Cache')))
+    check('placement start: lead switches without a purge', 'cache-probe-breaking' in lead, (lead, cstate(h)))
     get('/'); s, h, b = get('/')
-    check('placement window: cached, TTL capped at its expiry', h.get('X-Page-Cache') == 'HIT' and 0 < ttl(h) <= pl_end - time.time() + 1, ttl(h))
+    check('placement window: cached, TTL capped at its expiry', cstate(h) == 'HIT' and 0 < ttl(h) <= pl_end - time.time() + 1, ttl(h))
 
     time.sleep(max(0, pl_end + 2 - time.time()))
     s, h, b = get('/')
@@ -124,22 +150,22 @@ try:
     wpeval(f'tdd_core_place({created[0]}, "homepage_lead", 1, 0, null, null);')
     s, h, b = get('/')
     lead = re.search(r'hp-hero__main.*?<a href="([^"]+)"', b, re.S).group(1)
-    check('placing a story purges and shows it at once', 'cache-probe-published' in lead and h.get('X-Page-Cache') == 'MISS', (lead, h.get('X-Page-Cache')))
+    check('placing a story purges and shows it at once', 'cache-probe-published' in lead and cstate(h) == 'MISS', (lead, cstate(h)))
 
     print('== Forms are never cached')
     s, h, _ = get('/contact/'); s, h, _ = get('/contact/')
-    check('contact page never cached', h.get('X-Page-Cache') != 'HIT' and 'no-store' in h.get('Cache-Control', ''))
+    check('contact page never cached', cstate(h) != 'HIT' and 'no-store' in h.get('Cache-Control', ''))
     s, h, _ = get('/newsletter/?tdd_nl=subscribed'); s, h, _ = get('/newsletter/?tdd_nl=subscribed')
-    check('no-JS newsletter result page never cached', h.get('X-Page-Cache') != 'HIT' and 'no-store' in h.get('Cache-Control', ''))
+    check('no-JS newsletter result page never cached', cstate(h) != 'HIT' and 'no-store' in h.get('Cache-Control', ''))
     s, h, _ = get('/contact/?tdd_cf=sent'); s, h, _ = get('/contact/?tdd_cf=sent')
-    check('no-JS contact result page never cached', h.get('X-Page-Cache') != 'HIT')
+    check('no-JS contact result page never cached', cstate(h) != 'HIT')
     data = urllib.parse.urlencode({'action': 'tdd_subscribe', 'email': 'x', 'tdd_token': 'bad', 'tdd_hp': ''}).encode()
     s, h, _ = get('/wp-admin/admin-post.php', data=data)
     s2, h2, _ = get('/wp-admin/admin-post.php', data=data)
-    check('newsletter POST never cached', h.get('X-Page-Cache') != 'HIT' and h2.get('X-Page-Cache') != 'HIT', (h.get('X-Page-Cache'), h2.get('X-Page-Cache')))
+    check('newsletter POST never cached', cstate(h) != 'HIT' and cstate(h2) != 'HIT', (cstate(h), cstate(h2)))
     s, h, _ = get('/wp-json/tdd/v1/subscribe', data=json.dumps({'email': 'x'}).encode(), headers={'Content-Type': 'application/json'})
     s2, h2, _ = get('/wp-json/tdd/v1/subscribe', data=json.dumps({'email': 'x'}).encode(), headers={'Content-Type': 'application/json'})
-    check('newsletter REST POST never cached', h2.get('X-Page-Cache') != 'HIT', h2.get('X-Page-Cache'))
+    check('newsletter REST POST never cached', cstate(h2) != 'HIT', cstate(h2))
 
     print('== Logged-in editor')
     # A throwaway editor account with a random password, removed at the end (no credentials in the repo).
@@ -152,13 +178,13 @@ try:
     op.open(urllib.request.Request(BASE + '/wp-login.php', data=urllib.parse.urlencode({'log': ADMIN[0], 'pwd': ADMIN[1], 'testcookie': '1', 'redirect_to': BASE + '/'}).encode(), headers={'Cookie': 'wordpress_test_cookie=WP%20Cookie%20check'}))
     get('/'); get('/')  # make sure an anonymous copy is cached
     s, h, b = get('/', opener=op)
-    check('editor bypasses the page cache', h.get('X-Page-Cache') == 'BYPASS', h.get('X-Page-Cache'))
+    check('editor bypasses the page cache', cstate(h) == 'BYPASS', cstate(h))
     check('editor response is private/no-store', 'no-store' in h.get('Cache-Control', '') and 'private' in h.get('Cache-Control', ''))
     check('editor sees the admin bar (not the cached anonymous copy)', 'wpadminbar' in b)
     s, h, b2 = get('/')
-    check('anonymous copy never contains editor markup', 'wpadminbar' not in b2 and h.get('X-Page-Cache') == 'HIT')
+    check('anonymous copy never contains editor markup', 'wpadminbar' not in b2 and cstate(h) == 'HIT')
     s, h, b = get(f'/?p={created[0]}&preview=true', opener=op)
-    check('preview is never cached', 'no-store' in h.get('Cache-Control', '') and h.get('X-Page-Cache') == 'BYPASS')
+    check('preview is never cached', 'no-store' in h.get('Cache-Control', '') and cstate(h) == 'BYPASS')
 
     print('== Most Read ignores performance-test traffic')
     def views(p):
@@ -178,10 +204,10 @@ try:
     check('lab runs marked X-TDD-Perf-Test are not counted', views(created[0]) == v0, views(created[0]) - v0)
     get('/wp-json/tdd/v1/view', data=json.dumps({'id': int(created[0])}).encode(), headers={'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 Version/17.0 Safari/605.1.15'})
     check('a normal reader is still counted', views(created[0]) == v0 + 1, views(created[0]) - v0)
-    beacon = open(os.path.join(os.path.dirname(__file__), '../../theme/techdosedaily/assets/js/view-beacon.js')).read()
+    beacon = open(os.path.join(THEME, 'assets/js/view-beacon.js')).read()
     check('beacon skips automated browsers and prerenders', 'navigator.webdriver' in beacon and 'prerendering' in beacon)
 finally:
-    wp('user delete tdd-cache-test-editor --yes --reassign=1')
+    wp(f'user delete tdd-cache-test-editor --yes --reassign={ADMIN_ID}')
     for p in created:
         wpeval(f'global $wpdb; $wpdb->delete(tdd_core_placements_table(), ["post_id" => {p}]); $wpdb->delete(tdd_core_views_table(), ["post_id" => {p}]); tdd_core_placements_bump();')
         wp(f'post delete {p} --force')

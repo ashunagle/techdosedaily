@@ -6,8 +6,11 @@ Usage: python3 tests/seo/seo_test.py [base_url]   (writes tests/seo/out/*.json s
 import json, os, re, subprocess, sys, urllib.request, urllib.error
 from html.parser import HTMLParser
 
-B = sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:8090'
-WP = 'cd /home/claude/wp && php wp-cli.phar --allow-root --path=site '
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+import staging_env  # noqa: E402,F401 — staging directory login when TDD_BASIC_AUTH is set
+
+B = sys.argv[1] if len(sys.argv) > 1 else os.environ.get('BASE', 'http://127.0.0.1:8090')
+WP = os.environ.get('WP', 'cd /home/claude/wp && php wp-cli.phar --allow-root --path=site') + ' '
 OUT = os.path.join(os.path.dirname(__file__), 'out')
 os.makedirs(OUT, exist_ok=True)
 R = []

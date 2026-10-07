@@ -1,0 +1,7 @@
+#!/bin/bash
+# WP-CLI for the test suites on Hostinger: same as `wp --path=$TDD_WP_PATH …`, minus the
+# "Success: Purged all caches successfully." notice LiteSpeed Cache prints after every write
+# (sometimes glued to real output), which the suites would otherwise read as command output.
+: "${TDD_WP_PATH:?set TDD_WP_PATH to the WordPress root}"
+wp --path="$TDD_WP_PATH" "$@" | sed -e '/^Success: Purged all caches successfully\.$/d' -e 's/Success: Purged all caches successfully\.//g'
+exit "${PIPESTATUS[0]}"

@@ -4,6 +4,9 @@ font loading, early search class, no third-party requests. Creates two probe sto
 Run: python3 tests/perf/markup_test.py"""
 import json, os, re, subprocess, sys, tempfile, urllib.parse, urllib.request
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+import staging_env  # noqa: E402,F401 — staging directory login when TDD_BASIC_AUTH is set
+
 BASE = os.environ.get('BASE', 'http://127.0.0.1:8090')
 WP = os.environ.get('WP', 'cd /home/claude/wp && php wp-cli.phar --allow-root --path=site')
 ok = fail = 0
@@ -51,7 +54,7 @@ for k, p in PAGES.items():
     check(f'{k}: every image has width/height', all(re.search(r'\bwidth="\d+"', t) and re.search(r'\bheight="\d+"', t) for t in tags))
     check(f'{k}: srcset images carry sizes', all('sizes="' in t for t in tags if 'srcset=' in t))
     req_urls = re.findall(r'<(?:img|script|iframe|source|video|audio)\b[^>]*\ssrcset?=["\']([^"\']+)', h) + re.findall(r'<link\b[^>]*rel=["\'](?:stylesheet|preload|modulepreload|icon|preconnect)["\'][^>]*href=["\']([^"\']+)', h)
-    third = {urllib.parse.urlsplit(u.split()[0] if not u.startswith('//') else 'http:' + u).netloc for u in req_urls} - {'', '127.0.0.1:8090'}
+    third = {urllib.parse.urlsplit(u.split()[0] if not u.startswith('//') else 'http:' + u).netloc for u in req_urls} - {'', urllib.parse.urlsplit(BASE).netloc}
     check(f'{k}: no third-party requests (scripts, styles, fonts, images, iframes)', not third, third)
     check(f'{k}: theme CSS/JS served minified + file-versioned', all('.min.' in u and re.search(r'ver=[\d.]+\.\d{9,}', u) for u in re.findall(r'(?:href|src)=["\']([^"\']*themes/techdosedaily/assets/(?:css|js)/[^"\']+)', h)))
 
