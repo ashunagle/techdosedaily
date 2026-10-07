@@ -12,6 +12,17 @@ import staging_env  # noqa: E402,F401 — staging directory login when TDD_BASIC
 B = sys.argv[1] if len(sys.argv) > 1 else os.environ.get('BASE', 'http://127.0.0.1:8090')
 WP = os.environ.get('WP', 'cd /home/claude/wp && php wp-cli.phar --allow-root --path=site') + ' '
 OUT = os.path.join(os.path.dirname(__file__), 'out')
+
+
+def _report():
+    # Results are printed at the end; print them on a crash too, so passed checks are never lost.
+    if R and not getattr(_report, 'done', False):
+        _report.done = True
+        print('\n'.join(R))
+        print(sum(r.startswith('PASS') for r in R), 'passed,', sum(r.startswith('FAIL') for r in R), 'failed')
+
+
+__import__('atexit').register(_report)
 os.makedirs(OUT, exist_ok=True)
 R = []
 
@@ -392,12 +403,15 @@ if YOAST:
     ok('OG story: og:title present', bool(m('og:title')))
     ok('OG story: og:image = hero image', m('og:image').endswith('.webp'), m('og:image'))
     wp('option update tdd_core_schema_owner core')
-    core = [n for n in graph_of(parse(fetch(A + AUDIT)[1])) if n.get('@id', '').endswith('#article')][0]
+    _st, _html, _hd, _ = fetch(A + AUDIT)
+    core = ([n for n in (graph_of(parse(_html)) or []) if n.get('@id', '').endswith('#article')] or [{}])[0]
+    ok('owner switch to Core: Core graph served at once (every page cache purged, CDN included)', bool(core), {k: v for k, v in _hd.items() if k.lower() in ('x-hcdn-cache-status', 'x-litespeed-cache', 'cache-control', 'age', 'x-tdd-cache')})
     wp('option update tdd_core_schema_owner yoast')
     from datetime import datetime
     dt = lambda x: datetime.fromisoformat(x)
-    ok('OG story: article:published_time matches Core datePublished', dt(m('article:published_time')) == dt(core['datePublished']), (m('article:published_time'), core['datePublished']))
-    ok('OG story: article:modified_time = last substantive update', dt(m('article:modified_time')) == dt(core['dateModified']), (m('article:modified_time'), core['dateModified']))
+    if core:
+        ok('OG story: article:published_time matches Core datePublished', dt(m('article:published_time')) == dt(core['datePublished']), (m('article:published_time'), core['datePublished']))
+        ok('OG story: article:modified_time = last substantive update', dt(m('article:modified_time')) == dt(core['dateModified']), (m('article:modified_time'), core['dateModified']))
     ok('twitter:card summary_large_image', m('twitter:card') == 'summary_large_image')
     ok('link preview reading time = story reading time', any('9 minute' in v for v in h.meta.get('twitter:data2', [])), h.meta.get('twitter:data2'))
     yg = graph_of(h, 'yoast-schema-graph')
@@ -415,5 +429,4 @@ if YOAST:
     h = parse(fetch('/author/priya-sample/')[1])
     ok('OG author: no Gravatar og:image', 'gravatar' not in m('og:image'), m('og:image'))
 
-print('\n'.join(R))
-print(sum(r.startswith('PASS') for r in R), 'passed,', sum(r.startswith('FAIL') for r in R), 'failed')
+_report()

@@ -105,7 +105,8 @@ try:
     pl_start, pl_end = now + 110, now + 140
     plid = wpeval(f'$r = tdd_core_place({bid}, "homepage_lead", 1, 0, "{iso(pl_start)}", "{iso(pl_end)}"); echo is_wp_error($r) ? "ERR " . $r->get_error_message() : $r;')
     check('scheduled placement created', plid.isdigit(), plid)
-    fut = wp(f'post create --post_status=future --post_date_gmt="{time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(now + 90))}" --post_title="Cache probe scheduled story" --post_content="Probe." --porcelain')
+    fut_gmt = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(now + 90))  # outside the f-string: Python 3.11 on the server
+    fut = wp(f'post create --post_status=future --post_date_gmt="{fut_gmt}" --post_title="Cache probe scheduled story" --post_content="Probe." --porcelain')
     created.append(fut)
     wp(f'post meta set {fut} _tdd_fixture 1')
     art = wp(f'post list --p={bid} --field=url --post_type=post').replace(BASE, '')
