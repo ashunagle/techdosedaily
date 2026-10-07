@@ -69,7 +69,13 @@ try {
 	echo '!! MailPoet: ', $e->getMessage(), "\n";
 }
 
+// Structured-data owner (owner decision 2026-10-07): Core prints the graph (news article types, NewsMediaOrganization
+// with policies, corrections); Yoast keeps titles, descriptions, canonicals, robots, social tags and sitemaps.
+update_option( 'tdd_core_schema_owner', 'core' );
+echo "structured-data owner: core\n";
+
 // Yoast site representation (SEO-SCHEMA.md §7): Organization "Tech Dose Daily" with the final icon as logo.
+// Kept even with Core as owner, so a switch back to Yoast never prints articles without a publisher.
 // Yoast prints its Organization node — and every Article's `publisher` — only when name AND logo are set.
 $icon = (int) get_option( 'site_icon' );
 if ( class_exists( 'WPSEO_Options' ) && $icon && wp_attachment_is_image( $icon ) ) {

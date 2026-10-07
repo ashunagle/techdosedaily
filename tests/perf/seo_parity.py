@@ -17,6 +17,7 @@ BASE = os.environ.get('BASE', 'http://127.0.0.1:8090')
 WP = os.environ.get('WP', 'cd /home/claude/wp && php wp-cli.phar --allow-root --path=site')
 URLS = json.load(open(os.path.join(os.path.dirname(__file__), '../seo/urls.json')))
 URLS.update({'search': '/?s=AI', '404': '/no-such-page-xyz/', 'topic-thin': '/topic/ai-policy/', 'home-audit': '/?tdd_audit=1'})
+OWNER_BEFORE = subprocess.run(f'{WP} option get tdd_core_schema_owner', shell=True, capture_output=True, text=True).stdout.strip() or 'yoast'
 SITEMAPS = ['/sitemap_index.xml', '/post-sitemap.xml', '/page-sitemap.xml', '/category-sitemap.xml', '/tdd_topic-sitemap.xml', '/author-sitemap.xml']
 
 
@@ -50,7 +51,7 @@ def collect(bypass):
                 fetch(p, False)  # warm
             out[f'{owner}:{k}'], cache = seo(p, bypass)
             out[f'{owner}:{k}']['_cache'] = cache
-    subprocess.run(f'{WP} option update tdd_core_schema_owner yoast', shell=True, capture_output=True)
+    subprocess.run(f'{WP} option update tdd_core_schema_owner {OWNER_BEFORE}', shell=True, capture_output=True)
     return out
 
 
@@ -80,7 +81,7 @@ def pairs():
             elif a != b:
                 fails += 1
                 print(f'  FAIL {owner}:{k} fresh vs cached', json.dumps({x: (a.get(x), b.get(x)) for x in a if a.get(x) != b.get(x)})[:600])
-    subprocess.run(f'{WP} option update tdd_core_schema_owner yoast', shell=True, capture_output=True)
+    subprocess.run(f'{WP} option update tdd_core_schema_owner {OWNER_BEFORE}', shell=True, capture_output=True)
     n = 2 * (len(URLS) + len(SITEMAPS))
     print(f'  {n} URL×owner pairs: {fresh} fresh first copies, {cached} second copies served from the page cache')
     print('PASS: SEO output identical fresh vs cached, both owners' if not fails else f'{fails} differences')

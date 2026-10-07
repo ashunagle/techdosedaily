@@ -2,7 +2,7 @@
 """Save the JSON-LD of every SEO test URL, for each schema owner, for offline validation (validate.mjs --dir).
 
 Writes <out>/<owner>/<name>.json (one array of JSON-LD blocks per page). Needs mu-seo-audit.php on the target
-(?tdd_audit=1 treats [Sample] content as real). Restores the schema owner to yoast.
+(?tdd_audit=1 treats [Sample] content as real). Restores the schema owner that was set before.
 Usage: BASE=… WP=… python3 tests/seo/save_graphs.py <out-dir>
 """
 import json, os, re, subprocess, sys, urllib.request, urllib.error
@@ -14,6 +14,7 @@ BASE = os.environ.get('BASE', 'http://127.0.0.1:8090').rstrip('/')
 WP = os.environ.get('WP', 'cd /home/claude/wp && php wp-cli.phar --allow-root --path=site')
 URLS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'urls.json')))
 out_dir = sys.argv[1]
+OWNER_BEFORE = subprocess.run(f'{WP} option get tdd_core_schema_owner', shell=True, capture_output=True, text=True).stdout.strip() or 'yoast'
 saved = 0
 try:
     for owner in ('yoast', 'core'):
@@ -30,5 +31,5 @@ try:
             saved += 1
             print(f'  {owner}:{name} {len(blocks)} JSON-LD block(s) [{", ".join(b["class"] or "-" for b in blocks)}]')
 finally:
-    subprocess.run(f'{WP} option update tdd_core_schema_owner yoast', shell=True, capture_output=True)
+    subprocess.run(f'{WP} option update tdd_core_schema_owner {OWNER_BEFORE}', shell=True, capture_output=True)
 print(f'{saved} pages saved to {out_dir}')

@@ -19,6 +19,8 @@ Verified against **Yoast SEO 28.6** (real plugin, local test site) on Oct 4, 202
 
 Setting: **Tech Dose Daily → Site settings → Structured data** (option `tdd_core_schema_owner`, `yoast` default | `core`).
 
+**Decision (owner, 2026-10-07): Core owns structured data on staging and production** — news article types (News/Analysis/Background/AdvertiserContent), `NewsMediaOrganization` with editorial policies, corrections and update dates. Yoast keeps titles, descriptions, canonicals, robots, social tags and sitemaps, and its site representation (Organization + logo) stays configured so a switch back never drops the publisher. Applied by `deployment/owner-settings.php`; gate I10 checks it. Both graphs validated with 0 errors on staging (LAUNCH-GATES.md, regression step 1).
+
 | Saved setting | Yoast loaded? | Printed |
 |---|---|---|
 | Yoast | yes | Yoast graph only (Core prints nothing) |

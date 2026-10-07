@@ -136,6 +136,8 @@ staging_noindex = STAGE == 'staging' and bool(robots_meta and 'noindex' in robot
 gate('I4', 'exactly one canonical, https, on this host', (len(canon) == 1 and canon[0].startswith(BASE)) or (staging_noindex and not canon), canon or ('none (noindex staging)' if staging_noindex else []))
 ld = re.findall(r'<script type="application/ld\+json"[^>]*class="([^"]+)"', home.text)
 gate('I5', 'exactly one JSON-LD graph (single schema owner)', len(ld) == 1, ld)
+# Owner decision 2026-10-07 (LAUNCH-GATES C6): Core owns structured data.
+gate('I10', 'structured data printed by Core (tdd-schema-graph), as decided', ld == ['tdd-schema-graph'], ld)
 gate('I6', 'title and Open Graph present', '<title>' in home.text and 'og:title' in home.text)
 h1s = re.findall(r'<h1[\s>]', home.text)
 gate('I7', 'home has exactly one H1', len(h1s) == 1, len(h1s))
