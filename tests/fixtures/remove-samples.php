@@ -20,7 +20,17 @@ foreach ( $ids as $id ) {
 }
 echo 'sample posts deleted: ', count( $ids ), "\n";
 
-$imgs = get_posts( array( 'post_type' => 'attachment', 'post_status' => 'any', 'numberposts' => -1, 'fields' => 'ids', 'meta_key' => 'tdd_credit', 'meta_value' => 'TDD sample graphic' ) ); // phpcs:ignore WordPress.DB.SlowDBQuery
+// Sample images: uploaded by phase2-content.php as "Sample editorial image (<name>)" with the credit
+// "TDD sample graphic" — but phase3-article.php re-credits the article's images, so match the title too.
+$imgs = array_map(
+	'intval',
+	array_unique(
+		array_merge(
+			get_posts( array( 'post_type' => 'attachment', 'post_status' => 'any', 'numberposts' => -1, 'fields' => 'ids', 'meta_key' => 'tdd_credit', 'meta_value' => 'TDD sample graphic' ) ), // phpcs:ignore WordPress.DB.SlowDBQuery
+			(array) $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_title LIKE 'Sample editorial image (%'" ) // phpcs:ignore WordPress.DB
+		)
+	)
+);
 foreach ( $imgs as $id ) {
 	wp_delete_attachment( $id, true );
 }

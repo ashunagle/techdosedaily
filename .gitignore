@@ -27,3 +27,7 @@ tests/review/
 tests/seo/schemaorg-all-https.jsonld
 tests/seo/node_modules/
 tests/vendor-plugins/
+
+# Browser sweep screenshots (large; kept on disk as evidence, results tracked in sweep.json)
+tests/staging/out/sweep-*/**/*.png
+tests/staging/out/sweep-*/*.png

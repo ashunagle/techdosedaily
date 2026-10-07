@@ -1,6 +1,7 @@
 // Responsive sweep (VISUAL-QA checks) with the locally installed Chrome — no browser download.
 //   BASE=https://staging.techdosedaily.com TDD_BASIC_AUTH=user:pass node sweep.mjs [out-dir]
-// Per page × width (360 390 430 768 1024 1280 1440 1920): horizontal overflow, header height (68 / 56 below 768),
+// Per page × width (360 390 430 768 1024 1280 1440 1920): horizontal overflow, header bar height (68 / 56 below 768;
+// the header element measures one more from 768 up: 68 + its 1px bottom rule, as approved in VISUAL-QA.md),
 // exactly one <h1>, no duplicate ids, every image has alt, no console errors / page errors / failed requests,
 // no third-party requests. Full-page screenshots at 390 and 1440 for comparison with 03-Approved.
 // Lab traffic: X-TDD-Perf-Test on every request (never counted in Most Read).
@@ -41,7 +42,8 @@ for (const [name, p] of Object.entries(PAGES)) {
     const page = await ctx.newPage();
     await page.setViewportSize({ width: w, height: 900 });
     const errors = [], failed = [], third = new Set();
-    page.on('console', (m) => m.type() === 'error' && errors.push(m.text().slice(0, 200)));
+    // The 404 template's own document answers 404 by design; Chrome logs that as a console error.
+    page.on('console', (m) => m.type() === 'error' && !(name === '404' && /status of 404/.test(m.text())) && errors.push(m.text().slice(0, 200)));
     page.on('pageerror', (e) => errors.push('pageerror: ' + String(e).slice(0, 200)));
     page.on('requestfailed', (r) => failed.push(r.url().slice(0, 120) + ' ' + (r.failure()?.errorText || '')));
     page.on('response', (r) => { if (r.status() >= 400 && new URL(r.url()).host === HOST && r.url() !== BASE + p) failed.push(`${r.status()} ${r.url().slice(0, 120)}`); });
@@ -53,12 +55,14 @@ for (const [name, p] of Object.entries(PAGES)) {
       const ids = [...document.querySelectorAll('[id]')].map((e) => e.id);
       const dup = [...new Set(ids.filter((id, i) => ids.indexOf(id) !== i))];
       const hdr = document.querySelector('.tdd-header');
+      const bar = document.querySelector('.tdd-header__inner');
       return {
         scrollWidth: document.documentElement.scrollWidth,
         h1: document.querySelectorAll('h1').length,
         dupIds: dup,
         noAlt: [...document.images].filter((i) => !i.hasAttribute('alt')).map((i) => (i.currentSrc || i.src).slice(-60)),
         headerH: hdr ? Math.round(hdr.getBoundingClientRect().height) : null,
+        barH: bar ? Math.round(bar.getBoundingClientRect().height) : null,
       };
     });
     const expectH = w < 768 ? 56 : 68;
@@ -67,7 +71,7 @@ for (const [name, p] of Object.entries(PAGES)) {
     if (m.h1 !== 1) issues.push(`${m.h1} <h1>`);
     if (m.dupIds.length) issues.push('duplicate ids ' + m.dupIds.join(','));
     if (m.noAlt.length) issues.push('images without alt ' + m.noAlt.join(','));
-    if (m.headerH !== null && m.headerH !== expectH) issues.push(`header ${m.headerH}px (want ${expectH})`);
+    if (m.barH !== null && m.barH !== expectH) issues.push(`header bar ${m.barH}px (want ${expectH})`);
     if (errors.length) issues.push('console: ' + errors.join(' | '));
     if (failed.length) issues.push('failed requests: ' + failed.join(' | '));
     if (third.size) issues.push('third-party: ' + [...third].join(','));

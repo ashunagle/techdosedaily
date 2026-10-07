@@ -235,6 +235,9 @@ if WP:
     gate('U2', 'every administrator and editor has 2FA enabled (Two Factor)', no2fa == '', no2fa, level='FAIL' if STAGE == 'production' else 'TODO')
     fx = wpeval("""global $wpdb; echo (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = '_tdd_fixture'" );""")
     gate('D1', 'no test fixtures', fx == '0', fx, level='FAIL' if STAGE == 'production' else 'TODO')
+    # Suite posts left by a crashed run before they were tagged (a 2026-10-05 run left one, published).
+    stray_posts = wpeval(r"""global $wpdb; echo implode( '; ', array_map( static fn( $r ) => "#{$r->ID} {$r->post_status} {$r->post_title}", $wpdb->get_results( "SELECT ID, post_status, post_title FROM {$wpdb->posts} WHERE post_type IN ('post','page') AND post_status NOT IN ('auto-draft','inherit') AND ( post_title LIKE 'Security fixture%' OR post_title LIKE 'Perf markup probe%' OR post_title LIKE 'Cache probe%' OR post_title LIKE 'Counting ceiling test%' OR post_title LIKE '%TDDX%' OR post_title LIKE '[Sample] Escape%' OR post_title LIKE '[Sample] Draft' )" ) ) );""")
+    gate('D3', 'no leftover test-suite posts (tagged or not)', stray_posts == '', stray_posts)
     todo = wpeval("""if ( function_exists( 'tdd_core_launch_checks' ) ) { foreach ( tdd_core_launch_checks() as $c ) { if ( 'todo' === $c[0] ) { echo $c[1], '; '; } } }""")
     gate('D2', 'Site settings → Launch readiness: nothing left to do', todo == '', todo, level='FAIL' if STAGE == 'production' else 'TODO')
     probe = wpeval("""$u = wp_upload_dir(); $f = $u['basedir'] . '/tdd-gate-probe.php'; file_put_contents( $f, '<?php echo "EXECUTED";' ); echo $u['baseurl'] . '/tdd-gate-probe.php';""")
